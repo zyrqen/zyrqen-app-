@@ -1,4 +1,964 @@
-document.getElementById(
+[19.09.2026 3:39] Пенсия💋: <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>ZYRQEN</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+body{
+    margin:0;
+    background:#07080d;
+    color:white;
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+}
+
+button{
+    font-family:inherit;
+}
+
+.screen{
+    min-height:100vh;
+    padding:25px 18px 35px;
+}
+
+/* LOGO */
+
+.logo{
+    text-align:center;
+    padding-top:15px;
+    margin-bottom:7px;
+}
+
+.logo h1{
+    margin:0;
+    font-size:39px;
+    letter-spacing:7px;
+    font-weight:900;
+}
+
+.logo p{
+    margin:8px 0 0;
+    color:#8589a0;
+    font-size:12px;
+    letter-spacing:3px;
+}
+
+/* BALANCE */
+
+.balance{
+    margin:28px auto 22px;
+    width:100%;
+    max-width:430px;
+    padding:18px;
+    border:1px solid #202438;
+    border-radius:18px;
+    background:linear-gradient(145deg,#10121b,#090a10);
+    text-align:center;
+}
+
+.balance-label{
+    color:#777c92;
+    font-size:11px;
+    letter-spacing:2px;
+}
+
+.balance-value{
+    margin-top:6px;
+    font-size:27px;
+    font-weight:800;
+}
+
+/* MAIN BUTTONS */
+
+.menu{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:13px;
+    max-width:430px;
+    margin:auto;
+}
+
+.button{
+    min-height:72px;
+    border:1px solid #252a40;
+    border-radius:17px;
+    background:linear-gradient(145deg,#121522,#0b0d14);
+    color:white;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.15s;
+}
+
+.button:active{
+    transform:scale(.96);
+    border-color:#5960ff;
+}
+
+.button-icon{
+    display:block;
+    font-size:24px;
+    margin-bottom:6px;
+}
+
+/* BONUS */
+
+.bonus{
+    max-width:430px;
+    margin:18px auto 0;
+    padding:18px;
+    border-radius:18px;
+    border:1px solid #24283a;
+    background:#0d0f17;
+}
+
+.bonus-title{
+    font-size:14px;
+    font-weight:800;
+}
+
+.bonus-text{
+    color:#85899d;
+    font-size:12px;
+    margin-top:5px;
+}
+
+.bonus button{
+    width:100%;
+    margin-top:13px;
+    padding:13px;
+    border:0;
+    border-radius:12px;
+    background:#ffffff;
+    color:#07080d;
+    font-weight:800;
+}
+
+/* PROFILE */
+
+.profile-screen,
+.games-screen,
+.reaction-screen{
+    display:none;
+}
+
+.profile-header{
+    text-align:center;
+    padding-top:18px;
+}
+
+.profile-avatar{
+    width:82px;
+    height:82px;
+    margin:auto;
+    border-radius:50%;
+    background:#171a27;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:34px;
+    overflow:hidden;
+    border:2px solid #30354f;
+}
+
+.profile-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.profile-name{
+    margin-top:13px;
+    font-size:20px;
+    font-weight:800;
+}
+
+.profile-username{
+    margin-top:5px;
+    color:#777c92;
+    font-size:13px;
+}
+
+.profile-card{
+    max-width:430px;
+    margin:25px auto;
+    padding:20px;
+    background:#0d0f17;
+    border:1px solid #24283a;
+    border-radius:20px;
+}
+
+.profile-balance{
+    text-align:center;
+    padding-bottom:20px;
+    border-bottom:1px solid #202337;
+}
+
+.profile-balance-label{
+    color:#777c92;
+    font-size:10px;
+    letter-spacing:2px;
+}
+
+.profile-balance-value{
+    margin-top:7px;
+    font-size:30px;
+    font-weight:900;
+}
+
+.profile-stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    margin:20px 0;
+    text-align:center;
+}
+
+.stat{
+    border-right:1px solid #202337;
+}
+
+.stat:last-child{
+    border-right:0;
+}
+
+.stat-value{
+    font-size:21px;
+    font-weight:800;
+}
+
+.stat-label{
+    margin-top:5px;
+    color:#777c92;
+    font-size:9px;
+}
+
+.profile-info{
+    border-top:1px solid #202337;
+    padding-top:13px;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    font-size:12px;
+}
+
+.info-label{
+    color:#777c92;
+}
+[19.09.2026 3:39] Пенсия💋: .back-button{
+    display:block;
+    width:100%;
+    max-width:430px;
+    margin:15px auto;
+    padding:14px;
+    background:#11131d;
+    color:white;
+    border:1px solid #272b40;
+    border-radius:13px;
+    font-weight:800;
+}
+
+/* GAMES */
+
+.section-title{
+    text-align:center;
+    padding-top:18px;
+}
+
+.section-title h2{
+    margin:0;
+    font-size:28px;
+    letter-spacing:3px;
+}
+
+.section-title p{
+    color:#777c92;
+    font-size:12px;
+    margin-top:8px;
+}
+
+.game-card{
+    max-width:430px;
+    margin:25px auto 12px;
+    padding:22px;
+    border:1px solid #292e47;
+    border-radius:20px;
+    background:linear-gradient(145deg,#111421,#090b12);
+}
+
+.game-icon{
+    font-size:40px;
+}
+
+.game-name{
+    margin-top:12px;
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.game-description{
+    margin-top:7px;
+    color:#85899d;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.play-button{
+    width:100%;
+    margin-top:18px;
+    padding:15px;
+    border:0;
+    border-radius:13px;
+    background:white;
+    color:#07080d;
+    font-weight:900;
+    font-size:14px;
+}
+
+/* REACTION GAME */
+
+.reaction-box{
+    max-width:430px;
+    margin:30px auto;
+    text-align:center;
+}
+
+.reaction-status{
+    color:#85899d;
+    font-size:13px;
+    min-height:20px;
+}
+
+.reaction-button{
+    width:190px;
+    height:190px;
+    margin:30px auto;
+    border-radius:50%;
+    border:2px solid #30354d;
+    background:#10131e;
+    color:white;
+    font-size:20px;
+    font-weight:900;
+}
+
+.reaction-button.ready{
+    background:#ffffff;
+    color:#07080d;
+    border-color:white;
+}
+
+.reward{
+    font-size:17px;
+    font-weight:800;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translateX(-50%) translateY(20px);
+    background:#171a25;
+    border:1px solid #30354a;
+    padding:12px 18px;
+    border-radius:12px;
+    font-size:13px;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:999;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MAIN -->
+
+<div id="mainScreen" class="screen">
+
+    <div class="logo">
+        <h1>ZYRQEN</h1>
+        <p>ENTER YOUR WORLD</p>
+    </div>
+
+    <div class="balance">
+        <div class="balance-label">YOUR BALANCE</div>
+        <div class="balance-value">🪙 <span id="coins">0</span></div>
+    </div>
+
+    <div class="menu">
+
+        <button class="button" onclick="openGames()">
+            <span class="button-icon">🎮</span>
+            GAMES
+        </button>
+
+        <button class="button" onclick="soon('Gifts')">
+            <span class="button-icon">🎁</span>
+            GIFTS
+        </button>
+
+        <button class="button" onclick="soon('Cases')">
+            <span class="button-icon">🎲</span>
+            CASES
+        </button>
+
+        <button class="button" onclick="openProfile()">
+            <span class="button-icon">👤</span>
+            PROFILE
+        </button>
+
+    </div>
+
+    <div class="bonus">
+
+        <div class="bonus-title">🎁 DAILY BONUS</div>
+
+        <div class="bonus-text">
+            Come back every day and receive free coins.
+        </div>
+
+        <button onclick="claimBonus()">
+            CLAIM +100 🪙
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- PROFILE -->
+
+<div id="profileScreen" class="screen profile-screen">
+
+    <div class="profile-header">
+
+        <div id="profileAvatar" class="profile-avatar">
+            👤
+        </div>
+
+        <div id="profileName" class="profile-name">
+            User
+        </div>
+
+        <div id="profileUsername" class="profile-username">
+            @username
+        </div>
+
+    </div>
+
+    <div class="profile-card">
+
+        <div class="profile-balance">
+
+            <div class="profile-balance-label">
+                YOUR BALANCE
+            </div>
+
+            <div class="profile-balance-value">
+                🪙 <span id="profileCoins">0</span>
+            </div>
+
+        </div>
+
+        <div class="profile-stats">
+[19.09.2026 3:39] Пенсия💋: <div class="stat">
+                <div id="gamesCount" class="stat-value">0</div>
+                <div class="stat-label">GAMES</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-value">0</div>
+                <div class="stat-label">GIFTS</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-value">0</div>
+                <div class="stat-label">CASES</div>
+            </div>
+
+        </div>
+
+        <div class="profile-info">
+
+            <div class="info-row">
+                <span class="info-label">Telegram ID</span>
+                <span id="profileId">—</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Status</span>
+                <span>ACTIVE</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <button class="back-button" onclick="closeProfile()">
+        ← BACK
+    </button>
+
+</div>
+
+
+<!-- GAMES -->
+
+<div id="gamesScreen" class="screen games-screen">
+
+    <div class="section-title">
+
+        <h2>GAMES</h2>
+
+        <p>
+            PLAY • EARN • COMPETE
+        </p>
+
+    </div>
+
+    <div class="game-card">
+
+        <div class="game-icon">
+            ⚡
+        </div>
+
+        <div class="game-name">
+            REACTION
+        </div>
+
+        <div class="game-description">
+            Wait for the signal and tap as fast as you can.
+            Test your reaction and earn ZYRQEN coins.
+        </div>
+
+        <button class="play-button" onclick="openReaction()">
+            PLAY
+        </button>
+
+    </div>
+
+    <button class="back-button" onclick="closeGames()">
+        ← BACK
+    </button>
+
+</div>
+
+
+<!-- REACTION -->
+
+<div id="reactionScreen" class="screen reaction-screen">
+
+    <div class="section-title">
+
+        <h2>REACTION</h2>
+
+        <p>
+            TAP WHEN THE BUTTON TURNS WHITE
+        </p>
+
+    </div>
+
+    <div class="reaction-box">
+
+        <div id="reactionStatus" class="reaction-status">
+            Press START to begin
+        </div>
+
+        <button
+            id="reactionButton"
+            class="reaction-button"
+            onclick="reactionClick()"
+        >
+            START
+        </button>
+
+        <div id="reward" class="reward"></div>
+
+    </div>
+
+    <button class="back-button" onclick="closeReaction()">
+        ← BACK
+    </button>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* TELEGRAM */
+
+const tg = window.Telegram.WebApp;
+
+tg.ready();
+tg.expand();
+
+const telegramUser = tg.initDataUnsafe?.user;
+
+
+/* COINS */
+
+let coins = Number(
+    localStorage.getItem("zyrqen_coins") || 0
+);
+
+let gamesPlayed = Number(
+    localStorage.getItem("zyrqen_games") || 0
+);
+
+let lastBonus = localStorage.getItem(
+    "zyrqen_bonus"
+);
+
+
+function updateCoins(){
+
+    document.getElementById("coins").textContent = coins;
+
+    document.getElementById("profileCoins").textContent = coins;
+
+    localStorage.setItem(
+        "zyrqen_coins",
+        coins
+    );
+}
+
+
+function updateGames(){
+
+    document.getElementById("gamesCount").textContent =
+        gamesPlayed;
+
+    localStorage.setItem(
+        "zyrqen_games",
+        gamesPlayed
+    );
+}
+
+
+/* DAILY BONUS */
+
+function claimBonus(){
+
+    const today =
+        new Date().toISOString().slice(0,10);
+
+    if(lastBonus === today){
+
+        showToast("Daily bonus already claimed");
+
+        return;
+    }
+
+    coins += 100;
+
+    lastBonus = today;
+
+    localStorage.setItem(
+        "zyrqen_bonus",
+        today
+    );
+
+    updateCoins();
+
+    showToast("+100 🪙 received!");
+
+}
+
+
+/* PROFILE */
+
+function openProfile(){
+
+    document.getElementById("mainScreen").style.display =
+        "none";
+
+    document.getElementById("profileScreen").style.display =
+        "block";
+
+    updateCoins();
+
+    updateGames();
+
+    if(telegramUser){
+
+        const name =
+            telegramUser.first_name ||
+            "User";
+
+        const username =
+            telegramUser.username
+            ? "@" + telegramUser.username
+            : "No username";
+[19.09.2026 3:39] Пенсия💋: document.getElementById(
+            "profileName"
+        ).textContent = name;
+
+        document.getElementById(
+            "profileUsername"
+        ).textContent = username;
+
+        document.getElementById(
+            "profileId"
+        ).textContent = telegramUser.id;
+
+        if(telegramUser.photo_url){
+
+            document.getElementById(
+                "profileAvatar"
+            ).innerHTML =
+                <img src="${telegramUser.photo_url}">;
+
+        }
+
+    }
+
+}
+
+
+function closeProfile(){
+
+    document.getElementById("profileScreen").style.display =
+        "none";
+
+    document.getElementById("mainScreen").style.display =
+        "block";
+
+}
+
+
+/* GAMES */
+
+function openGames(){
+
+    document.getElementById("mainScreen").style.display =
+        "none";
+
+    document.getElementById("gamesScreen").style.display =
+        "block";
+
+}
+
+
+function closeGames(){
+
+    document.getElementById("gamesScreen").style.display =
+        "none";
+
+    document.getElementById("mainScreen").style.display =
+        "block";
+
+}
+
+
+/* REACTION GAME */
+
+let reactionTimeout = null;
+
+let reactionReady = false;
+
+let reactionStart = 0;
+
+
+function openReaction(){
+
+    document.getElementById("gamesScreen").style.display =
+        "none";
+
+    document.getElementById("reactionScreen").style.display =
+        "block";
+
+    resetReaction();
+
+}
+
+
+function closeReaction(){
+
+    clearTimeout(reactionTimeout);
+
+    document.getElementById("reactionScreen").style.display =
+        "none";
+
+    document.getElementById("gamesScreen").style.display =
+        "block";
+
+}
+
+
+function resetReaction(){
+
+    clearTimeout(reactionTimeout);
+
+    reactionReady = false;
+
+    reactionStart = 0;
+
+    const button =
+        document.getElementById("reactionButton");
+
+    button.classList.remove("ready");
+
+    button.textContent = "START";
+
+    document.getElementById(
+        "reactionStatus"
+    ).textContent =
+        "Press START to begin";
+
+    document.getElementById(
+        "reward"
+    ).textContent = "";
+
+}
+
+
+function startReaction(){
+
+    reactionReady = false;
+
+    reactionStart = 0;
+
+    const button =
+        document.getElementById("reactionButton");
+
+    button.classList.remove("ready");
+
+    button.textContent = "WAIT...";
+
+    document.getElementById(
+        "reactionStatus"
+    ).textContent =
+        "Wait for the signal...";
+
+    const delay =
+        Math.floor(
+            Math.random() * 3000
+        ) + 1500;
+
+    reactionTimeout = setTimeout(() => {
+
+        reactionReady = true;
+
+        reactionStart = performance.now();
+
+        button.classList.add("ready");
+
+        button.textContent = "TAP!";
+
+        document.getElementById(
+            "reactionStatus"
+        ).textContent =
+            "NOW!";
+
+    }, delay);
+
+}
+
+
+function reactionClick(){
+
+    const button =
+        document.getElementById("reactionButton");
+
+    if(button.textContent === "START"){
+
+        startReaction();
+
+        return;
+
+    }
+
+    if(!reactionReady){
+
+        clearTimeout(reactionTimeout);
+
+        button.textContent = "TOO EARLY";
+
+        document.getElementById(
+            "reactionStatus"
+        ).textContent =
+            "You tapped too early.";
+
+        document.getElementById(
+            "reward"
+        ).textContent =
+            "Reward: +0 🪙";
+
+        setTimeout(
+            resetReaction,
+            1200
+        );
+
+        return;
+
+    }
+
+    const reactionTime =
+        Math.round(
+            performance.now() - reactionStart
+        );
+
+    reactionReady = false;
+
+    let reward = 10;
+
+    if(reactionTime < 250){
+
+        reward = 50;
+
+    }else if(reactionTime < 350){
+
+        reward = 30;
+
+    }else if(reactionTime < 500){
+
+        reward = 20;
+
+    }
+
+    coins += reward;
+
+    gamesPlayed++;
+
+    updateCoins();
+
+    updateGames();
+
+    button.classList.remove("ready");
+
+    button.textContent =
+        reactionTime + " ms";
+
+    document.getElementById(
+        "reactionStatus"
+    ).textContent =
+        "Great reaction!";
+[19.09.2026 3:39] Пенсия💋: document.getElementById(
         "reward"
     ).textContent =
         "+" + reward + " 🪙";
