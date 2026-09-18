@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZYRQEN</title>
@@ -247,6 +248,22 @@
 <div id="toast" class="toast"></div>
 
 <script>
+  const tg = window.Telegram.WebApp;
+
+tg.ready();
+tg.expand();
+
+const user = tg.initDataUnsafe?.user;
+
+if (user) {
+    console.log("ZYRQEN user:", user);
+
+    const username = user.username
+        ? "@" + user.username
+        : user.first_name;
+
+    console.log("Пользователь:", username);
+}
 let coins = Number(localStorage.getItem("zyrqen_coins") || 0);
 let lastBonus = localStorage.getItem("zyrqen_bonus");
 
