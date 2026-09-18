@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZYRQEN</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% 0%, #182044 0%, #080a12 38%, #05060a 100%);
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .app {
+      max-width: 520px;
+      min-height: 100vh;
+      margin: auto;
+      padding: 30px 18px 25px;
+    }
+
+    .header {
+      text-align: center;
+      padding-top: 20px;
+      margin-bottom: 28px;
+    }
+
+    .logo {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: 7px;
+      text-shadow:
+        0 0 10px rgba(120, 140, 255, .8),
+        0 0 30px rgba(100, 80, 255, .4);
+    }
+
+    .slogan {
+      margin-top: 8px;
+      color: #8e96b5;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .balance {
+      margin: 25px 0;
+      padding: 20px;
+      border: 1px solid rgba(130, 140, 255, .18);
+      border-radius: 20px;
+      background: rgba(255,255,255,.035);
+      backdrop-filter: blur(15px);
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,.25);
+    }
+
+    .balance-title {
+      color: #858ca7;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 7px;
+    }
+
+    .coins {
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .coin {
+      font-size: 25px;
+    }
+
+    .menu {
+      display: grid;
+      gap: 13px;
+    }
+
+    .button {
+      width: 100%;
+      border: 1px solid rgba(150,160,255,.16);
+      border-radius: 18px;
+      padding: 19px;
+      color: white;
+      background: linear-gradient(
+        135deg,
+        rgba(255,255,255,.07),
+        rgba(255,255,255,.025)
+      );
+      font-size: 16px;
+      font-weight: 700;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: .15s;
+    }
+
+    .button:active {
+      transform: scale(.97);
+      background: rgba(110,120,255,.15);
+    }
+
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(120,130,255,.12);
+      font-size: 21px;
+    }
+
+    .arrow {
+      margin-left: auto;
+      color: #747c9d;
+      font-size: 20px;
+    }
+
+    .daily {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 18px;
+      background: linear-gradient(
+        135deg,
+        rgba(110,90,255,.18),
+        rgba(60,80,180,.08)
+      );
+      border: 1px solid rgba(130,120,255,.25);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+    }
+
+    .daily-text {
+      flex: 1;
+    }
+
+    .daily-title {
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .daily-sub {
+      color: #8b92ad;
+      font-size: 12px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 35px;
+      color: #454b63;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 25px;
+      transform: translateX(-50%) translateY(100px);
+      background: #171b2a;
+      border: 1px solid #303750;
+      border-radius: 14px;
+      padding: 13px 20px;
+      color: white;
+      font-size: 13px;
+      transition: .3s;
+      z-index: 10;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <header class="header">
+      <
