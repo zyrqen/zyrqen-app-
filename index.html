@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZYRQEN</title>
@@ -194,140 +195,220 @@
 
     <header class="header">
       <div class="logo">ZYRQEN</div>
-<div class="slogan">Enter Your World.</div>
-</header>
+      <div class="slogan">Enter Your World.</div>
+    </header>
 
-<div class="balance">
-  <div class="balance-title">YOUR BALANCE</div>
-  <div class="coins"><span id="coins">0</span> <span class="coin">COINS</span></div>
-</div>
+    <div class="balance">
+      <div class="balance-title">YOUR BALANCE</div>
+      <div class="coins">
+        <span id="coins">0</span>
+        <span class="coin">COINS</span>
+      </div>
+    </div>
 
-<div class="menu">
+    <div class="menu">
 
-<button class="button" onclick="soon('Games')">
-    <div class="icon">🎮</div>
-    <div>Games</div>
-    <div class="arrow">›</div>
-  </button>
+      <!-- GAMES -->
+      <button class="button" onclick="soon('Games')">
+        <div class="icon">🎮</div>
+        <div>Games</div>
+        <div class="arrow">›</div>
+      </button>
 
-  <button class="button" onclick="soon('Gifts')">
-    <div class="icon">🎁</div>
-    <div>Gifts</div>
-    <div class="arrow">›</div>
-  </button>
+      <!-- GIFTS -->
+      <button class="button" onclick="soon('Gifts')">
+        <div class="icon">🎁</div>
+        <div>Gifts</div>
+        <div class="arrow">›</div>
+      </button>
 
-  <button class="button" onclick="soon('Cases')">
-    <div class="icon">📦</div>
-    <div>Cases</div>
-    <div class="arrow">›</div>
-  </button>
+      <!-- CASES -->
+      <button class="button" onclick="soon('Cases')">
+        <div class="icon">📦</div>
+        <div>Cases</div>
+        <div class="arrow">›</div>
+      </button>
 
-  <button class="button" onclick="openProfile()">
-    <div class="icon">👤</div>
-    <div>Profile</div>
-    <div class="arrow">›</div>
-  </button>
+      <!-- PROFILE -->
+      <button class="button" onclick="openProfile()">
+        <div class="icon">👤</div>
+        <div>Profile</div>
+        <div class="arrow">›</div>
+      </button>
 
-</div>
+    </div>
 
-<div class="daily" onclick="dailyBonus()">
-  <div class="icon">⚡</div>
-  <div class="daily-text">
-    <div class="daily-title">Daily Bonus</div>
-    <div class="daily-sub">Claim +100 COINS</div>
+    <!-- DAILY BONUS -->
+    <div class="daily" onclick="dailyBonus()">
+      <div class="icon">⚡</div>
+
+      <div class="daily-text">
+        <div class="daily-title">Daily Bonus</div>
+        <div class="daily-sub">Claim +100 COINS</div>
+      </div>
+
+      <div class="arrow">›</div>
+    </div>
+
+    <div class="footer">
+      ZYRQEN • ENTER YOUR WORLD
+    </div>
+
   </div>
-  <div class="arrow">›</div>
-</div>
 
-<div class="footer">
-  ZYRQEN • ENTER YOUR WORLD
-</div>
+  <div id="toast" class="toast"></div>
 
-</div>
+  <script>
 
-<div id="toast" class="toast"></div>
+    /* =========================
+       TELEGRAM
+    ========================= */
 
-<script>
-  const tg = window.Telegram.WebApp;
+    const tg = window.Telegram.WebApp;
 
-tg.ready();
-tg.expand();
+    tg.ready();
+    tg.expand();
 
-const user = tg.initDataUnsafe?.user;
+    const user = tg.initDataUnsafe?.user;
 
-if (user) {
-    console.log("ZYRQEN user:", user);
-
-    const username = user.username
-        ? "@" + user.username
-        : user.first_name;
-
-    console.log("Пользователь:", username);
-}
-let coins = Number(localStorage.getItem("zyrqen_coins") || 0);
-let lastBonus = localStorage.getItem("zyrqen_bonus");
-
-function updateCoins() {
-  document.getElementById("coins").textContent = coins;
-}
-
-function dailyBonus() {
-  const today = new Date().toDateString();
-
-  if (lastBonus === today) {
-    showToast("Daily Bonus уже получен");
-    return;
-  }
-
-  coins += 100;
-  lastBonus = today;
-
-  localStorage.setItem("zyrqen_coins", coins);
-  localStorage.setItem("zyrqen_bonus", lastBonus);
-
-  updateCoins();
-  showToast("+100 COINS ⚡");
-}
-
-function soon(name) {
-  showToast(name + " — скоро будет доступно");
-}
-
-function showToast(text) {
-  const toast = document.getElementById("toast");
-  toast.textContent = text;
-  toast.classList.add("show");
-
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 2000);
-}
-
-updateCoins();
-  function openProfile() {
-    const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
-
-    if (!user) {
-        showToast("Открой ZYRQEN через Telegram");
-        return;
+    if (user) {
+      console.log("ZYRQEN user:", user);
     }
 
-    const username = user.username
+
+    /* =========================
+       COINS
+    ========================= */
+
+    let coins = Number(
+      localStorage.getItem("zyrqen_coins") || 0
+    );
+
+    let lastBonus =
+      localStorage.getItem("zyrqen_bonus");
+
+
+    function updateCoins() {
+
+      document.getElementById("coins").textContent = coins;
+
+    }
+
+
+    /* =========================
+       DAILY BONUS
+    ========================= */
+
+    function dailyBonus() {
+
+      const today = new Date().toDateString();
+
+      if (lastBonus === today) {
+
+        showToast("Daily Bonus уже получен");
+
+        return;
+      }
+
+      coins += 100;
+
+      lastBonus = today;
+
+      localStorage.setItem(
+        "zyrqen_coins",
+        coins
+      );
+
+      localStorage.setItem(
+        "zyrqen_bonus",
+        lastBonus
+      );
+
+      updateCoins();
+
+      showToast("+100 COINS ⚡");
+    }
+
+
+    /* =========================
+       SOON
+    ========================= */
+
+    function soon(name) {
+
+      showToast(
+        name + " — скоро будет доступно"
+      );
+
+    }
+
+
+    /* =========================
+       PROFILE
+    ========================= */
+
+    function openProfile() {
+
+      const user =
+        window.Telegram?.WebApp?.initDataUnsafe?.user;
+
+      if (!user) {
+
+        showToast(
+          "Открой ZYRQEN через Telegram"
+        );
+
+        return;
+      }
+
+      const username = user.username
         ? "@" + user.username
         : "Без username";
 
-    const name = [user.first_name, user.last_name]
+      const name = [
+        user.first_name,
+        user.last_name
+      ]
         .filter(Boolean)
         .join(" ");
 
-    alert(
+      alert(
         "ZYRQEN PROFILE\n\n" +
         "👤 " + name + "\n" +
         "🔹 " + username + "\n" +
         "🆔 ID: " + user.id
-    );
-  }
-</script>
+      );
+    }
+
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    function showToast(text) {
+
+      const toast =
+        document.getElementById("toast");
+
+      toast.textContent = text;
+
+      toast.classList.add("show");
+
+      setTimeout(() => {
+
+        toast.classList.remove("show");
+
+      }, 2000);
+    }
+
+
+    /* =========================
+       START
+    ========================= */
+
+    updateCoins();
+
+  </script>
 
 </body>
 </html>
