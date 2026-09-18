@@ -192,4 +192,102 @@
   <div class="app">
 
     <header class="header">
-      <
+      <div class="logo">ZYRQEN</div>
+<div class="slogan">Enter Your World.</div>
+</header>
+
+<div class="balance">
+  <div class="balance-title">YOUR BALANCE</div>
+  <div class="coins"><span id="coins">0</span> <span class="coin">COINS</span></div>
+</div>
+
+<div class="menu">
+
+  <button class="button" onclick="soon('Games')">
+    <div class="icon">🎮</div>
+    <div>Games</div>
+    <div class="arrow">›</div>
+  </button>
+
+  <button class="button" onclick="soon('Gifts')">
+    <div class="icon">🎁</div>
+    <div>Gifts</div>
+    <div class="arrow">›</div>
+  </button>
+
+  <button class="button" onclick="soon('Cases')">
+    <div class="icon">📦</div>
+    <div>Cases</div>
+    <div class="arrow">›</div>
+  </button>
+
+  <button class="button" onclick="soon('Profile')">
+    <div class="icon">👤</div>
+    <div>Profile</div>
+    <div class="arrow">›</div>
+  </button>
+
+</div>
+
+<div class="daily" onclick="dailyBonus()">
+  <div class="icon">⚡</div>
+  <div class="daily-text">
+    <div class="daily-title">Daily Bonus</div>
+    <div class="daily-sub">Claim +100 COINS</div>
+  </div>
+  <div class="arrow">›</div>
+</div>
+
+<div class="footer">
+  ZYRQEN • ENTER YOUR WORLD
+</div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+let coins = Number(localStorage.getItem("zyrqen_coins") || 0);
+let lastBonus = localStorage.getItem("zyrqen_bonus");
+
+function updateCoins() {
+  document.getElementById("coins").textContent = coins;
+}
+
+function dailyBonus() {
+  const today = new Date().toDateString();
+
+  if (lastBonus === today) {
+    showToast("Daily Bonus уже получен");
+    return;
+  }
+
+  coins += 100;
+  lastBonus = today;
+
+  localStorage.setItem("zyrqen_coins", coins);
+  localStorage.setItem("zyrqen_bonus", lastBonus);
+
+  updateCoins();
+  showToast("+100 COINS ⚡");
+}
+
+function soon(name) {
+  showToast(name + " — скоро будет доступно");
+}
+
+function showToast(text) {
+  const toast = document.getElementById("toast");
+  toast.textContent = text;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
+}
+
+updateCoins();
+</script>
+
+</body>
+</html>
