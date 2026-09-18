@@ -204,7 +204,7 @@
 
 <div class="menu">
 
-  <button class="button" onclick="soon('Games')">
+  <button class="button" onclick="openProfile()">
     <div class="icon">🎮</div>
     <div>Games</div>
     <div class="arrow">›</div>
@@ -304,6 +304,29 @@ function showToast(text) {
 }
 
 updateCoins();
+  function openProfile() {
+    const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
+
+    if (!user) {
+        showToast("Открой ZYRQEN через Telegram");
+        return;
+    }
+
+    const username = user.username
+        ? "@" + user.username
+        : "Без username";
+
+    const name = [user.first_name, user.last_name]
+        .filter(Boolean)
+        .join(" ");
+
+    alert(
+        "ZYRQEN PROFILE\n\n" +
+        "👤 " + name + "\n" +
+        "🔹 " + username + "\n" +
+        "🆔 ID: " + user.id
+    );
+  }
 </script>
 
 </body>
