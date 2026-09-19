@@ -1826,529 +1826,464 @@ button{
 
 
 </div>
-
-
-
 <script>
 
-/* TELEGRAM */
+/* =========================
+   ZYRQEN CORE
+========================= */
 
-const tg =
-    window.Telegram.WebApp;
+const tg = window.Telegram?.WebApp;
 
-tg.ready();
-tg.expand();
-
-
-const telegramUser =
-    tg.initDataUnsafe?.user;
-
-
-
-/* SAVED DATA */
-
-let coins =
-    Number(
-        localStorage.getItem(
-            "zyrqen_coins"
-        ) || 0
-    );
-
-
-let gamesPlayed =
-    Number(
-        localStorage.getItem(
-            "zyrqen_games"
-        ) || 0
-    );
-
-
-let casesOpened =
-    Number(
-        localStorage.getItem(
-            "zyrqen_cases"
-        ) || 0
-    );
-
-
-let lastBonus =
-    localStorage.getItem(
-        "zyrqen_bonus"
-    );
-
-
-let caseIsOpening =
-    false;
-
-
-
-/* UPDATE BALANCE */
-
-function updateCoins(){
-
-    document.getElementById(
-        "coins"
-    ).textContent =
-        coins;
-
-
-    document.getElementById(
-        "profileCoins"
-    ).textContent =
-        coins;
-
-
-    document.getElementById(
-        "casesCoins"
-    ).textContent =
-        coins;
-
-
-    localStorage.setItem(
-        "zyrqen_coins",
-        coins
-    );
-
+if (tg) {
+    try {
+        tg.ready();
+        tg.expand();
+    } catch (e) {
+        console.log("Telegram unavailable");
+    }
 }
 
+const telegramUser =
+    tg?.initDataUnsafe?.user || null;
 
 
-/* UPDATE GAMES */
+/* =========================
+   SAVED DATA
+========================= */
 
-function updateGames(){
+let coins = Number(
+    localStorage.getItem("zyrqen_coins") || 0
+);
 
-    document.getElementById(
-        "gamesCount"
-    ).textContent =
-        gamesPlayed;
+let gamesPlayed = Number(
+    localStorage.getItem("zyrqen_games") || 0
+);
 
+let casesOpened = Number(
+    localStorage.getItem("zyrqen_cases") || 0
+);
+
+let caseIsOpening = false;
+
+let reactionStart = 0;
+let reactionTimer = null;
+let reactionReady = false;
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function el(id) {
+    return document.getElementById(id);
+}
+
+function saveData() {
+    localStorage.setItem(
+        "zyrqen_coins",
+        String(coins)
+    );
 
     localStorage.setItem(
         "zyrqen_games",
-        gamesPlayed
+        String(gamesPlayed)
     );
-
-}
-
-
-
-/* UPDATE CASES */
-
-function updateCases(){
-
-    document.getElementById(
-        "casesCount"
-    ).textContent =
-        casesOpened;
-
-
-    document.getElementById(
-        "casesOpenedSmall"
-    ).textContent =
-        casesOpened;
-
 
     localStorage.setItem(
         "zyrqen_cases",
-        casesOpened
+        String(casesOpened)
     );
+}
 
+function setText(id, value) {
+    const node = el(id);
+
+    if (node) {
+        node.textContent = value;
+    }
 }
 
 
+/* =========================
+   COUNTERS
+========================= */
 
-/* DAILY BONUS */
+function updateCoins() {
+    saveData();
 
-function claimBonus(){
+    setText(
+        "balance",
+        coins
+    );
+
+    setText(
+        "profileCoins",
+        coins
+    );
+
+    setText(
+        "casesCoins",
+        coins
+    );
+}
+
+function updateGames() {
+    saveData();
+
+    setText(
+        "gamesCount",
+        gamesPlayed
+    );
+}
+
+function updateCases() {
+    saveData();
+
+    setText(
+        "casesCount",
+        casesOpened
+    );
+
+    setText(
+        "casesOpenedSmall",
+        casesOpened
+    );
+}
+
+
+/* =========================
+   SCREENS
+========================= */
+
+function hideAllScreens() {
+
+    const screens = [
+        "mainScreen",
+        "profileScreen",
+        "gamesScreen",
+        "reactionScreen",
+        "casesScreen",
+        "caseOpeningScreen"
+    ];
+
+    screens.forEach(function(id) {
+
+        const screen = el(id);
+
+        if (screen) {
+            screen.classList.add("hidden");
+        }
+
+    });
+}
+
+function showScreen(id) {
+
+    hideAllScreens();
+
+    const screen = el(id);
+
+    if (screen) {
+        screen.classList.remove("hidden");
+    }
+}
+    /* =========================
+   NAVIGATION
+========================= */
+
+function goHome() {
+    showScreen("mainScreen");
+    updateCoins();
+}
+
+function openProfile() {
+    showScreen("profileScreen");
+    updateProfile();
+}
+
+function closeProfile() {
+    goHome();
+}
+
+function openGames() {
+    showScreen("gamesScreen");
+    updateGames();
+}
+
+function closeGames() {
+    goHome();
+}
+
+function openCases() {
+    showScreen("casesScreen");
+    updateCoins();
+    updateCases();
+}
+
+function closeCases() {
+    goHome();
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function updateProfile() {
+
+    let name = "ZYRQEN PLAYER";
+    let username = "@player";
+    let userId = "—";
+
+    if (telegramUser) {
+
+        const fullName = [
+            telegramUser.first_name,
+            telegramUser.last_name
+        ]
+        .filter(Boolean)
+        .join(" ");
+
+        if (fullName) {
+            name = fullName;
+        }
+
+        if (telegramUser.username) {
+            username = "@" + telegramUser.username;
+        }
+
+        if (telegramUser.id) {
+            userId = telegramUser.id;
+        }
+    }
+
+    setText("profileName", name);
+    setText("profileUsername", username);
+    setText("profileId", userId);
+
+    setText("profileCoins", coins);
+    setText("gamesCount", gamesPlayed);
+    setText("casesCount", casesOpened);
+
+    const avatar = el("profileAvatar");
+
+    if (avatar) {
+
+        let letter = "Z";
+
+        if (
+            telegramUser &&
+            telegramUser.first_name
+        ) {
+            letter =
+                telegramUser.first_name
+                .charAt(0)
+                .toUpperCase();
+        }
+
+        avatar.textContent = letter;
+    }
+}
+
+
+/* =========================
+   DAILY BONUS
+========================= */
+
+function claimDailyBonus() {
 
     const today =
         new Date()
         .toISOString()
-        .slice(0,10);
+        .slice(0, 10);
 
+    const lastBonus =
+        localStorage.getItem(
+            "zyrqen_bonus"
+        );
 
-    if(lastBonus === today){
-
+    if (lastBonus === today) {
         showToast(
             "Daily bonus already claimed"
         );
-
         return;
     }
 
-
     coins += 100;
-
-    lastBonus =
-        today;
-
 
     localStorage.setItem(
         "zyrqen_bonus",
         today
     );
 
-
     updateCoins();
 
+    showToast("+100 coins!");
 
-    showToast(
-        "+100 coins!"
-    );
-
+    try {
+        tg?.HapticFeedback
+          ?.notificationOccurred("success");
+    } catch (e) {}
 }
 
 
+/* =========================
+   SOON
+========================= */
 
-/* PROFILE */
-
-function openProfile(){
-
-    document.getElementById(
-        "mainScreen"
-    ).classList.add(
-        "hidden"
+function soon(name) {
+    showToast(
+        name + " — coming soon"
     );
+}
+    /* =========================
+   REACTION GAME
+========================= */
 
+let reactionTimer = null;
+let reactionStart = 0;
+let reactionReady = false;
+let reactionRunning = false;
 
-    document.getElementById(
-        "profileScreen"
-    ).classList.remove(
-        "hidden"
-    );
+function openReaction() {
 
+    showScreen("reactionScreen");
 
-    updateCoins();
-    updateGames();
-    updateCases();
-    
-    if(telegramUser){
+    reactionReady = false;
+    reactionRunning = false;
 
-        document.getElementById(
-            "profileName"
-        ).textContent =
-            telegramUser.first_name ||
-            "User";
-
-
-        document.getElementById(
-            "profileUsername"
-        ).textContent =
-            telegramUser.username
-            ? "@" + telegramUser.username
-            : "No username";
-
-
-        document.getElementById(
-            "profileId"
-        ).textContent =
-            telegramUser.id;
-
-
-        if(telegramUser.photo_url){
-
-            document.getElementById(
-                "profileAvatar"
-            ).innerHTML =
-                '<img src="' +
-                telegramUser.photo_url +
-                '">';
-
-        }
-
+    if (reactionTimer) {
+        clearTimeout(reactionTimer);
+        reactionTimer = null;
     }
 
-}
-
-
-function closeProfile(){
-
-    document.getElementById(
-        "profileScreen"
-    ).classList.add(
-        "hidden"
+    setText(
+        "reactionStatus",
+        "PRESS START"
     );
 
-
-    document.getElementById(
-        "mainScreen"
-    ).classList.remove(
-        "hidden"
+    setText(
+        "reward",
+        ""
     );
-
-}
-
-
-
-/* GAMES */
-
-function openGames(){
-
-    document.getElementById(
-        "mainScreen"
-    ).classList.add(
-        "hidden"
-    );
-
-
-    document.getElementById(
-        "gamesScreen"
-    ).classList.remove(
-        "hidden"
-    );
-
-}
-
-
-function closeGames(){
-
-    document.getElementById(
-        "gamesScreen"
-    ).classList.add(
-        "hidden"
-    );
-
-
-    document.getElementById(
-        "mainScreen"
-    ).classList.remove(
-        "hidden"
-    );
-
-}
-
-
-
-/* REACTION DATA */
-
-let reactionTimeout =
-    null;
-
-
-let reactionReady =
-    false;
-
-
-let reactionStart =
-    0;
-
-
-
-/* OPEN REACTION */
-
-function openReaction(){
-
-    document.getElementById(
-        "gamesScreen"
-    ).classList.add(
-        "hidden"
-    );
-
-
-    document.getElementById(
-        "reactionScreen"
-    ).classList.remove(
-        "hidden"
-    );
-
-
-    resetReaction();
-
-}
-
-
-
-/* CLOSE REACTION */
-
-function closeReaction(){
-
-    clearTimeout(
-        reactionTimeout
-    );
-
-
-    document.getElementById(
-        "reactionScreen"
-    ).classList.add(
-        "hidden"
-    );
-
-
-    document.getElementById(
-        "gamesScreen"
-    ).classList.remove(
-        "hidden"
-    );
-
-}
-
-
-
-/* RESET REACTION */
-
-function resetReaction(){
-
-    clearTimeout(
-        reactionTimeout
-    );
-
-
-    reactionReady =
-        false;
-
-
-    reactionStart =
-        0;
-
 
     const button =
-        document.getElementById(
-            "reactionButton"
-        );
+        el("reactionButton");
 
-
-    button.classList.remove(
-        "ready"
-    );
-
-
-    button.textContent =
-        "START";
-    document.getElementById(
-        "reactionStatus"
-    ).textContent =
-        "Press START to begin";
-
-
-    document.getElementById(
-        "reward"
-    ).textContent =
-        "";
-
+    if (button) {
+        button.textContent = "START";
+        button.classList.remove("ready");
+    }
 }
 
 
-/* START REACTION */
+function closeReaction() {
 
-function startReaction(){
+    if (reactionTimer) {
+        clearTimeout(reactionTimer);
+        reactionTimer = null;
+    }
 
-    reactionReady =
-        false;
+    reactionReady = false;
+    reactionRunning = false;
 
+    showScreen("gamesScreen");
+}
+
+
+function reactionClick() {
 
     const button =
-        document.getElementById(
-            "reactionButton"
+        el("reactionButton");
+
+    if (!button) {
+        return;
+    }
+
+    /* START GAME */
+
+    if (!reactionRunning) {
+
+        reactionRunning = true;
+        reactionReady = false;
+
+        button.textContent = "WAIT...";
+
+        setText(
+            "reactionStatus",
+            "WAIT FOR GREEN"
         );
 
+        setText(
+            "reward",
+            ""
+        );
 
-    button.classList.remove(
-        "ready"
-    );
+        const delay =
+            1500 +
+            Math.random() * 2500;
 
+        reactionTimer =
+            setTimeout(function() {
 
-    button.textContent =
-        "WAIT...";
-
-
-    document.getElementById(
-        "reactionStatus"
-    ).textContent =
-        "Wait for the signal...";
-
-
-    const delay =
-        Math.floor(
-            Math.random() * 3000
-        ) + 1500;
-
-
-    reactionTimeout =
-        setTimeout(
-            function(){
-
-                reactionReady =
-                    true;
-
-
+                reactionReady = true;
                 reactionStart =
                     performance.now();
 
+                button.textContent =
+                    "TAP!";
 
                 button.classList.add(
                     "ready"
                 );
 
+                setText(
+                    "reactionStatus",
+                    "TAP NOW!"
+                );
 
-                button.textContent =
-                    "TAP!";
+                try {
+                    tg?.HapticFeedback
+                      ?.impactOccurred("medium");
+                } catch (e) {}
 
-
-                document.getElementById(
-                    "reactionStatus"
-                ).textContent =
-                    "NOW!";
-
-            },
-            delay
-        );
-
-}
-
-
-/* REACTION CLICK */
-
-function reactionClick(){
-
-    const button =
-        document.getElementById(
-            "reactionButton"
-        );
-
-
-    if(
-        button.textContent ===
-        "START"
-    ){
-
-        startReaction();
+            }, delay);
 
         return;
     }
 
 
-    if(!reactionReady){
+    /* TOO EARLY */
+
+    if (!reactionReady) {
 
         clearTimeout(
-            reactionTimeout
+            reactionTimer
         );
 
+        reactionTimer = null;
+        reactionRunning = false;
 
         button.textContent =
-            "TOO EARLY";
+            "TRY AGAIN";
 
-
-        document.getElementById(
-            "reactionStatus"
-        ).textContent =
-            "You tapped too early.";
-
-
-        document.getElementById(
-            "reward"
-        ).textContent =
-            "Reward: +0";
-
-
-        setTimeout(
-            resetReaction,
-            1200
+        setText(
+            "reactionStatus",
+            "TOO EARLY!"
         );
 
+        setText(
+            "reward",
+            "+0 🪙"
+        );
+
+        showToast("Too early!");
 
         return;
     }
 
+
+    /* RESULT */
 
     const reactionTime =
         Math.round(
@@ -2356,493 +2291,332 @@ function reactionClick(){
             reactionStart
         );
 
-
-    reactionReady =
-        false;
-
-
-    let rewardAmount =
-        10;
-        if(reactionTime < 250){
-
-        rewardAmount =
-            50;
-
-    }else if(reactionTime < 350){
-
-        rewardAmount =
-            30;
-
-    }else if(reactionTime < 500){
-
-        rewardAmount =
-            20;
-
-    }
-
-
-    coins +=
-        rewardAmount;
-
-
-    gamesPlayed++;
-
-
-    updateCoins();
-    updateGames();
-
+    reactionReady = false;
+    reactionRunning = false;
 
     button.classList.remove(
         "ready"
     );
 
+    let prize = 10;
+
+    if (reactionTime < 250) {
+        prize = 50;
+    }
+    else if (reactionTime < 350) {
+        prize = 30;
+    }
+    else if (reactionTime < 500) {
+        prize = 20;
+    }
+
+    coins += prize;
+    gamesPlayed++;
+
+    updateCoins();
+    updateGames();
+
+    setText(
+        "reactionStatus",
+        reactionTime + " MS"
+    );
+
+    setText(
+        "reward",
+        "+" + prize + " 🪙"
+    );
 
     button.textContent =
-        reactionTime +
-        " ms";
-
-
-    document.getElementById(
-        "reactionStatus"
-    ).textContent =
-        "Great reaction!";
-
-
-    document.getElementById(
-        "reward"
-    ).textContent =
-        "+" +
-        rewardAmount +
-        " coins";
-
+        "PLAY AGAIN";
 
     showToast(
-        "+" +
-        rewardAmount +
-        " coins!"
+        "+" + prize + " coins!"
     );
 
+    try {
+        tg?.HapticFeedback
+          ?.notificationOccurred(
+              "success"
+          );
+    } catch (e) {}
+ }
+    /* =========================
+   ZYRQEN CASE
+========================= */
 
-    setTimeout(
-        resetReaction,
-        1800
-    );
+let caseIsOpening = false;
 
+function getCaseReward() {
+
+    const random = Math.random() * 100;
+
+    if (random < 40) {
+        return {
+            amount: 10,
+            rarity: "COMMON"
+        };
+    }
+
+    if (random < 65) {
+        return {
+            amount: 25,
+            rarity: "COMMON"
+        };
+    }
+
+    if (random < 83) {
+        return {
+            amount: 50,
+            rarity: "RARE"
+        };
+    }
+
+    if (random < 93) {
+        return {
+            amount: 100,
+            rarity: "EPIC"
+        };
+    }
+
+    if (random < 98) {
+        return {
+            amount: 250,
+            rarity: "LEGENDARY"
+        };
+    }
+
+    return {
+        amount: 1000,
+        rarity: "MYTHIC"
+    };
 }
 
+
+function openZyrqenCase() {
+
+    if (caseIsOpening) {
+        return;
+    }
+
+    const casePrice = 50;
+
+    if (coins < casePrice) {
+        showToast("Not enough coins");
+        return;
+    }
+
+    const openingScreen =
+        el("caseOpeningScreen");
+
+    const casesScreen =
+        el("casesScreen");
+
+    if (!openingScreen) {
+        showToast("Opening screen error");
+        return;
+    }
+
+    caseIsOpening = true;
+
+    coins -= casePrice;
+    updateCoins();
+    updateCases();
+
+            casesScreen.classList.add("hidden");
+    }
+
+    openingScreen.classList.remove("hidden");
+
+    openingScreen.style.cssText =
+        "display:block !important;" +
+        "position:fixed !important;" +
+        "inset:0 !important;" +
+        "width:100vw !important;" +
+        "height:100vh !important;" +
+        "z-index:9999 !important;" +
+        "background:#07080d !important;" +
+        "opacity:1 !important;" +
+        "visibility:visible !important;" +
+        "overflow-y:auto !important;";
+
+    const caseIcon = el("openingCaseIcon");
+    const status = el("caseOpeningStatus");
+    const result = el("caseResult");
+
+    const resultAmount =
+        el("caseResultAmount");
+
+    const resultRarity =
+        el("caseResultRarity");
+
+    const continueButton =
+        el("caseContinueButton");
+
+    if (status) {
+        status.textContent = "OPENING CASE...";
+    }
+
+    if (result) {
+        result.classList.remove("show");
+    }
+
+    if (continueButton) {
+        continueButton.classList.remove("show");
+    }
+
+    if (resultAmount) {
+        resultAmount.textContent = "+0 🪙";
+    }
+
+    if (resultRarity) {
+        resultRarity.textContent = "";
+    }
+
+    if (caseIcon) {
+        caseIcon.classList.remove("opening");
+        void caseIcon.offsetWidth;
+        caseIcon.classList.add("opening");
+    }
+
+    const reward = getCaseReward();
+        setTimeout(function() {
+
+        if (caseIcon) {
+            caseIcon.classList.remove("opening");
+        }
+
+        if (status) {
+            status.textContent = "CASE OPENED";
+        }
+
+        if (resultAmount) {
+            resultAmount.textContent =
+                "+" + reward.amount + " 🪙";
+        }
+
+        if (resultRarity) {
+            resultRarity.textContent =
+                reward.rarity;
+        }
+
+        if (result) {
+            result.classList.add("show");
+        }
+
+        coins += reward.amount;
+        casesOpened++;
+
+        updateCoins();
+        updateCases();
+
+        if (continueButton) {
+            continueButton.classList.add("show");
+        }
+
+        caseIsOpening = false;
+
+        showToast(
+            "+" + reward.amount + " coins!"
+        );
+
+        try {
+            tg?.HapticFeedback
+              ?.notificationOccurred("success");
+        } catch (e) {}
+
+    }, 2200);
+}
+
+
+function closeCaseResult() {
+
+    if (caseIsOpening) {
+        return;
+    }
+
+    const openingScreen =
+        el("caseOpeningScreen");
+
+    if (openingScreen) {
+        openingScreen.classList.add("hidden");
+        openingScreen.removeAttribute("style");
+    }
+
+    showScreen("casesScreen");
+
+    updateCoins();
+    updateCases();
+}
+    /* =========================
+   DAILY BONUS
+========================= */
+
+function claimDailyBonus() {
+
+    const today =
+        new Date().toISOString().slice(0, 10);
+
+    const lastBonus =
+        localStorage.getItem("zyrqen_bonus");
+
+    if (lastBonus === today) {
+        showToast("Bonus already claimed");
+        return;
+    }
+
+    coins += 100;
+
+    localStorage.setItem(
+        "zyrqen_bonus",
+        today
+    );
+
+    updateCoins();
+    showToast("+100 coins!");
+
+    try {
+        tg?.HapticFeedback
+          ?.notificationOccurred("success");
+    } catch (e) {}
+}
 
 
 /* =========================
-   CASES
+   TOAST
 ========================= */
 
-function openCases(){
+function showToast(message) {
 
-    document.getElementById(
-        "mainScreen"
-    ).classList.add(
-        "hidden"
-    );
+    const toast = el("toast");
 
-
-    document.getElementById(
-        "casesScreen"
-    ).classList.remove(
-        "hidden"
-    );
-
-
-    updateCoins();
-    updateCases();
-
-}
-
-
-function closeCases(){
-
-    document.getElementById(
-        "casesScreen"
-    ).classList.add(
-        "hidden"
-    );
-
-
-    document.getElementById(
-        "mainScreen"
-    ).classList.remove(
-        "hidden"
-    );
-
-
-    updateCoins();
-
-}
-
-
-
-/* CASE REWARD */
-
-function getCaseReward(){
-
-    const random =
-        Math.random() * 100;
-
-
-    if(random < 40){
-
-        return {
-            amount:10,
-            rarity:"COMMON"
-        };
-
-    }
-
-
-    if(random < 65){
-
-        return {
-            amount:25,
-            rarity:"COMMON"
-        };
-
-    }
-
-
-    if(random < 83){
-            return {
-        amount:50,
-        rarity:"RARE"
-    };
-
-}
-
-
-if(random < 93){
-
-    return {
-        amount:100,
-        rarity:"EPIC"
-    };
-
-}
-
-
-if(random < 98){
-
-    return {
-        amount:250,
-        rarity:"LEGENDARY"
-    };
-
-}
-
-
-return {
-    amount:1000,
-    rarity:"MYTHIC"
-};
-
-}
-
-
-/* OPEN ZYRQEN CASE */
-
-function openZyrqenCase(){
-    if(caseIsOpening){
+    if (!toast) {
         return;
     }
 
+    toast.textContent = message;
+    toast.classList.add("show");
 
-    const casePrice =
-        50;
-
-
-    if(coins < casePrice){
-
-        showToast(
-            "Not enough coins"
-        );
-
-        return;
-    }
-
-
-    caseIsOpening =
-        true;
-
-
-    coins -=
-        casePrice;
-
-    updateCoins();
-    updateCases();
-
-
-    document.getElementById(
-        "casesScreen"
-    ).classList.add(
-        "hidden"
-    );
-    const openingScreen =
-    document.getElementById("caseOpeningScreen");
-
-openingScreen.classList.remove("hidden");
-
-openingScreen.style.cssText =
-    "display:block !important;" +
-    "position:fixed !important;" +
-    "top:0 !important;" +
-    "left:0 !important;" +
-    "width:100vw !important;" +
-    "height:100vh !important;" +
-    "z-index:9999 !important;" +
-    "background:#080910 !important;" +
-    "opacity:1 !important;" +
-    "visibility:visible !important;" +
-    "overflow-y:auto !important;";
-    
-document.getElementById(
-    "caseOpeningStatus"
-).textContent = "OPENING CASE...";
-
-
-    const caseIcon =
-        document.getElementById(
-            "openingCaseIcon"
-        );
-
-
-    const status =
-        document.getElementById(
-            "caseOpeningStatus"
-        );
-
-
-    const result =
-        document.getElementById(
-            "caseResult"
-        );
-
-
-    const resultAmount =
-        document.getElementById(
-            "caseResultAmount"
-        );
-
-
-    const resultRarity =
-        document.getElementById(
-            "caseResultRarity"
-        );
-
-
-    const continueButton =
-        document.getElementById(
-            "caseContinueButton"
-        );
-    
-    result.classList.remove(
-        "show"
+    clearTimeout(
+        window.zyrqenToastTimer
     );
 
-
-    continueButton.classList.remove(
-        "show"
-    );
-
-
-    resultAmount.textContent =
-        "+0 🪙";
-
-
-    resultRarity.textContent =
-        "";
-
-
-    status.textContent =
-        "OPENING CASE...";
-
-
-    caseIcon.classList.add(
-        "opening"
-    );
-
-
-    const reward =
-        getCaseReward();
-        setTimeout(
-        function(){
-
-            caseIcon.classList.remove(
-                "opening"
-            );
-
-
-            status.textContent =
-                "CASE OPENED";
-
-
-            resultAmount.textContent =
-                "+" +
-                reward.amount +
-                " 🪙";
-
-
-            resultRarity.textContent =
-                reward.rarity;
-
-
-            result.classList.add(
-                "show"
-            );
-
-
-            coins +=
-                reward.amount;
-
-
-            casesOpened++;
-
-
-            updateCoins();
-            updateCases();
-
-
-            continueButton.classList.add(
-                "show"
-            );
-
-
-            caseIsOpening =
-                false;
-
-
-            showToast(
-                "+" +
-                reward.amount +
-                " coins!"
-            );
-
-
-            try{
-
-                if(
-                    tg.HapticFeedback &&
-                    tg.HapticFeedback.notificationOccurred
-                ){
-
-                    tg.HapticFeedback
-                        .notificationOccurred(
-                            "success"
-                        );
-
-                }
-
-            }catch(error){
-
-                console.log(
-                    "Haptic unavailable"
-                );
-
-            }
-
-        },
-        2200
-    );
-
+    window.zyrqenToastTimer =
+        setTimeout(function() {
+            toast.classList.remove("show");
+        }, 1800);
 }
 
 
-
-/* CLOSE CASE RESULT */
-
-function closeCaseResult(){
-
-    if(caseIsOpening){
-        return;
-    }
-
-
-    document.getElementById(
-        "caseOpeningScreen"
-    ).classList.add(
-        "hidden"
-    );
-    const box =
-    document.getElementById("caseOpeningScreen")
-    .getBoundingClientRect();
-
-
-    document.getElementById(
-        "casesScreen"
-    ).classList.remove(
-        "hidden"
-    );
-
-
-    updateCoins();
-    updateCases();
-
-}
-
-
-
-/* COMING SOON */
-
-function soon(name){
-
-    showToast(
-        name +
-        " coming soon"
-    );
-
-}
-
-
-
-/* TOAST */
-
-function showToast(message){
-
-    const toast =
-        document.getElementById(
-            "toast"
-        );
-
-
-    toast.textContent =
-        message;
-
-
-    toast.classList.add(
-        "show"
-    );
-
-
-    setTimeout(
-        function(){
-
-            toast.classList.remove(
-                "show"
-            );
-
-        },
-        1800
-    );
-
-}
-
-
-
-/* START ZYRQEN */
+/* =========================
+   START ZYRQEN
+========================= */
 
 updateCoins();
 updateGames();
 updateCases();
 
-
 </script>
-
+    
 </body>
 </html>
    
