@@ -2577,7 +2577,13 @@ function openZyrqenCase(){
     updateCoins();
     updateCases();
 
-const openingScreen =
+
+    document.getElementById(
+        "casesScreen"
+    ).classList.add(
+        "hidden"
+    );
+    const openingScreen =
     document.getElementById("caseOpeningScreen");
 
 openingScreen.classList.remove("hidden");
@@ -2594,31 +2600,7 @@ openingScreen.style.cssText =
     "opacity:1 !important;" +
     "visibility:visible !important;" +
     "overflow-y:auto !important;";
-
-    document.getElementById(
-        "casesScreen"
-    ).classList.add(
-        "hidden"
-    );
-    const test = document.createElement("div");
-
-    const openingScreen =
-    document.getElementById("caseOpeningScreen");
-
-openingScreen.classList.remove("hidden");
-
-openingScreen.style.setProperty("display", "block", "important");
-openingScreen.style.setProperty("position", "fixed", "important");
-openingScreen.style.setProperty("top", "0", "important");
-openingScreen.style.setProperty("left", "0", "important");
-openingScreen.style.setProperty("right", "0", "important");
-openingScreen.style.setProperty("bottom", "0", "important");
-openingScreen.style.setProperty("width", "100vw", "important");
-openingScreen.style.setProperty("height", "100vh", "important");
-openingScreen.style.setProperty("min-height", "100vh", "important");
-openingScreen.style.setProperty("z-index", "9999", "important");
-openingScreen.style.setProperty("opacity", "1", "important");
-openingScreen.style.setProperty("visibility", "visible", "important");
+    
 document.getElementById(
     "caseOpeningStatus"
 ).textContent = "OPENING CASE...";
