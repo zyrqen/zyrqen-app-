@@ -2641,19 +2641,7 @@ document.getElementById(
         document.getElementById(
             "caseContinueButton"
         );
-    alert(
-    "CHECK: " +
-    !!openingScreen + " " +
-    !!caseIcon + " " +
-    !!status + " " +
-    !!result + " " +
-    !!resultAmount + " " +
-    !!resultRarity + " " +
-    !!continueButton
-);
-return;
-
-
+    
     result.classList.remove(
         "show"
     );
@@ -2781,6 +2769,17 @@ function closeCaseResult(){
     ).classList.add(
         "hidden"
     );
+    const box =
+    document.getElementById("caseOpeningScreen")
+    .getBoundingClientRect();
+
+alert(
+    "TOP: " + Math.round(box.top) +
+    "\nLEFT: " + Math.round(box.left) +
+    "\nWIDTH: " + Math.round(box.width) +
+    "\nHEIGHT: " + Math.round(box.height)
+);
+return;
 
 
     document.getElementById(
