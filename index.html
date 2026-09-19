@@ -2590,9 +2590,8 @@ function openZyrqenCase(){
 ).classList.remove(
     "hidden"
 );
-    alert("CASES HIDDEN OK");
-return;
-    
+
+
     const openingScreen =
     document.getElementById("caseOpeningScreen");
 
@@ -2642,6 +2641,17 @@ document.getElementById(
         document.getElementById(
             "caseContinueButton"
         );
+    alert(
+    "CHECK: " +
+    !!openingScreen + " " +
+    !!caseIcon + " " +
+    !!status + " " +
+    !!result + " " +
+    !!resultAmount + " " +
+    !!resultRarity + " " +
+    !!continueButton
+);
+return;
 
 
     result.classList.remove(
