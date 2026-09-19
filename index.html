@@ -2577,7 +2577,23 @@ function openZyrqenCase(){
     updateCoins();
     updateCases();
 
+const openingScreen =
+    document.getElementById("caseOpeningScreen");
 
+openingScreen.classList.remove("hidden");
+
+openingScreen.style.cssText =
+    "display:block !important;" +
+    "position:fixed !important;" +
+    "top:0 !important;" +
+    "left:0 !important;" +
+    "width:100vw !important;" +
+    "height:100vh !important;" +
+    "z-index:9999 !important;" +
+    "background:#080910 !important;" +
+    "opacity:1 !important;" +
+    "visibility:visible !important;" +
+    "overflow-y:auto !important;";
 
     document.getElementById(
         "casesScreen"
@@ -2585,22 +2601,6 @@ function openZyrqenCase(){
         "hidden"
     );
     const test = document.createElement("div");
-
-test.textContent = "TEST OK";
-
-test.style.cssText =
-    "position:fixed;" +
-    "inset:0;" +
-    "z-index:999999;" +
-    "background:#080910;" +
-    "color:white;" +
-    "font-size:32px;" +
-    "font-weight:900;" +
-    "padding:100px 30px;";
-
-document.body.appendChild(test);
-
-return;
 
     const openingScreen =
     document.getElementById("caseOpeningScreen");
