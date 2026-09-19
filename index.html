@@ -1,0 +1,2501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ZYRQEN</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+    --bg:#07080d;
+    --card:#0d0f17;
+    --card2:#11141f;
+    --line:#23273a;
+    --text:#f5f6ff;
+    --muted:#777c92;
+    --purple:#7c5cff;
+    --blue:#368cff;
+}
+
+html,body{
+    min-height:100%;
+    background:
+        radial-gradient(circle at 50% -10%,rgba(89,65,220,.18),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    font-family:Arial,sans-serif;
+}
+
+body{
+    padding:
+        max(18px,env(safe-area-inset-top))
+        16px
+        max(25px,env(safe-area-inset-bottom));
+}
+
+button{
+    font-family:inherit;
+}
+
+.app{
+    width:100%;
+    max-width:480px;
+    margin:auto;
+}
+
+.screen{
+    width:100%;
+}
+
+.hidden{
+    display:none!important;
+}
+
+
+/* HEADER */
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:7px 2px 20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.logo{
+    width:42px;
+    height:42px;
+    border:1px solid #393e59;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        linear-gradient(145deg,#171a29,#0a0c13);
+    box-shadow:
+        0 0 25px rgba(100,75,255,.15);
+    font-size:16px;
+    font-weight:900;
+    letter-spacing:-2px;
+}
+
+.brand-name{
+    font-size:17px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.brand-sub{
+    margin-top:3px;
+    color:var(--muted);
+    font-size:8px;
+    letter-spacing:1.5px;
+}
+
+.header-status{
+    padding:6px 9px;
+    border:1px solid #252a3e;
+    border-radius:20px;
+    color:#8c91a8;
+    font-size:8px;
+    letter-spacing:1px;
+}
+
+
+/* HERO */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    padding:28px 20px;
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:
+        radial-gradient(circle at 80% 0%,rgba(101,71,255,.19),transparent 38%),
+        linear-gradient(145deg,#111420,#0a0c13);
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    right:-65px;
+    top:-65px;
+    border-radius:50%;
+    background:rgba(83,92,255,.15);
+    filter:blur(30px);
+}
+
+.eyebrow{
+    color:#83889e;
+    font-size:9px;
+    letter-spacing:2.5px;
+}
+
+.hero h1{
+    margin-top:10px;
+    font-size:31px;
+    line-height:1.02;
+    letter-spacing:1px;
+}
+
+.hero p{
+    margin-top:11px;
+    max-width:280px;
+    color:#81869b;
+    font-size:11px;
+    line-height:1.6;
+}
+
+.balance{
+    margin-top:22px;
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:10px 14px;
+    border:1px solid #2a2f45;
+    border-radius:14px;
+    background:#090b12;
+}
+
+.balance-label{
+    color:#74798f;
+    font-size:9px;
+    letter-spacing:1.5px;
+}
+
+.balance-value{
+    font-size:17px;
+    font-weight:900;
+}
+
+
+/* NAVIGATION */
+
+.nav-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:14px;
+}
+
+.nav-button{
+    min-height:105px;
+    padding:16px;
+    text-align:left;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:
+        linear-gradient(145deg,#10131d,#0a0c12);
+    color:white;
+    cursor:pointer;
+}
+
+.nav-button:active{
+    transform:scale(.97);
+}
+
+.nav-icon{
+    font-size:24px;
+}
+
+.nav-title{
+    margin-top:13px;
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.nav-sub{
+    margin-top:4px;
+    color:#686d82;
+    font-size:8px;
+    letter-spacing:1px;
+}
+
+
+/* DAILY BONUS */
+
+.daily{
+    margin-top:14px;
+    padding:18px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:#0c0e16;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.daily-title{
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.daily-sub{
+    margin-top:5px;
+    color:#6f7489;
+    font-size:9px;
+}
+
+.daily-button{
+    flex-shrink:0;
+    padding:11px 14px;
+    border:0;
+    border-radius:11px;
+    background:white;
+    color:#07080d;
+    font-size:10px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+
+/* GENERIC SCREEN */
+
+.topbar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.back-mini{
+    width:42px;
+    height:42px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#0d0f17;
+    color:white;
+    font-size:18px;
+}
+
+.screen-heading{
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.screen-caption{
+    margin-top:3px;
+    color:#74798e;
+    font-size:8px;
+    letter-spacing:1.5px;
+    }
+
+/* PROFILE */
+
+.profile-card{
+    padding:25px 18px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(101,77,255,.16),
+            transparent 40%
+        ),
+        #0c0e16;
+    text-align:center;
+}
+
+.profile-avatar{
+    width:78px;
+    height:78px;
+    margin:auto;
+    overflow:hidden;
+    border:1px solid #3b405a;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#121522;
+    font-size:27px;
+    font-weight:900;
+}
+
+.profile-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.profile-name{
+    margin-top:13px;
+    font-size:20px;
+    font-weight:900;
+}
+
+.profile-username{
+    margin-top:4px;
+    color:#777c91;
+    font-size:11px;
+}
+
+.profile-balance{
+    margin:18px auto 0;
+    padding:11px;
+    max-width:210px;
+    border:1px solid #292e44;
+    border-radius:13px;
+    background:#090b11;
+    font-size:17px;
+    font-weight:900;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:12px;
+}
+
+.stat{
+    padding:15px 5px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#0c0e16;
+    text-align:center;
+}
+
+.stat-value{
+    font-size:18px;
+    font-weight:900;
+}
+
+.stat-label{
+    margin-top:5px;
+    color:#686d81;
+    font-size:8px;
+    letter-spacing:1px;
+}
+
+.info-card{
+    margin-top:12px;
+    padding:15px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#0c0e16;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    padding:8px 0;
+    font-size:10px;
+}
+
+.info-label{
+    color:#6f7488;
+}
+
+.active{
+    color:#8dffbb;
+}
+
+
+/* GAMES */
+
+.game-card{
+    padding:22px;
+    border:1px solid var(--line);
+    border-radius:21px;
+    background:
+        radial-gradient(
+            circle at 90% 0%,
+            rgba(58,120,255,.15),
+            transparent 35%
+        ),
+        #0c0e16;
+}
+
+.game-icon{
+    font-size:42px;
+}
+
+.game-title{
+    margin-top:15px;
+    font-size:20px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.game-description{
+    margin-top:7px;
+    color:#74798e;
+    font-size:10px;
+    line-height:1.5;
+}
+
+.primary-button{
+    width:100%;
+    margin-top:18px;
+    padding:15px;
+    border:0;
+    border-radius:13px;
+    background:white;
+    color:#07080d;
+    font-size:12px;
+    font-weight:900;
+}
+
+
+/* REACTION */
+
+.reaction-card{
+    padding:26px 18px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:#0c0e16;
+    text-align:center;
+}
+
+.reaction-status{
+    min-height:20px;
+    color:#83889d;
+    font-size:11px;
+    letter-spacing:1px;
+}
+
+.reaction-button{
+    width:180px;
+    height:180px;
+    margin:25px auto 10px;
+    border:1px solid #353a52;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle,
+            #191d2c,
+            #0b0d14
+        );
+    color:white;
+    font-size:17px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.reaction-button.ready{
+    border-color:#78ffae;
+    background:
+        radial-gradient(
+            circle,
+            #38d779,
+            #116437
+        );
+    box-shadow:
+        0 0 45px
+        rgba(62,255,137,.25);
+}
+
+.reward{
+    min-height:25px;
+    margin-top:15px;
+    font-size:18px;
+    font-weight:900;
+}
+
+
+/* CASES */
+
+.cases-balance{
+    padding:13px 15px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#0c0e16;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.cases-balance span:first-child{
+    color:#777c91;
+    font-size:9px;
+    letter-spacing:1.5px;
+}
+
+.cases-balance strong{
+    font-size:16px;
+}
+
+.case-card{
+    position:relative;
+    overflow:hidden;
+    margin-top:14px;
+    padding:25px 17px 20px;
+    border:1px solid #2b3048;
+    border-radius:23px;
+    background:
+        radial-gradient(
+            circle at 50% 5%,
+            rgba(102,70,255,.22),
+            transparent 39%
+        ),
+        linear-gradient(
+            145deg,
+            #111522,
+            #090b12
+        );
+    text-align:center;
+}
+
+.case-visual{
+    position:relative;
+    height:185px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.case-aura{
+    position:absolute;
+    width:130px;
+    height:100px;
+    border-radius:50%;
+    background:rgba(105,71,255,.30);
+    filter:blur(35px);
+}
+
+.zyrqen-case-image{
+    position:relative;
+    display:block;
+    width:250px;
+    max-width:95%;
+    height:auto;
+    object-fit:contain;
+        filter:
+        drop-shadow(
+            0 18px 24px
+            rgba(0,0,0,.7)
+        )
+        drop-shadow(
+            0 0 16px
+            rgba(96,74,255,.30)
+        );
+
+    animation:
+        caseFloat
+        3s
+        ease-in-out
+        infinite;
+}
+
+@keyframes caseFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-7px);
+    }
+}
+
+.case-name{
+    margin-top:3px;
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.case-sub{
+    margin-top:5px;
+    color:#74798e;
+    font-size:8px;
+    letter-spacing:1.5px;
+}
+
+.case-price{
+    display:inline-block;
+    margin-top:14px;
+    padding:8px 14px;
+    border:1px solid #2c3148;
+    border-radius:30px;
+    background:#090b11;
+    font-size:11px;
+    font-weight:900;
+}
+
+.possible{
+    margin-top:20px;
+    color:#74798e;
+    font-size:8px;
+    letter-spacing:2px;
+}
+
+.reward-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(3,1fr);
+    gap:7px;
+    margin-top:10px;
+}
+
+.reward-item{
+    padding:11px 3px;
+    border:1px solid #24283a;
+    border-radius:11px;
+    background:#090b11;
+}
+
+.reward-item strong{
+    display:block;
+    font-size:12px;
+}
+
+.reward-item small{
+    display:block;
+    margin-top:4px;
+    color:#696e82;
+    font-size:7px;
+    letter-spacing:.6px;
+}
+
+.reward-item.rare{
+    border-color:#254e79;
+}
+
+.reward-item.epic{
+    border-color:#59327c;
+}
+
+.reward-item.legendary{
+    border-color:#725c25;
+}
+
+.reward-item.mythic{
+    border-color:#77283c;
+}
+
+.open-case-button{
+    width:100%;
+    margin-top:16px;
+    padding:15px;
+    border:0;
+    border-radius:13px;
+    background:white;
+    color:#07080d;
+    font-size:12px;
+    font-weight:900;
+}
+
+.opened{
+    margin-top:10px;
+    color:#686d81;
+    font-size:8px;
+    letter-spacing:1px;
+}
+
+
+/* CASE OPENING */
+#caseOpeningScreen{
+    width:100%;
+    min-height:100vh;
+}
+
+#caseOpeningScreen.hidden{
+    display:none !important;
+}
+
+#caseOpeningScreen:not(.hidden){
+    display:block !important;
+}
+
+#caseOpeningScreen .topbar{
+    width:100%;
+}
+
+#caseOpeningScreen .opening-card{
+    width:100%;
+    box-sizing:border-box;
+    }
+.opening-card{
+    position:relative;
+    overflow:hidden;
+    min-height:470px;
+    padding:28px 16px;
+        border:1px solid #292e45;
+    border-radius:23px;
+
+    background:
+        radial-gradient(
+            circle at 50% 38%,
+            rgba(99,67,255,.22),
+            transparent 38%
+        ),
+        #090b12;
+
+    text-align:center;
+}
+
+.opening-visual{
+    position:relative;
+    height:270px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.opening-glow{
+    position:absolute;
+    width:170px;
+    height:150px;
+    border-radius:50%;
+    background:rgba(100,67,255,.3);
+    filter:blur(42px);
+}
+
+.opening-case{
+    position:relative;
+    z-index:2;
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.zyrqen-opening-image{
+    width:310px;
+    max-width:100%;
+    height:auto;
+    object-fit:contain;
+
+    filter:
+        drop-shadow(
+            0 20px 30px
+            rgba(0,0,0,.75)
+        )
+        drop-shadow(
+            0 0 22px
+            rgba(104,78,255,.42)
+        );
+}
+
+.opening-case.opening
+.zyrqen-opening-image{
+    animation:
+        caseShake
+        .11s
+        infinite
+        alternate;
+}
+
+@keyframes caseShake{
+
+    from{
+        transform:
+            translateX(-4px)
+            rotate(-3deg)
+            scale(1);
+    }
+
+    to{
+        transform:
+            translateX(4px)
+            rotate(3deg)
+            scale(1.04);
+    }
+}
+
+.opening-case.opening::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:150px;
+    top:50%;
+    left:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(135,87,255,.6),
+            rgba(45,111,255,.2) 45%,
+            transparent 70%
+        );
+
+    filter:blur(15px);
+
+    animation:
+        energyPulse
+        .8s
+        infinite
+        alternate;
+}
+
+@keyframes energyPulse{
+
+    from{
+        opacity:.35;
+        scale:.8;
+    }
+
+    to{
+        opacity:1;
+        scale:1.25;
+    }
+}
+
+.opening-status{
+    color:#81869b;
+    font-size:10px;
+    letter-spacing:1.5px;
+}
+
+.case-result{
+    display:none;
+    margin-top:20px;
+}
+
+.case-result.show{
+    display:block;
+    animation:
+        resultAppear
+        .35s
+        ease;
+}
+
+@keyframes resultAppear{
+
+    from{
+        opacity:0;
+        transform:scale(.8);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.result-label{
+    color:#777c91;
+    font-size:8px;
+    letter-spacing:2px;
+}
+
+.result-amount{
+    margin-top:7px;
+    font-size:34px;
+    font-weight:900;
+}
+
+.result-rarity{
+    display:inline-block;
+    margin-top:10px;
+    padding:6px 12px;
+    border:1px solid #363b53;
+    border-radius:20px;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.5px;
+}
+
+.continue-button{
+    display:none;
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    border:0;
+    border-radius:12px;
+    background:white;
+    color:#07080d;
+    font-weight:900;
+}
+
+.continue-button.show{
+    display:block;
+}
+
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:30px;
+    z-index:100;
+    transform:translate(-50%,25px);
+    padding:11px 17px;
+    border:1px solid #30354a;
+    border-radius:30px;
+    background:#151824;
+    color:white;
+    font-size:10px;
+    font-weight:800;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    white-space:nowrap;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+.footer{
+    padding:22px 0 5px;
+    text-align:center;
+    color:#454a5d;
+    font-size:7px;
+    letter-spacing:2px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+    <!-- =========================
+     MAIN SCREEN
+========================= -->
+
+<div id="mainScreen" class="screen">
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="logo">
+                ZQ
+            </div>
+
+            <div>
+                <div class="brand-name">
+                    ZYRQEN
+                </div>
+
+                <div class="brand-sub">
+                    ENTER YOUR WORLD.
+                </div>
+            </div>
+
+        </div>
+
+        <div class="header-status">
+            ● ONLINE
+        </div>
+
+    </header>
+
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            ZYRQEN ECOSYSTEM
+        </div>
+
+        <h1>
+            PLAY.<br>
+            WIN. COLLECT.
+        </h1>
+
+        <p>
+            Games, rewards, cases and
+            digital experiences inside
+            one universe.
+        </p>
+
+
+        <div class="balance">
+
+            <span class="balance-label">
+                BALANCE
+            </span>
+
+            <span class="balance-value">
+                🪙
+                <span id="coins">
+                    0
+                </span>
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- MAIN MENU -->
+
+    <div class="nav-grid">
+
+
+        <button
+            class="nav-button"
+            onclick="openGames()">
+
+            <div class="nav-icon">
+                🎮
+            </div>
+
+            <div class="nav-title">
+                GAMES
+            </div>
+
+            <div class="nav-sub">
+                PLAY & EARN
+            </div>
+
+        </button>
+
+
+        <button
+            class="nav-button"
+            onclick="soon('Gifts')">
+
+            <div class="nav-icon">
+                🎁
+            </div>
+
+            <div class="nav-title">
+                GIFTS
+            </div>
+
+            <div class="nav-sub">
+                COMING SOON
+            </div>
+
+        </button>
+
+
+        <button
+            class="nav-button"
+            onclick="openCases()">
+
+            <div class="nav-icon">
+                ◈
+            </div>
+
+            <div class="nav-title">
+                CASES
+            </div>
+
+            <div class="nav-sub">
+                OPEN & WIN
+            </div>
+
+        </button>
+
+
+        <button
+            class="nav-button"
+            onclick="openProfile()">
+
+            <div class="nav-icon">
+                👤
+            </div>
+
+            <div class="nav-title">
+                PROFILE
+            </div>
+
+            <div class="nav-sub">
+                YOUR ACCOUNT
+            </div>
+
+        </button>
+
+    </div>
+
+
+    <!-- DAILY BONUS -->
+
+    <div class="daily">
+
+        <div>
+
+            <div class="daily-title">
+                DAILY BONUS
+            </div>
+
+            <div class="daily-sub">
+                Come back every day • +100 🪙
+            </div>
+
+        </div>
+
+
+        <button
+            class="daily-button"
+            onclick="claimBonus()">
+
+            CLAIM
+
+        </button>
+
+    </div>
+
+
+    <div class="footer">
+        ZYRQEN • ENTER YOUR WORLD
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     PROFILE SCREEN
+========================= -->
+
+<div
+    id="profileScreen"
+    class="screen hidden">
+
+
+    <div class="topbar">
+
+        <button
+            class="back-mini"
+            onclick="closeProfile()">
+
+            ←
+
+        </button>
+
+
+        <div>
+
+            <div class="screen-heading">
+                PROFILE
+            </div>
+
+            <div class="screen-caption">
+                YOUR ZYRQEN ACCOUNT
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="profile-card">
+
+
+        <div
+            id="profileAvatar"
+            class="profile-avatar">
+
+            ZQ
+
+        </div>
+
+
+        <div
+            id="profileName"
+            class="profile-name">
+
+            User
+
+        </div>
+
+
+        <div
+            id="profileUsername"
+            class="profile-username">
+
+            Telegram User
+
+        </div>
+
+
+        <div class="profile-balance">
+
+            🪙
+
+            <span id="profileCoins">
+                0
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROFILE STATS -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div
+                id="gamesCount"
+                class="stat-value">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                GAMES
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-value">
+                0
+            </div>
+
+            <div class="stat-label">
+                GIFTS
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div
+                id="casesCount"
+                class="stat-value">
+
+                0
+
+            </div>
+
+            <div class="stat-label">
+                CASES
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACCOUNT INFO -->
+
+    <div class="info-card">
+
+
+        <div class="info-row">
+
+            <span class="info-label">
+                TELEGRAM ID
+            </span>
+
+            <span id="profileId">
+                —
+            </span>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <span class="info-label">
+                STATUS
+            </span>
+
+            <span class="active">
+                ACTIVE
+            </span>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <span class="info-label">
+                PLATFORM
+            </span>
+
+            <span>
+                ZYRQEN
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     GAMES SCREEN
+========================= -->
+
+<div
+    id="gamesScreen"
+    class="screen hidden">
+
+
+    <div class="topbar">
+
+        <button
+            class="back-mini"
+            onclick="closeGames()">
+
+            ←
+
+        </button>
+
+
+        <div>
+
+            <div class="screen-heading">
+                GAMES
+            </div>
+
+            <div class="screen-caption">
+                PLAY • COMPETE • EARN
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="game-card">
+
+
+        <div class="game-icon">
+            ⚡
+        </div>
+
+
+        <div class="game-title">
+            REACTION
+        </div>
+
+
+        <div class="game-description">
+            Wait for the signal and tap
+            as fast as you can.
+            Faster reactions earn
+            bigger rewards.
+        </div>
+
+
+        <button
+            class="primary-button"
+            onclick="openReaction()">
+
+            PLAY
+
+        </button>
+
+    </div>
+
+</div>
+<!-- =========================
+     REACTION SCREEN
+========================= -->
+
+<div
+    id="reactionScreen"
+    class="screen hidden">
+
+    <div class="topbar">
+
+        <button
+            class="back-mini"
+            onclick="closeReaction()">
+            ←
+        </button>
+
+        <div>
+            <div class="screen-heading">
+                REACTION
+            </div>
+
+            <div class="screen-caption">
+                TEST YOUR SPEED
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="reaction-card">
+
+        <div
+            id="reactionStatus"
+            class="reaction-status">
+
+            Press START to begin
+
+        </div>
+
+
+        <button
+            id="reactionButton"
+            class="reaction-button"
+            onclick="reactionClick()">
+
+            START
+
+        </button>
+
+
+        <div
+            id="reward"
+            class="reward">
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     CASES SCREEN
+========================= -->
+
+<div
+    id="casesScreen"
+    class="screen hidden">
+
+    <div class="topbar">
+
+        <button
+            class="back-mini"
+            onclick="closeCases()">
+            ←
+        </button>
+
+        <div>
+
+            <div class="screen-heading">
+                CASES
+            </div>
+
+            <div class="screen-caption">
+                OPEN • WIN • COLLECT
+            </div>
+
+        </div>
+            <div class="cases-balance">
+
+        <span>
+            BALANCE
+        </span>
+
+        <strong>
+            🪙
+            <span id="casesCoins">
+                0
+            </span>
+        </strong>
+
+    </div>
+
+
+    <!-- ZYRQEN CASE -->
+
+    <div class="case-card">
+
+        <div class="case-visual">
+
+            <div class="case-aura">
+            </div>
+
+            <img
+                src="zyrqen-case.png"
+                class="zyrqen-case-image"
+                alt="ZYRQEN Case">
+
+        </div>
+
+
+        <div class="case-name">
+            ZYRQEN CASE
+        </div>
+
+
+        <div class="case-sub">
+            STANDARD COLLECTION
+        </div>
+
+
+        <div class="case-price">
+            🪙 50 TO OPEN
+        </div>
+
+
+        <div class="possible">
+            POSSIBLE REWARDS
+        </div>
+
+
+        <div class="reward-grid">
+
+            <div class="reward-item">
+
+                <strong>
+                    🪙 10
+                </strong>
+
+                <small>
+                    COMMON
+                </small>
+
+            </div>
+
+
+            <div class="reward-item">
+
+                <strong>
+                    🪙 25
+                </strong>
+
+                <small>
+                    COMMON
+                </small>
+
+            </div>
+
+
+            <div class="reward-item rare">
+
+                <strong>
+                    🪙 50
+                </strong>
+
+                <small>
+                    RARE
+                </small>
+
+            </div>
+
+
+            <div class="reward-item epic">
+
+                <strong>
+                    🪙 100
+                </strong>
+
+                <small>
+                    EPIC
+                </small>
+
+            </div>
+
+
+            <div class="reward-item legendary">
+
+                <strong>
+                    🪙 250
+                </strong>
+
+                <small>
+                    LEGENDARY
+                </small>
+
+            </div>
+
+
+            <div class="reward-item mythic">
+
+                <strong>
+                    🪙 1000
+                </strong>
+
+                <small>
+                    MYTHIC
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="open-case-button"
+            onclick="openZyrqenCase()">
+
+            OPEN CASE — 50 🪙
+
+        </button>
+
+
+        <div class="opened">
+
+            OPENED:
+
+            <span id="casesOpenedSmall">
+                0
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- CASE OPENING -->
+
+<div
+    id="caseOpeningScreen"
+    class="screen hidden">
+
+    <div class="topbar">
+
+        <div>
+
+            <div class="screen-heading">
+                ZYRQEN CASE
+            </div>
+
+            <div class="screen-caption">
+                OPENING
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="opening-card">
+
+        <div class="opening-visual">
+
+            <div
+                id="openingGlow"
+                class="opening-glow">
+            </div>
+
+
+            <div
+                id="openingCaseIcon"
+                class="opening-case">
+
+                <img
+                    src="zyrqen-case.png"
+                    class="zyrqen-opening-image"
+                    alt="ZYRQEN Case">
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="caseOpeningStatus"
+            class="opening-status">
+
+            PREPARING CASE...
+
+        </div>
+                <div
+            id="caseResult"
+            class="case-result">
+
+            <div class="result-label">
+                YOU RECEIVED
+            </div>
+
+
+            <div
+                id="caseResultAmount"
+                class="result-amount">
+
+                +0 🪙
+
+            </div>
+
+
+            <div
+                id="caseResultRarity"
+                class="result-rarity">
+
+                COMMON
+
+            </div>
+
+
+            <button
+                id="caseContinueButton"
+                class="continue-button"
+                onclick="closeCaseResult()">
+
+                CONTINUE
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+
+</div>
+<script>
+
+/* =========================
+   ZYRQEN CORE
+========================= */
+
+const tg = window.Telegram?.WebApp;
+
+if (tg) {
+    try {
+        tg.ready();
+        tg.expand();
+    } catch (e) {
+        console.log("Telegram unavailable");
+    }
+}
+
+const telegramUser =
+    tg?.initDataUnsafe?.user || null;
+
+
+/* =========================
+   SAVED DATA
+========================= */
+
+let coins = Number(
+    localStorage.getItem("zyrqen_coins") || 0
+);
+
+let gamesPlayed = Number(
+    localStorage.getItem("zyrqen_games") || 0
+);
+
+let casesOpened = Number(
+    localStorage.getItem("zyrqen_cases") || 0
+);
+
+let caseIsOpening = false;
+
+/* Reaction state is declared in the REACTION GAME section. */
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function el(id) {
+    return document.getElementById(id);
+}
+
+function saveData() {
+    localStorage.setItem(
+        "zyrqen_coins",
+        String(coins)
+    );
+
+    localStorage.setItem(
+        "zyrqen_games",
+        String(gamesPlayed)
+    );
+
+    localStorage.setItem(
+        "zyrqen_cases",
+        String(casesOpened)
+    );
+}
+
+function setText(id, value) {
+    const node = el(id);
+
+    if (node) {
+        node.textContent = value;
+    }
+}
+
+
+/* =========================
+   COUNTERS
+========================= */
+
+function updateCoins() {
+    saveData();
+
+    setText(
+        "coins",
+        coins
+    );
+
+    setText(
+        "profileCoins",
+        coins
+    );
+
+    setText(
+        "casesCoins",
+        coins
+    );
+}
+
+function updateGames() {
+    saveData();
+
+    setText(
+        "gamesCount",
+        gamesPlayed
+    );
+}
+
+function updateCases() {
+    saveData();
+
+    setText(
+        "casesCount",
+        casesOpened
+    );
+
+    setText(
+        "casesOpenedSmall",
+        casesOpened
+    );
+}
+
+
+/* =========================
+   SCREENS
+========================= */
+
+function hideAllScreens() {
+
+    const screens = [
+        "mainScreen",
+        "profileScreen",
+        "gamesScreen",
+        "reactionScreen",
+        "casesScreen",
+        "caseOpeningScreen"
+    ];
+
+    screens.forEach(function(id) {
+
+        const screen = el(id);
+
+        if (screen) {
+            screen.classList.add("hidden");
+        }
+
+    });
+}
+
+function showScreen(id) {
+
+    hideAllScreens();
+
+    const screen = el(id);
+
+    if (screen) {
+        screen.classList.remove("hidden");
+    }
+}
+    /* =========================
+   NAVIGATION
+========================= */
+
+function goHome() {
+    showScreen("mainScreen");
+    updateCoins();
+}
+
+function openProfile() {
+    showScreen("profileScreen");
+    updateProfile();
+}
+
+function closeProfile() {
+    goHome();
+}
+
+function openGames() {
+    showScreen("gamesScreen");
+    updateGames();
+}
+
+function closeGames() {
+    goHome();
+}
+
+function openCases() {
+    showScreen("casesScreen");
+    updateCoins();
+    updateCases();
+}
+
+function closeCases() {
+    goHome();
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function updateProfile() {
+
+    let name = "ZYRQEN PLAYER";
+    let username = "@player";
+    let userId = "—";
+
+    if (telegramUser) {
+
+        const fullName = [
+            telegramUser.first_name,
+            telegramUser.last_name
+        ]
+        .filter(Boolean)
+        .join(" ");
+
+        if (fullName) {
+            name = fullName;
+        }
+
+        if (telegramUser.username) {
+            username = "@" + telegramUser.username;
+        }
+
+        if (telegramUser.id) {
+            userId = telegramUser.id;
+        }
+    }
+
+    setText("profileName", name);
+    setText("profileUsername", username);
+    setText("profileId", userId);
+
+    setText("profileCoins", coins);
+    setText("gamesCount", gamesPlayed);
+    setText("casesCount", casesOpened);
+
+    const avatar = el("profileAvatar");
+
+    if (avatar) {
+
+        let letter = "Z";
+
+        if (
+            telegramUser &&
+            telegramUser.first_name
+        ) {
+            letter =
+                telegramUser.first_name
+                .charAt(0)
+                .toUpperCase();
+        }
+
+        avatar.textContent = letter;
+    }
+}
+
+
+/* =========================
+   DAILY BONUS
+========================= */
+
+function claimBonus() {
+
+    const today =
+        new Date()
+        .toISOString()
+        .slice(0, 10);
+
+    const lastBonus =
+        localStorage.getItem(
+            "zyrqen_bonus"
+        );
+
+    if (lastBonus === today) {
+        showToast(
+            "Daily bonus already claimed"
+        );
+        return;
+    }
+
+    coins += 100;
+
+    localStorage.setItem(
+        "zyrqen_bonus",
+        today
+    );
+
+    updateCoins();
+
+    showToast("+100 coins!");
+
+    try {
+        tg?.HapticFeedback
+          ?.notificationOccurred("success");
+    } catch (e) {}
+}
+
+
+/* =========================
+   SOON
+========================= */
+
+function soon(name) {
+    showToast(
+        name + " — coming soon"
+    );
+}
+    /* =========================
+   REACTION GAME
+========================= */
+
+let reactionTimer = null;
+let reactionStart = 0;
+let reactionReady = false;
+let reactionRunning = false;
+
+function openReaction() {
+
+    showScreen("reactionScreen");
+
+    reactionReady = false;
+    reactionRunning = false;
+
+    if (reactionTimer) {
+        clearTimeout(reactionTimer);
+        reactionTimer = null;
+    }
+
+    setText(
+        "reactionStatus",
+        "PRESS START"
+    );
+
+    setText(
+        "reward",
+        ""
+    );
+
+    const button =
+        el("reactionButton");
+
+    if (button) {
+        button.textContent = "START";
+        button.classList.remove("ready");
+    }
+}
+
+
+function closeReaction() {
+
+    if (reactionTimer) {
+        clearTimeout(reactionTimer);
+        reactionTimer = null;
+    }
+
+    reactionReady = false;
+    reactionRunning = false;
+
+    showScreen("gamesScreen");
+}
+
+
+function reactionClick() {
+
+    const button =
+        el("reactionButton");
+
+    if (!button) {
+        return;
+    }
+
+    /* START GAME */
+
+    if (!reactionRunning) {
+
+        reactionRunning = true;
+        reactionReady = false;
+
+        button.textContent = "WAIT...";
+
+        setText(
+            "reactionStatus",
+            "WAIT FOR GREEN"
+        );
+
+        setText(
+            "reward",
+            ""
+        );
+
+        const delay =
+            1500 +
+            Math.random() * 2500;
+
+        reactionTimer =
+            setTimeout(function() {
+
+                reactionReady = true;
+                reactionStart =
+                    performance.now();
+
+                button.textContent =
+                    "TAP!";
+
+                button.classList.add(
+                    "ready"
+                );
+
+                setText(
+                    "reactionStatus",
+                    "TAP NOW!"
+                );
+
+                try {
+                    tg?.HapticFeedback
+                      ?.impactOccurred("medium");
+                } catch (e) {}
+
+            }, delay);
+
+        return;
+    }
+
+
+    /* TOO EARLY */
+
+    if (!reactionReady) {
+
+        clearTimeout(
+            reactionTimer
+        );
+
+        reactionTimer = null;
+        reactionRunning = false;
+
+        button.textContent =
+            "TRY AGAIN";
+
+        setText(
+            "reactionStatus",
+            "TOO EARLY!"
+        );
+
+        setText(
+            "reward",
+            "+0 🪙"
+        );
+
+        showToast("Too early!");
+
+        return;
+    }
+
+
+    /* RESULT */
+
+    const reactionTime =
+        Math.round(
+            performance.now() -
+            reactionStart
+        );
+
+    reactionReady = false;
+    reactionRunning = false;
+
+    button.classList.remove(
+        "ready"
+    );
+
+    let prize = 10;
+
+    if (reactionTime < 250) {
+        prize = 50;
+    }
+    else if (reactionTime < 350) {
+        prize = 30;
+    }
+    else if (reactionTime < 500) {
+        prize = 20;
+    }
+
+    coins += prize;
+    gamesPlayed++;
+
+    updateCoins();
+    updateGames();
+
+    setText(
+        "reactionStatus",
+        reactionTime + " MS"
+    );
+
+    setText(
+        "reward",
+        "+" + prize + " 🪙"
+    );
+
+    button.textContent =
+        "PLAY AGAIN";
+
+    showToast(
+        "+" + prize + " coins!"
+    );
+
+    try {
+        tg?.HapticFeedback
+          ?.notificationOccurred(
+              "success"
+          );
+    } catch (e) {}
+ }
+    /* =========================
+   ZYRQEN CASE
+========================= */
+
+
+
+function getCaseReward() {
+
+    const random = Math.random() * 100;
+
+    if (random < 40) {
+        return {
+            amount: 10,
+            rarity: "COMMON"
+        };
+    }
+
+    if (random < 65) {
+        return {
+            amount: 25,
+            rarity: "COMMON"
+        };
+    }
+
+    if (random < 83) {
+        return {
+            amount: 50,
+            rarity: "RARE"
+        };
+    }
+
+    if (random < 93) {
+        return {
+            amount: 100,
+            rarity: "EPIC"
+        };
+    }
+
+    if (random < 98) {
+        return {
+            amount: 250,
+            rarity: "LEGENDARY"
+        };
+    }
+
+    return {
+        amount: 1000,
+        rarity: "MYTHIC"
+    };
+}
+
+
+function openZyrqenCase() {
+
+    if (caseIsOpening) {
+        return;
+    }
+
+    const casePrice = 50;
+
+    if (coins < casePrice) {
+        showToast("Not enough coins");
+        return;
+    }
+
+    const openingScreen = el("caseOpeningScreen");
+
+    if (!openingScreen) {
+        showToast("Opening screen error");
+        return;
+    }
+
+    caseIsOpening = true;
+
+    coins -= casePrice;
+    updateCoins();
+    updateCases();
+
+    // Use the same navigation system as every other working screen.
+    showScreen("caseOpeningScreen");
+    window.scrollTo(0, 0);
+
+    const caseIcon = el("openingCaseIcon");
+    const status = el("caseOpeningStatus");
+    const result = el("caseResult");
+
+    const resultAmount =
+        el("caseResultAmount");
+
+    const resultRarity =
+        el("caseResultRarity");
+
+    const continueButton =
+        el("caseContinueButton");
+
+    if (status) {
+        status.textContent = "OPENING CASE...";
+    }
+
+    if (result) {
+        result.classList.remove("show");
+    }
+
+    if (continueButton) {
+        continueButton.classList.remove("show");
+    }
+
+    if (resultAmount) {
+        resultAmount.textContent = "+0 🪙";
+    }
+
+    if (resultRarity) {
+        resultRarity.textContent = "";
+    }
+
+    if (caseIcon) {
+        caseIcon.classList.remove("opening");
+        void caseIcon.offsetWidth;
+        caseIcon.classList.add("opening");
+    }
+
+    const reward = getCaseReward();
+        setTimeout(function() {
+
+        if (caseIcon) {
+            caseIcon.classList.remove("opening");
+        }
+
+        if (status) {
+            status.textContent = "CASE OPENED";
+        }
+
+        if (resultAmount) {
+            resultAmount.textContent =
+                "+" + reward.amount + " 🪙";
+        }
+
+        if (resultRarity) {
+            resultRarity.textContent =
+                reward.rarity;
+        }
+
+        if (result) {
+            result.classList.add("show");
+        }
+
+        coins += reward.amount;
+        casesOpened++;
+
+        updateCoins();
+        updateCases();
+
+        if (continueButton) {
+            continueButton.classList.add("show");
+        }
+
+        caseIsOpening = false;
+
+        showToast(
+            "+" + reward.amount + " coins!"
+        );
+
+        try {
+            tg?.HapticFeedback
+              ?.notificationOccurred("success");
+        } catch (e) {}
+
+    }, 2200);
+}
+
+
+function closeCaseResult() {
+
+    if (caseIsOpening) {
+        return;
+    }
+
+    const openingScreen =
+        el("caseOpeningScreen");
+
+    if (openingScreen) {
+        openingScreen.classList.add("hidden");
+    }
+
+    showScreen("casesScreen");
+
+    updateCoins();
+    updateCases();
+}
+    /* =========================
+   TOAST
+========================= */
+
+function showToast(message) {
+
+    const toast = el("toast");
+
+    if (!toast) {
+        return;
+    }
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(
+        window.zyrqenToastTimer
+    );
+
+    window.zyrqenToastTimer =
+        setTimeout(function() {
+            toast.classList.remove("show");
+        }, 1800);
+}
+
+
+/* =========================
+   START ZYRQEN
+========================= */
+
+updateCoins();
+updateGames();
+updateCases();
+
+</script>
+    
+</body>
+</html>
+   
