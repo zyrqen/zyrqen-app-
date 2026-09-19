@@ -613,8 +613,282 @@ function updateCoins(){
         coins
     );
 }
-
-
 function updateGames(){
 
-    document.getElementById("games
+    document.getElementById("gamesCount").textContent = gamesPlayed;
+
+    localStorage.setItem("zyrqen_games", gamesPlayed);
+}
+
+
+/* DAILY BONUS */
+
+function claimBonus(){
+
+    const today = new Date().toISOString().slice(0,10);
+
+    if(lastBonus === today){
+        showToast("Daily bonus already claimed");
+        return;
+    }
+
+    coins += 100;
+    lastBonus = today;
+
+    localStorage.setItem("zyrqen_bonus", today);
+
+    updateCoins();
+
+    showToast("+100 coins!");
+}
+
+
+/* PROFILE */
+
+function openProfile(){
+
+    document.getElementById("mainScreen").style.display = "none";
+    document.getElementById("profileScreen").style.display = "block";
+
+    updateCoins();
+    updateGames();
+
+    if(telegramUser){
+
+        document.getElementById("profileName").textContent =
+            telegramUser.first_name || "User";
+
+        document.getElementById("profileUsername").textContent =
+            telegramUser.username
+            ? "@" + telegramUser.username
+            : "No username";
+
+        document.getElementById("profileId").textContent =
+            telegramUser.id;
+
+        if(telegramUser.photo_url){
+
+            document.getElementById("profileAvatar").innerHTML =
+                '<img src="' + telegramUser.photo_url + '">';
+
+        }
+    }
+}
+
+
+function closeProfile(){
+
+    document.getElementById("profileScreen").style.display = "none";
+    document.getElementById("mainScreen").style.display = "block";
+}
+    function closeProfile(){
+
+    document.getElementById("profileScreen").style.display = "none";
+    document.getElementById("mainScreen").style.display = "block";
+    }
+    /* GAMES */
+
+function openGames(){
+
+    document.getElementById("mainScreen").style.display = "none";
+    document.getElementById("gamesScreen").style.display = "block";
+}
+
+
+function closeGames(){
+
+    document.getElementById("gamesScreen").style.display = "none";
+    document.getElementById("mainScreen").style.display = "block";
+}
+
+
+/* REACTION SCREEN */
+
+function openReaction(){
+
+    document.getElementById("gamesScreen").style.display = "none";
+    document.getElementById("reactionScreen").style.display = "block";
+
+    resetReaction();
+}
+
+
+function closeReaction(){
+
+    clearTimeout(reactionTimeout);
+
+    document.getElementById("reactionScreen").style.display = "none";
+    document.getElementById("gamesScreen").style.display = "block";
+}
+
+
+/* REACTION DATA */
+
+let reactionTimeout = null;
+let reactionReady = false;
+let reactionStart = 0;
+
+
+function resetReaction(){
+
+    clearTimeout(reactionTimeout);
+
+    reactionReady = false;
+    reactionStart = 0;
+
+    const button = document.getElementById("reactionButton");
+
+    button.classList.remove("ready");
+    button.textContent = "START";
+
+    document.getElementById("reactionStatus").textContent =
+        "Press START to begin";
+
+    document.getElementById("reward").textContent = "";
+}/* START REACTION */
+
+function startReaction(){
+
+    reactionReady = false;
+
+    const button = document.getElementById("reactionButton");
+
+    button.classList.remove("ready");
+    button.textContent = "WAIT...";
+
+    document.getElementById("reactionStatus").textContent =
+        "Wait for the signal...";
+
+    const delay = Math.floor(Math.random() * 3000) + 1500;
+
+    reactionTimeout = setTimeout(function(){
+
+        reactionReady = true;
+        reactionStart = performance.now();
+
+        button.classList.add("ready");
+        button.textContent = "TAP!";
+
+        document.getElementById("reactionStatus").textContent =
+            "NOW!";
+
+    }, delay);
+}
+
+
+/* REACTION CLICK */
+
+function reactionClick(){
+
+    const button = document.getElementById("reactionButton");
+
+    if(button.textContent === "START"){
+
+        startReaction();
+        return;
+    }
+
+
+    if(!reactionReady){
+
+        clearTimeout(reactionTimeout);
+
+        button.textContent = "TOO EARLY";
+
+        document.getElementById("reactionStatus").textContent =
+            "You tapped too early.";
+
+        document.getElementById("reward").textContent =
+            "Reward: +0";
+
+        setTimeout(resetReaction, 1200);
+
+        return;
+    }
+
+
+    const reactionTime =
+        Math.round(performance.now() - reactionStart);
+
+    reactionReady = false;
+
+    let rewardAmount = 10;
+
+
+    if(reactionTime < 250){
+
+        rewardAmount = 50;
+
+    }else if(reactionTime < 350){
+
+        rewardAmount = 30;
+
+    }else if(reactionTime < 500){
+
+        rewardAmount = 20;
+
+    }
+
+
+    coins += rewardAmount;
+    gamesPlayed++;
+
+
+    updateCoins();
+    updateGames();
+
+
+    button.classList.remove("ready");
+
+    button.textContent =
+        reactionTime + " ms";
+
+
+    document.getElementById("reactionStatus").textContent =
+        "Great reaction!";
+
+
+    document.getElementById("reward").textContent =
+        "+" + rewardAmount + " coins";
+
+
+    showToast(
+        "+" + rewardAmount + " coins!"
+    );
+
+
+    setTimeout(resetReaction, 1800);
+    }
+    /* OTHER BUTTONS */
+
+function soon(name){
+
+    showToast(name + " coming soon");
+}
+
+
+/* TOAST */
+
+function showToast(message){
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    }, 1800);
+}
+
+
+/* START APP */
+
+updateCoins();
+updateGames();
+
+</script>
+</body>
+</html>
