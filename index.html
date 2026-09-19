@@ -2590,6 +2590,17 @@ function openZyrqenCase(){
 ).classList.remove(
     "hidden"
 );
+    const box =
+    document.getElementById("caseOpeningScreen")
+    .getBoundingClientRect();
+
+alert(
+    "TOP: " + Math.round(box.top) +
+    "\nLEFT: " + Math.round(box.left) +
+    "\nWIDTH: " + Math.round(box.width) +
+    "\nHEIGHT: " + Math.round(box.height)
+);
+return;
 
 
     const openingScreen =
@@ -2772,14 +2783,6 @@ function closeCaseResult(){
     const box =
     document.getElementById("caseOpeningScreen")
     .getBoundingClientRect();
-
-alert(
-    "TOP: " + Math.round(box.top) +
-    "\nLEFT: " + Math.round(box.left) +
-    "\nWIDTH: " + Math.round(box.width) +
-    "\nHEIGHT: " + Math.round(box.height)
-);
-return;
 
 
     document.getElementById(
