@@ -706,7 +706,27 @@ button{
 
 
 /* CASE OPENING */
+#caseOpeningScreen{
+    width:100%;
+    min-height:100vh;
+}
 
+#caseOpeningScreen.hidden{
+    display:none !important;
+}
+
+#caseOpeningScreen:not(.hidden){
+    display:block !important;
+}
+
+#caseOpeningScreen .topbar{
+    width:100%;
+}
+
+#caseOpeningScreen .opening-card{
+    width:100%;
+    box-sizing:border-box;
+    }
 .opening-card{
     position:relative;
     overflow:hidden;
