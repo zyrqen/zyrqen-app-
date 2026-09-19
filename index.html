@@ -2519,13 +2519,25 @@ function openZyrqenCase(){
     ).classList.add(
         "hidden"
     );
-
-
     document.getElementById(
-        "caseOpeningScreen"
-    ).classList.remove(
-        "hidden"
-    );
+    "caseOpeningScreen"
+).classList.remove(
+    "hidden"
+);
+    
+    const openingScreen =
+    document.getElementById("caseOpeningScreen");
+
+openingScreen.style.display = "block";
+openingScreen.style.position = "relative";
+openingScreen.style.width = "100%";
+openingScreen.style.minHeight = "100vh";
+openingScreen.style.opacity = "1";
+openingScreen.style.visibility = "visible";
+
+document.getElementById(
+    "caseOpeningStatus"
+).textContent = "OPENING CASE...";
 
 
     const caseIcon =
