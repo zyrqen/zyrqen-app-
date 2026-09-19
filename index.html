@@ -32,8 +32,6 @@ button{
     padding:25px 18px 35px;
 }
 
-/* LOGO */
-
 .logo{
     text-align:center;
     padding-top:15px;
@@ -53,8 +51,6 @@ button{
     font-size:12px;
     letter-spacing:3px;
 }
-
-/* BALANCE */
 
 .balance{
     margin:28px auto 22px;
@@ -78,8 +74,6 @@ button{
     font-size:27px;
     font-weight:800;
 }
-
-/* MAIN BUTTONS */
 
 .menu{
     display:grid;
@@ -111,8 +105,6 @@ button{
     font-size:24px;
     margin-bottom:6px;
 }
-
-/* BONUS */
 
 .bonus{
     max-width:430px;
@@ -149,7 +141,9 @@ button{
 
 .profile-screen,
 .games-screen,
-.reaction-screen{
+.reaction-screen,
+.cases-screen,
+.case-open-screen{
     display:none;
 }
 
@@ -330,7 +324,7 @@ button{
     font-size:14px;
 }
 
-/* REACTION GAME */
+/* REACTION */
 
 .reaction-box{
     max-width:430px;
@@ -365,6 +359,122 @@ button{
 .reward{
     font-size:17px;
     font-weight:800;
+}
+
+/* CASES */
+
+.case-card{
+    max-width:430px;
+    margin:25px auto;
+    padding:25px 20px;
+    text-align:center;
+    border:1px solid #30354c;
+    border-radius:22px;
+    background:
+        radial-gradient(circle at top,#171b2d,#090b12 65%);
+}
+
+.case-icon{
+    font-size:72px;
+    margin:5px 0 12px;
+}
+
+.case-name{
+    font-size:23px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.case-price{
+    margin-top:8px;
+    color:#85899d;
+    font-size:13px;
+}
+
+.case-rewards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:20px;
+}
+
+.reward-item{
+    padding:11px 4px;
+    border:1px solid #252a40;
+    border-radius:10px;
+    background:#0e1018;
+    font-size:12px;
+}
+
+.case-button{
+    width:100%;
+    margin-top:20px;
+    padding:16px;
+    border:0;
+    border-radius:13px;
+    background:white;
+    color:#07080d;
+    font-size:14px;
+    font-weight:900;
+}
+
+.case-count{
+    margin-top:13px;
+    color:#666b80;
+    font-size:11px;
+}
+
+/* CASE OPENING */
+
+.opening-area{
+    max-width:430px;
+    margin:45px auto 25px;
+    text-align:center;
+}
+
+.opening-case{
+    font-size:105px;
+    transform:scale(1);
+}
+
+.opening-case.animate{
+    animation:caseShake .12s infinite alternate;
+}
+
+@keyframes caseShake{
+    from{transform:rotate(-5deg) scale(1);}
+    to{transform:rotate(5deg) scale(1.08);}
+}
+
+.opening-text{
+    margin-top:25px;
+    color:#85899d;
+    font-size:13px;
+}
+
+.win-reward{
+    margin-top:20px;
+    font-size:30px;
+    font-weight:900;
+}
+
+.win-rarity{
+    margin-top:7px;
+    color:#85899d;
+    font-size:13px;
+}
+
+.continue-button{
+    display:block;
+    width:100%;
+    max-width:430px;
+    margin:25px auto;
+    padding:15px;
+    border:0;
+    border-radius:13px;
+    background:white;
+    color:#07080d;
+    font-weight:900;
 }
 
 /* TOAST */
@@ -406,7 +516,9 @@ button{
 
     <div class="balance">
         <div class="balance-label">YOUR BALANCE</div>
-        <div class="balance-value">🪙 <span id="coins">0</span></div>
+        <div class="balance-value">
+            🪙 <span id="coins">0</span>
+        </div>
     </div>
 
     <div class="menu">
@@ -421,7 +533,7 @@ button{
             GIFTS
         </button>
 
-        <button class="button" onclick="soon('Cases')">
+        <button class="button" onclick="openCases()">
             <span class="button-icon">🎲</span>
             CASES
         </button>
@@ -452,569 +564,4 @@ button{
 
 <!-- PROFILE -->
 
-<div id="profileScreen" class="screen profile-screen">
-
-    <div class="profile-header">
-
-        <div id="profileAvatar" class="profile-avatar">
-            👤
-        </div>
-
-        <div id="profileName" class="profile-name">
-            User
-        </div>
-
-        <div id="profileUsername" class="profile-username">
-            @username
-        </div>
-
-    </div>
-
-    <div class="profile-card">
-
-        <div class="profile-balance">
-
-            <div class="profile-balance-label">
-                YOUR BALANCE
-            </div>
-
-            <div class="profile-balance-value">
-                🪙 <span id="profileCoins">0</span>
-            </div>
-
-        </div>
-
-        <div class="profile-stats">
-
-            <div class="stat">
-                <div id="gamesCount" class="stat-value">0</div>
-                <div class="stat-label">GAMES</div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-value">0</div>
-                <div class="stat-label">GIFTS</div>
-            </div>
-
-            <div class="stat">
-                <div class="stat-value">0</div>
-                <div class="stat-label">CASES</div>
-            </div>
-
-        </div>
-
-        <div class="profile-info">
-
-            <div class="info-row">
-                <span class="info-label">Telegram ID</span>
-                <span id="profileId">—</span>
-            </div>
-
-            <div class="info-row">
-                <span class="info-label">Status</span>
-                <span>ACTIVE</span>
-            </div>
-
-        </div>
-
-    </div>
-
-    <button class="back-button" onclick="closeProfile()">
-        ← BACK
-    </button>
-
-</div>
-
-
-<!-- GAMES -->
-
-<div id="gamesScreen" class="screen games-screen">
-
-    <div class="section-title">
-
-        <h2>GAMES</h2>
-
-        <p>
-            PLAY • EARN • COMPETE
-        </p>
-
-    </div>
-
-    <div class="game-card">
-
-        <div class="game-icon">
-            ⚡
-        </div>
-
-        <div class="game-name">
-            REACTION
-        </div>
-
-        <div class="game-description">
-            Wait for the signal and tap as fast as you can.
-            Test your reaction and earn ZYRQEN coins.
-        </div>
-
-        <button class="play-button" onclick="openReaction()">
-            PLAY
-        </button>
-
-    </div>
-
-    <button class="back-button" onclick="closeGames()">
-        ← BACK
-    </button>
-
-</div>
-
-
-<!-- REACTION -->
-
-<div id="reactionScreen" class="screen reaction-screen">
-
-    <div class="section-title">
-
-        <h2>REACTION</h2>
-
-        <p>
-            TAP WHEN THE BUTTON TURNS WHITE
-        </p>
-
-    </div>
-
-    <div class="reaction-box">
-
-        <div id="reactionStatus" class="reaction-status">
-            Press START to begin
-        </div>
-
-        <button
-            id="reactionButton"
-            class="reaction-button"
-            onclick="reactionClick()"
-        >
-            START
-        </button>
-
-        <div id="reward" class="reward"></div>
-
-    </div>
-
-    <button class="back-button" onclick="closeReaction()">
-        ← BACK
-    </button>
-
-</div>
-
-
-<div id="toast" class="toast"></div>
-
-
-<script>
-
-/* TELEGRAM */
-
-const tg = window.Telegram.WebApp;
-
-tg.ready();
-tg.expand();
-
-const telegramUser = tg.initDataUnsafe?.user;
-
-
-/* COINS */
-
-let coins = Number(
-    localStorage.getItem("zyrqen_coins") || 0
-);
-
-let gamesPlayed = Number(
-    localStorage.getItem("zyrqen_games") || 0
-);
-
-let lastBonus = localStorage.getItem(
-    "zyrqen_bonus"
-);
-
-
-function updateCoins(){
-
-    document.getElementById("coins").textContent = coins;
-
-    document.getElementById("profileCoins").textContent = coins;
-
-    localStorage.setItem(
-        "zyrqen_coins",
-        coins
-    );
-}
-
-
-function updateGames(){
-
-    document.getElementById("gamesCount").textContent =
-        gamesPlayed;
-
-    localStorage.setItem(
-        "zyrqen_games",
-        gamesPlayed
-    );
-}
-
-
-/* DAILY BONUS */
-
-function claimBonus(){
-
-    const today =
-        new Date().toISOString().slice(0,10);
-
-    if(lastBonus === today){
-
-        showToast("Daily bonus already claimed");
-
-        return;
-    }
-
-    coins += 100;
-
-    lastBonus = today;
-
-    localStorage.setItem(
-        "zyrqen_bonus",
-        today
-    );
-
-    updateCoins();
-
-    showToast("+100 🪙 received!");
-
-}
-
-
-/* PROFILE */
-
-function openProfile(){
-
-    document.getElementById("mainScreen").style.display =
-        "none";
-
-    document.getElementById("profileScreen").style.display =
-        "block";
-
-    updateCoins();
-
-    updateGames();
-
-    if(telegramUser){
-
-        const name =
-            telegramUser.first_name ||
-            "User";
-
-        const username =
-            telegramUser.username
-            ? "@" + telegramUser.username
-            : "No username";
-
-        document.getElementById(
-            "profileName"
-        ).textContent = name;
-
-        document.getElementById(
-            "profileUsername"
-        ).textContent = username;
-
-        document.getElementById(
-            "profileId"
-        ).textContent = telegramUser.id;
-
-        if(telegramUser.photo_url){
-
-            document.getElementById(
-                "profileAvatar"
-            ).innerHTML =
-                `<img src="${telegramUser.photo_url}">`;
-
-        }
-
-    }
-
-}
-
-
-function closeProfile(){
-
-    document.getElementById("profileScreen").style.display =
-        "none";
-
-    document.getElementById("mainScreen").style.display =
-        "block";
-
-}
-
-
-/* GAMES */
-
-function openGames(){
-
-    document.getElementById("mainScreen").style.display =
-        "none";
-
-    document.getElementById("gamesScreen").style.display =
-        "block";
-
-}
-
-
-function closeGames(){
-
-    document.getElementById("gamesScreen").style.display =
-        "none";
-
-    document.getElementById("mainScreen").style.display =
-        "block";
-
-}
-
-
-/* REACTION GAME */
-
-let reactionTimeout = null;
-
-let reactionReady = false;
-
-let reactionStart = 0;
-
-
-function openReaction(){
-
-    document.getElementById("gamesScreen").style.display =
-        "none";
-
-    document.getElementById("reactionScreen").style.display =
-        "block";
-
-    resetReaction();
-
-}
-
-
-function closeReaction(){
-
-    clearTimeout(reactionTimeout);
-
-    document.getElementById("reactionScreen").style.display =
-        "none";
-
-    document.getElementById("gamesScreen").style.display =
-        "block";
-
-}
-
-
-function resetReaction(){
-
-    clearTimeout(reactionTimeout);
-
-    reactionReady = false;
-
-    reactionStart = 0;
-
-    const button =
-        document.getElementById("reactionButton");
-
-    button.classList.remove("ready");
-
-    button.textContent = "START";
-
-    document.getElementById(
-        "reactionStatus"
-    ).textContent =
-        "Press START to begin";
-
-    document.getElementById(
-        "reward"
-    ).textContent = "";
-
-}
-
-
-function startReaction(){
-
-    reactionReady = false;
-
-    reactionStart = 0;
-
-    const button =
-        document.getElementById("reactionButton");
-
-    button.classList.remove("ready");
-
-    button.textContent = "WAIT...";
-
-    document.getElementById(
-        "reactionStatus"
-    ).textContent =
-        "Wait for the signal...";
-
-    const delay =
-        Math.floor(
-            Math.random() * 3000
-        ) + 1500;
-
-    reactionTimeout = setTimeout(() => {
-
-        reactionReady = true;
-
-        reactionStart = performance.now();
-
-        button.classList.add("ready");
-
-        button.textContent = "TAP!";
-
-        document.getElementById(
-            "reactionStatus"
-        ).textContent =
-            "NOW!";
-
-    }, delay);
-
-}
-
-
-function reactionClick(){
-
-    const button =
-        document.getElementById("reactionButton");
-
-    if(button.textContent === "START"){
-
-        startReaction();
-
-        return;
-
-    }
-
-    if(!reactionReady){
-
-        clearTimeout(reactionTimeout);
-
-        button.textContent = "TOO EARLY";
-
-        document.getElementById(
-            "reactionStatus"
-        ).textContent =
-            "You tapped too early.";
-
-        document.getElementById(
-            "reward"
-        ).textContent =
-            "Reward: +0 🪙";
-
-        setTimeout(
-            resetReaction,
-            1200
-        );
-
-        return;
-
-    }
-
-    const reactionTime =
-        Math.round(
-            performance.now() - reactionStart
-        );
-
-    reactionReady = false;
-
-    let reward = 10;
-
-    if(reactionTime < 250){
-
-        reward = 50;
-
-    }else if(reactionTime < 350){
-
-        reward = 30;
-
-    }else if(reactionTime < 500){
-
-        reward = 20;
-
-    }
-
-    coins += reward;
-
-    gamesPlayed++;
-
-    updateCoins();
-
-    updateGames();
-
-    button.classList.remove("ready");
-
-    button.textContent =
-        reactionTime + " ms";
-
-    document.getElementById(
-        "reactionStatus"
-    ).textContent =
-        "Great reaction!";
-
-    document.getElementById(
-        "reward"
-    ).textContent =
-        "+" + reward + " 🪙";
-
-    showToast(
-        "+" + reward + " coins!"
-    );
-
-    setTimeout(
-        resetReaction,
-        1800
-    );
-
-}
-
-
-/* OTHER */
-
-function soon(name){
-
-    showToast(
-        name + " coming soon"
-    );
-
-}
-
-
-function showToast(message){
-
-    const toast =
-        document.getElementById("toast");
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    setTimeout(() => {
-
-        toast.classList.remove("show");
-
-    }, 1800);
-
-}
-
-
-/* INIT */
-
-updateCoins();
-
-updateGames();
-
-</script>
-
-</body>
-                  </html>
+<div id="profile
