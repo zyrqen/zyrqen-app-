@@ -2548,6 +2548,19 @@ return {
 /* OPEN ZYRQEN CASE */
 
 function openZyrqenCase(){
+    const test = document.createElement("div");
+
+test.textContent = "TEST OK";
+
+test.style.cssText =
+    "position:fixed;inset:0;z-index:999999;" +
+    "background:#080910;color:white;" +
+    "font-size:32px;font-weight:900;" +
+    "padding:100px 30px;";
+
+document.body.appendChild(test);
+
+return;
 
     if(caseIsOpening){
         return;
