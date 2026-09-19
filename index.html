@@ -351,7 +351,433 @@ button{
     font-size:17px;
     font-weight:800;
 }
+/* =========================
+   CASES
+========================= */
 
+.cases-screen,
+.case-opening-screen{
+    display:none;
+}
+
+.cases-balance{
+    max-width:430px;
+    margin:20px auto 0;
+    padding:13px 16px;
+    border:1px solid #202438;
+    border-radius:14px;
+    background:#0d0f17;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.cases-balance-label{
+    color:#777c92;
+    font-size:11px;
+    letter-spacing:1px;
+}
+
+.cases-balance-value{
+    font-size:17px;
+    font-weight:900;
+}
+
+
+/* CASE CARD */
+
+.case-card{
+    position:relative;
+    overflow:hidden;
+
+    max-width:430px;
+
+    margin:25px auto 15px;
+    padding:28px 20px 22px;
+
+    border:1px solid #303650;
+    border-radius:24px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(91,97,255,.20),
+            transparent 42%
+        ),
+        linear-gradient(
+            145deg,
+            #121522,
+            #090b12
+        );
+
+    text-align:center;
+}
+
+.case-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+    height:170px;
+
+    left:50%;
+    top:-100px;
+
+    transform:translateX(-50%);
+
+    border-radius:50%;
+
+    background:rgba(102,86,255,.16);
+
+    filter:blur(35px);
+
+    pointer-events:none;
+}
+
+
+/* CASE IMAGE */
+
+.case-icon-wrap{
+    position:relative;
+
+    width:130px;
+    height:130px;
+
+    margin:5px auto 12px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.case-glow{
+    position:absolute;
+
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    background:rgba(99,91,255,.25);
+
+    filter:blur(22px);
+}
+
+.case-icon{
+    position:relative;
+
+    font-size:78px;
+
+    filter:
+        drop-shadow(
+            0 10px 18px rgba(0,0,0,.55)
+        );
+}
+
+
+/* CASE INFO */
+
+.case-name{
+    font-size:23px;
+    font-weight:900;
+
+    letter-spacing:2px;
+}
+
+.case-subtitle{
+    margin-top:7px;
+
+    color:#777c92;
+
+    font-size:11px;
+
+    letter-spacing:1.5px;
+}
+
+.case-price{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:6px;
+
+    margin-top:16px;
+
+    padding:8px 14px;
+
+    border:1px solid #292e46;
+    border-radius:30px;
+
+    background:#0b0d14;
+
+    font-size:13px;
+    font-weight:800;
+}
+
+
+/* POSSIBLE REWARDS */
+
+.possible-title{
+    margin-top:25px;
+
+    color:#777c92;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+}
+
+.case-rewards{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+
+    margin-top:12px;
+}
+
+.case-reward{
+    padding:12px 4px;
+
+    border:1px solid #24283b;
+    border-radius:12px;
+
+    background:#0b0d14;
+}
+
+.case-reward-amount{
+    font-size:13px;
+    font-weight:900;
+}
+
+.case-reward-rarity{
+    margin-top:4px;
+
+    color:#666b80;
+
+    font-size:8px;
+
+    letter-spacing:.7px;
+}
+
+
+/* OPEN BUTTON */
+
+.open-case-button{
+    width:100%;
+
+    margin-top:20px;
+
+    padding:16px;
+
+    border:0;
+    border-radius:14px;
+
+    background:white;
+
+    color:#07080d;
+
+    font-size:14px;
+    font-weight:900;
+
+    cursor:pointer;
+}
+
+.open-case-button:active{
+    transform:scale(.97);
+}
+
+.opened-count{
+    margin-top:12px;
+
+    color:#666b80;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================
+   CASE OPENING
+========================= */
+
+.opening-area{
+    max-width:430px;
+
+    margin:25px auto;
+
+    padding:30px 20px;
+
+    text-align:center;
+
+    border:1px solid #252a40;
+    border-radius:24px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(91,97,255,.15),
+            transparent 55%
+        ),
+        #0b0d14;
+}
+
+.opening-case-container{
+    position:relative;
+
+    width:210px;
+    height:210px;
+
+    margin:10px auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.opening-glow{
+    position:absolute;
+
+    width:130px;
+    height:130px;
+
+    border-radius:50%;
+
+    background:rgba(91,97,255,.28);
+
+    filter:blur(35px);
+
+    opacity:.7;
+}
+
+.opening-case{
+    position:relative;
+
+    font-size:105px;
+
+    transform:scale(1);
+}
+
+.opening-case.opening{
+    animation:
+        caseShake .12s
+        infinite alternate;
+}
+
+@keyframes caseShake{
+
+    from{
+        transform:
+            rotate(-6deg)
+            scale(1);
+    }
+
+    to{
+        transform:
+            rotate(6deg)
+            scale(1.08);
+    }
+}
+
+
+/* RESULT */
+
+.opening-status{
+    margin-top:12px;
+
+    min-height:18px;
+
+    color:#777c92;
+
+    font-size:12px;
+
+    letter-spacing:1px;
+}
+
+.case-result{
+    display:none;
+
+    margin-top:20px;
+}
+
+.case-result.show{
+    display:block;
+
+    animation:
+        resultAppear .35s ease;
+}
+
+@keyframes resultAppear{
+
+    from{
+        opacity:0;
+        transform:scale(.8);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.result-label{
+    color:#777c92;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+}
+
+.result-amount{
+    margin-top:8px;
+
+    font-size:37px;
+    font-weight:900;
+}
+
+.result-rarity{
+    display:inline-block;
+
+    margin-top:10px;
+
+    padding:6px 12px;
+
+    border:1px solid #30354b;
+    border-radius:20px;
+
+    font-size:10px;
+    font-weight:800;
+
+    letter-spacing:1.5px;
+}
+
+.case-continue{
+    display:none;
+
+    width:100%;
+
+    margin-top:25px;
+
+    padding:15px;
+
+    border:0;
+    border-radius:13px;
+
+    background:white;
+
+    color:#07080d;
+
+    font-weight:900;
+}
+
+.case-continue.show{
+    display:block;
+    }
 .toast{
     position:fixed;
     left:50%;
@@ -404,7 +830,7 @@ button{
             GIFTS
         </button>
 
-        <button class="button" onclick="soon('Cases')">
+        <button class="button" onclick="openCases()">
             <span class="button-icon">🎲</span>
             CASES
         </button>
@@ -475,7 +901,7 @@ button{
             </div>
 
             <div class="stat">
-                <div class="stat-value">0</div>
+                <div id="casesCount" class="stat-value">0</div>
                 <div class="stat-label">CASES</div>
             </div>
 
@@ -568,7 +994,275 @@ button{
 
 </div>
 
+<!-- =====================
+     CASES
+===================== -->
 
+<div id="casesScreen"
+     class="screen cases-screen">
+
+    <div class="section-title">
+
+        <h2>CASES</h2>
+
+        <p>
+            OPEN • WIN • COLLECT
+        </p>
+
+    </div>
+
+
+    <div class="cases-balance">
+
+        <div class="cases-balance-label">
+            BALANCE
+        </div>
+
+        <div class="cases-balance-value">
+            🪙
+            <span id="casesCoins">0</span>
+        </div>
+
+    </div>
+
+
+    <div class="case-card">
+
+        <div class="case-icon-wrap">
+
+            <div class="case-glow"></div>
+
+            <div class="case-icon">
+                🎁
+            </div>
+
+        </div>
+
+
+        <div class="case-name">
+            ZYRQEN CASE
+        </div>
+
+
+        <div class="case-subtitle">
+            STANDARD COLLECTION
+        </div>
+
+
+        <div class="case-price">
+            🪙 50 TO OPEN
+        </div>
+
+
+        <div class="possible-title">
+            POSSIBLE REWARDS
+        </div>
+
+
+        <div class="case-rewards">
+
+            <div class="case-reward">
+
+                <div class="case-reward-amount">
+                    🪙 10
+                </div>
+
+                <div class="case-reward-rarity">
+                    COMMON
+                </div>
+
+            </div>
+
+
+            <div class="case-reward">
+
+                <div class="case-reward-amount">
+                    🪙 25
+                </div>
+
+                <div class="case-reward-rarity">
+                    COMMON
+                </div>
+
+            </div>
+
+
+            <div class="case-reward">
+
+                <div class="case-reward-amount">
+                    🪙 50
+                </div>
+
+                <div class="case-reward-rarity">
+                    RARE
+                </div>
+
+            </div>
+
+
+            <div class="case-reward">
+
+                <div class="case-reward-amount">
+                    🪙 100
+                </div>
+
+                <div class="case-reward-rarity">
+                    EPIC
+                </div>
+
+            </div>
+
+
+            <div class="case-reward">
+
+                <div class="case-reward-amount">
+                    🪙 250
+                </div>
+
+                <div class="case-reward-rarity">
+                    LEGENDARY
+                </div>
+
+            </div>
+
+
+            <div class="case-reward">
+
+                <div class="case-reward-amount">
+                    🪙 1000
+                </div>
+
+                <div class="case-reward-rarity">
+                    MYTHIC
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="open-case-button"
+            onclick="openZyrqenCase()"
+        >
+            OPEN CASE — 50 🪙
+        </button>
+
+
+        <div class="opened-count">
+
+            OPENED:
+
+            <span id="casesOpenedSmall">
+                0
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="back-button"
+        onclick="closeCases()"
+    >
+        ← BACK
+    </button>
+
+</div>
+
+
+
+<!-- =====================
+     CASE OPENING
+===================== -->
+
+<div id="caseOpeningScreen"
+     class="screen case-opening-screen">
+
+
+    <div class="section-title">
+
+        <h2>ZYRQEN CASE</h2>
+
+        <p>
+            OPENING
+        </p>
+
+    </div>
+
+
+    <div class="opening-area">
+
+
+        <div class="opening-case-container">
+
+            <div
+                id="openingGlow"
+                class="opening-glow">
+            </div>
+
+
+            <div
+                id="openingCaseIcon"
+                class="opening-case">
+                🎁
+            </div>
+
+        </div>
+
+
+        <div
+            id="caseOpeningStatus"
+            class="opening-status">
+
+            Preparing case...
+
+        </div>
+
+
+        <div
+            id="caseResult"
+            class="case-result">
+
+
+            <div class="result-label">
+                YOU RECEIVED
+            </div>
+
+
+            <div
+                id="caseResultAmount"
+                class="result-amount">
+
+                +0 🪙
+
+            </div>
+
+
+            <div
+                id="caseResultRarity"
+                class="result-rarity">
+
+                COMMON
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="caseContinueButton"
+            class="case-continue"
+            onclick="closeCaseResult()"
+        >
+            CONTINUE
+        </button>
+
+
+    </div>
+
+</div>
 <div id="toast" class="toast"></div>
 
 
@@ -885,9 +1579,451 @@ function showToast(message){
 
 
 /* START APP */
+/* =========================
+   CASES DATA
+========================= */
+
+let casesOpened =
+    Number(
+        localStorage.getItem("zyrqen_cases") || 0
+    );
+
+
+let caseIsOpening = false;
+
+
+/* =========================
+   CASES UPDATE
+========================= */
+
+function updateCases(){
+
+    const profileCases =
+        document.getElementById("casesCount");
+
+    const smallCases =
+        document.getElementById("casesOpenedSmall");
+
+    const casesBalance =
+        document.getElementById("casesCoins");
+
+
+    if(profileCases){
+
+        profileCases.textContent =
+            casesOpened;
+
+    }
+
+
+    if(smallCases){
+
+        smallCases.textContent =
+            casesOpened;
+
+    }
+
+
+    if(casesBalance){
+
+        casesBalance.textContent =
+            coins;
+
+    }
+
+
+    localStorage.setItem(
+        "zyrqen_cases",
+        casesOpened
+    );
+}
+
+
+/* =========================
+   OPEN CASES SCREEN
+========================= */
+
+function openCases(){
+
+    document.getElementById(
+        "mainScreen"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "casesScreen"
+    ).style.display = "block";
+
+
+    updateCoins();
+    updateCases();
+}
+
+
+/* =========================
+   CLOSE CASES SCREEN
+========================= */
+
+function closeCases(){
+
+    document.getElementById(
+        "casesScreen"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "mainScreen"
+    ).style.display = "block";
+
+
+    updateCoins();
+}
+
+
+/* =========================
+   RANDOM REWARD
+========================= */
+
+function getCaseReward(){
+
+    /*
+       Шансы:
+
+       10 coins   = 40%
+       25 coins   = 25%
+       50 coins   = 18%
+       100 coins  = 10%
+       250 coins  = 5%
+       1000 coins = 2%
+    */
+
+    const random =
+        Math.random() * 100;
+
+
+    if(random < 40){
+
+        return {
+            amount:10,
+            rarity:"COMMON"
+        };
+
+    }
+
+
+    if(random < 65){
+
+        return {
+            amount:25,
+            rarity:"COMMON"
+        };
+
+    }
+
+
+    if(random < 83){
+
+        return {
+            amount:50,
+            rarity:"RARE"
+        };
+
+    }
+
+
+    if(random < 93){
+
+        return {
+            amount:100,
+            rarity:"EPIC"
+        };
+
+    }
+
+
+    if(random < 98){
+
+        return {
+            amount:250,
+            rarity:"LEGENDARY"
+        };
+
+    }
+
+
+    return {
+        amount:1000,
+        rarity:"MYTHIC"
+    };
+}
+
+
+/* =========================
+   OPEN ZYRQEN CASE
+========================= */
+
+function openZyrqenCase(){
+
+    if(caseIsOpening){
+
+        return;
+
+    }
+
+
+    const casePrice = 50;
+
+
+    if(coins < casePrice){
+
+        showToast(
+            "Not enough coins"
+        );
+
+        return;
+    }
+
+
+    caseIsOpening = true;
+
+
+    /* PAY FOR CASE */
+
+    coins -= casePrice;
+
+    updateCoins();
+    updateCases();
+
+
+    /* CHANGE SCREEN */
+
+    document.getElementById(
+        "casesScreen"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "caseOpeningScreen"
+    ).style.display = "block";
+
+
+    /* RESET RESULT */
+
+    const caseIcon =
+        document.getElementById(
+            "openingCaseIcon"
+        );
+
+
+    const status =
+        document.getElementById(
+            "caseOpeningStatus"
+        );
+
+
+    const result =
+        document.getElementById(
+            "caseResult"
+        );
+
+
+    const resultAmount =
+        document.getElementById(
+            "caseResultAmount"
+        );
+
+
+    const resultRarity =
+        document.getElementById(
+            "caseResultRarity"
+        );
+
+
+    const continueButton =
+        document.getElementById(
+            "caseContinueButton"
+        );
+
+
+    result.classList.remove(
+        "show"
+    );
+
+
+    continueButton.classList.remove(
+        "show"
+    );
+
+
+    resultAmount.textContent =
+        "+0 🪙";
+
+
+    resultRarity.textContent =
+        "";
+
+
+    status.textContent =
+        "Opening case...";
+
+
+    caseIcon.classList.add(
+        "opening"
+    );
+
+
+    /* CHOOSE REWARD */
+
+    const reward =
+        getCaseReward();
+
+
+    /* OPENING ANIMATION */
+
+    setTimeout(function(){
+
+        caseIcon.classList.remove(
+            "opening"
+        );
+
+
+        status.textContent =
+            "CASE OPENED";
+
+
+        resultAmount.textContent =
+            "+" +
+            reward.amount +
+            " 🪙";
+
+
+        resultRarity.textContent =
+            reward.rarity;
+
+
+        result.classList.add(
+            "show"
+        );
+
+
+        /* ADD REWARD */
+
+        coins += reward.amount;
+
+        casesOpened++;
+
+
+        updateCoins();
+        updateCases();
+
+
+        continueButton.classList.add(
+            "show"
+        );
+
+
+        caseIsOpening = false;
+
+
+        showToast(
+            "+" +
+            reward.amount +
+            " coins!"
+        );
+
+
+        /* TELEGRAM VIBRATION */
+
+        try{
+
+            if(
+                tg.HapticFeedback &&
+                tg.HapticFeedback.notificationOccurred
+            ){
+
+                tg.HapticFeedback.notificationOccurred(
+                    "success"
+                );
+
+            }
+
+        }catch(error){
+
+            console.log(
+                "Haptic unavailable"
+            );
+
+        }
+
+
+    },2200);
+}
+
+
+/* =========================
+   CLOSE CASE RESULT
+========================= */
+
+function closeCaseResult(){
+
+    if(caseIsOpening){
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "caseOpeningScreen"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "casesScreen"
+    ).style.display = "block";
+
+
+    updateCoins();
+    updateCases();
+}
+
+
+/* =========================
+   EXTEND COIN UPDATE
+========================= */
+
+const originalUpdateCoins =
+    updateCoins;
+
+
+updateCoins = function(){
+
+    originalUpdateCoins();
+
+
+    const casesBalance =
+        document.getElementById(
+            "casesCoins"
+        );
+
+
+    if(casesBalance){
+
+        casesBalance.textContent =
+            coins;
+
+    }
+
+};
+
+
+/* =========================
+   START APP
+========================= */
 
 updateCoins();
 updateGames();
+updateCases();
 
 </script>
 </body>
