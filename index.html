@@ -9,7 +9,6 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-
 *{
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
@@ -137,13 +136,9 @@ button{
     font-weight:800;
 }
 
-/* PROFILE */
-
 .profile-screen,
 .games-screen,
-.reaction-screen,
-.cases-screen,
-.case-open-screen{
+.reaction-screen{
     display:none;
 }
 
@@ -266,8 +261,6 @@ button{
     font-weight:800;
 }
 
-/* GAMES */
-
 .section-title{
     text-align:center;
     padding-top:18px;
@@ -324,8 +317,6 @@ button{
     font-size:14px;
 }
 
-/* REACTION */
-
 .reaction-box{
     max-width:430px;
     margin:30px auto;
@@ -361,124 +352,6 @@ button{
     font-weight:800;
 }
 
-/* CASES */
-
-.case-card{
-    max-width:430px;
-    margin:25px auto;
-    padding:25px 20px;
-    text-align:center;
-    border:1px solid #30354c;
-    border-radius:22px;
-    background:
-        radial-gradient(circle at top,#171b2d,#090b12 65%);
-}
-
-.case-icon{
-    font-size:72px;
-    margin:5px 0 12px;
-}
-
-.case-name{
-    font-size:23px;
-    font-weight:900;
-    letter-spacing:2px;
-}
-
-.case-price{
-    margin-top:8px;
-    color:#85899d;
-    font-size:13px;
-}
-
-.case-rewards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-    margin-top:20px;
-}
-
-.reward-item{
-    padding:11px 4px;
-    border:1px solid #252a40;
-    border-radius:10px;
-    background:#0e1018;
-    font-size:12px;
-}
-
-.case-button{
-    width:100%;
-    margin-top:20px;
-    padding:16px;
-    border:0;
-    border-radius:13px;
-    background:white;
-    color:#07080d;
-    font-size:14px;
-    font-weight:900;
-}
-
-.case-count{
-    margin-top:13px;
-    color:#666b80;
-    font-size:11px;
-}
-
-/* CASE OPENING */
-
-.opening-area{
-    max-width:430px;
-    margin:45px auto 25px;
-    text-align:center;
-}
-
-.opening-case{
-    font-size:105px;
-    transform:scale(1);
-}
-
-.opening-case.animate{
-    animation:caseShake .12s infinite alternate;
-}
-
-@keyframes caseShake{
-    from{transform:rotate(-5deg) scale(1);}
-    to{transform:rotate(5deg) scale(1.08);}
-}
-
-.opening-text{
-    margin-top:25px;
-    color:#85899d;
-    font-size:13px;
-}
-
-.win-reward{
-    margin-top:20px;
-    font-size:30px;
-    font-weight:900;
-}
-
-.win-rarity{
-    margin-top:7px;
-    color:#85899d;
-    font-size:13px;
-}
-
-.continue-button{
-    display:block;
-    width:100%;
-    max-width:430px;
-    margin:25px auto;
-    padding:15px;
-    border:0;
-    border-radius:13px;
-    background:white;
-    color:#07080d;
-    font-weight:900;
-}
-
-/* TOAST */
-
 .toast{
     position:fixed;
     left:50%;
@@ -499,14 +372,12 @@ button{
     opacity:1;
     transform:translateX(-50%) translateY(0);
 }
-
 </style>
 </head>
 
 <body>
 
 <!-- MAIN -->
-
 <div id="mainScreen" class="screen">
 
     <div class="logo">
@@ -533,7 +404,7 @@ button{
             GIFTS
         </button>
 
-        <button class="button" onclick="openCases()">
+        <button class="button" onclick="soon('Cases')">
             <span class="button-icon">🎲</span>
             CASES
         </button>
@@ -546,7 +417,6 @@ button{
     </div>
 
     <div class="bonus">
-
         <div class="bonus-title">🎁 DAILY BONUS</div>
 
         <div class="bonus-text">
@@ -556,12 +426,195 @@ button{
         <button onclick="claimBonus()">
             CLAIM +100 🪙
         </button>
-
     </div>
 
 </div>
 
 
 <!-- PROFILE -->
+<div id="profileScreen" class="screen profile-screen">
 
-<div id="profile
+    <div class="profile-header">
+
+        <div id="profileAvatar" class="profile-avatar">👤</div>
+
+        <div id="profileName" class="profile-name">
+            User
+        </div>
+
+        <div id="profileUsername" class="profile-username">
+            @username
+        </div>
+
+    </div>
+
+    <div class="profile-card">
+
+        <div class="profile-balance">
+
+            <div class="profile-balance-label">
+                YOUR BALANCE
+            </div>
+
+            <div class="profile-balance-value">
+                🪙 <span id="profileCoins">0</span>
+            </div>
+
+        </div>
+
+        <div class="profile-stats">
+
+            <div class="stat">
+                <div id="gamesCount" class="stat-value">0</div>
+                <div class="stat-label">GAMES</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-value">0</div>
+                <div class="stat-label">GIFTS</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-value">0</div>
+                <div class="stat-label">CASES</div>
+            </div>
+
+        </div>
+
+        <div class="profile-info">
+
+            <div class="info-row">
+                <span class="info-label">Telegram ID</span>
+                <span id="profileId">—</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Status</span>
+                <span>ACTIVE</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <button class="back-button" onclick="closeProfile()">
+        ← BACK
+    </button>
+
+</div>
+
+
+<!-- GAMES -->
+<div id="gamesScreen" class="screen games-screen">
+
+    <div class="section-title">
+        <h2>GAMES</h2>
+        <p>PLAY • EARN • COMPETE</p>
+    </div>
+
+    <div class="game-card">
+
+        <div class="game-icon">⚡</div>
+
+        <div class="game-name">
+            REACTION
+        </div>
+
+        <div class="game-description">
+            Wait for the signal and tap as fast as you can.
+            Test your reaction and earn ZYRQEN coins.
+        </div>
+
+        <button class="play-button" onclick="openReaction()">
+            PLAY
+        </button>
+
+    </div>
+
+    <button class="back-button" onclick="closeGames()">
+        ← BACK
+    </button>
+
+</div>
+
+
+<!-- REACTION -->
+<div id="reactionScreen" class="screen reaction-screen">
+
+    <div class="section-title">
+        <h2>REACTION</h2>
+        <p>TAP WHEN THE BUTTON TURNS WHITE</p>
+    </div>
+
+    <div class="reaction-box">
+
+        <div id="reactionStatus" class="reaction-status">
+            Press START to begin
+        </div>
+
+        <button id="reactionButton"
+                class="reaction-button"
+                onclick="reactionClick()">
+            START
+        </button>
+
+        <div id="reward" class="reward"></div>
+
+    </div>
+
+    <button class="back-button" onclick="closeReaction()">
+        ← BACK
+    </button>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* TELEGRAM */
+
+const tg = window.Telegram.WebApp;
+
+tg.ready();
+tg.expand();
+
+const telegramUser = tg.initDataUnsafe?.user;
+
+
+/* DATA */
+
+let coins = Number(
+    localStorage.getItem("zyrqen_coins") || 0
+);
+
+let gamesPlayed = Number(
+    localStorage.getItem("zyrqen_games") || 0
+);
+
+let lastBonus =
+    localStorage.getItem("zyrqen_bonus");
+
+
+/* COINS */
+
+function updateCoins(){
+
+    document.getElementById("coins").textContent =
+        coins;
+
+    document.getElementById("profileCoins").textContent =
+        coins;
+
+    localStorage.setItem(
+        "zyrqen_coins",
+        coins
+    );
+}
+
+
+function updateGames(){
+
+    document.getElementById("games
