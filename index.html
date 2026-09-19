@@ -2574,7 +2574,8 @@ function openZyrqenCase(){
     coins -=
         casePrice;
 
-
+alert("BEFORE UPDATE OK");
+return;
     updateCoins();
     updateCases();
 
@@ -2589,13 +2590,6 @@ function openZyrqenCase(){
 ).classList.remove(
     "hidden"
 );
-    const openingTest =
-    document.getElementById("caseOpeningScreen");
-
-openingTest.innerHTML =
-    '<div style="position:fixed;inset:0;z-index:999999;background:#080910;color:white;padding:100px 30px;font-size:32px;font-weight:900;">SCREEN OK</div>';
-
-return;
     
     const openingScreen =
     document.getElementById("caseOpeningScreen");
