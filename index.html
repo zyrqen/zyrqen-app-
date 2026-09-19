@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ZYRQEN</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -11,154 +10,325 @@
 <style>
 *{
     box-sizing:border-box;
+    margin:0;
+    padding:0;
     -webkit-tap-highlight-color:transparent;
 }
 
+:root{
+    --bg:#07080d;
+    --card:#0d0f17;
+    --card2:#11141f;
+    --line:#23273a;
+    --text:#f5f6ff;
+    --muted:#777c92;
+    --purple:#7c5cff;
+    --blue:#368cff;
+}
+
+html,body{
+    min-height:100%;
+    background:
+        radial-gradient(circle at 50% -10%,rgba(89,65,220,.18),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    font-family:Arial,sans-serif;
+}
+
 body{
-    margin:0;
-    background:#07080d;
-    color:white;
-    font-family:Arial,Helvetica,sans-serif;
-    min-height:100vh;
+    padding:
+        max(18px,env(safe-area-inset-top))
+        16px
+        max(25px,env(safe-area-inset-bottom));
 }
 
 button{
     font-family:inherit;
 }
 
+.app{
+    width:100%;
+    max-width:480px;
+    margin:auto;
+}
+
 .screen{
-    min-height:100vh;
-    padding:25px 18px 35px;
+    width:100%;
+}
+
+.hidden{
+    display:none!important;
+}
+
+
+/* HEADER */
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:7px 2px 20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
 }
 
 .logo{
-    text-align:center;
-    padding-top:15px;
-    margin-bottom:7px;
-}
-
-.logo h1{
-    margin:0;
-    font-size:39px;
-    letter-spacing:7px;
-    font-weight:900;
-}
-
-.logo p{
-    margin:8px 0 0;
-    color:#8589a0;
-    font-size:12px;
-    letter-spacing:3px;
-}
-
-.balance{
-    margin:28px auto 22px;
-    width:100%;
-    max-width:430px;
-    padding:18px;
-    border:1px solid #202438;
-    border-radius:18px;
-    background:linear-gradient(145deg,#10121b,#090a10);
-    text-align:center;
-}
-
-.balance-label{
-    color:#777c92;
-    font-size:11px;
-    letter-spacing:2px;
-}
-
-.balance-value{
-    margin-top:6px;
-    font-size:27px;
-    font-weight:800;
-}
-
-.menu{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:13px;
-    max-width:430px;
-    margin:auto;
-}
-
-.button{
-    min-height:72px;
-    border:1px solid #252a40;
-    border-radius:17px;
-    background:linear-gradient(145deg,#121522,#0b0d14);
-    color:white;
-    font-size:15px;
-    font-weight:700;
-    cursor:pointer;
-    transition:.15s;
-}
-
-.button:active{
-    transform:scale(.96);
-    border-color:#5960ff;
-}
-
-.button-icon{
-    display:block;
-    font-size:24px;
-    margin-bottom:6px;
-}
-
-.bonus{
-    max-width:430px;
-    margin:18px auto 0;
-    padding:18px;
-    border-radius:18px;
-    border:1px solid #24283a;
-    background:#0d0f17;
-}
-
-.bonus-title{
-    font-size:14px;
-    font-weight:800;
-}
-
-.bonus-text{
-    color:#85899d;
-    font-size:12px;
-    margin-top:5px;
-}
-
-.bonus button{
-    width:100%;
-    margin-top:13px;
-    padding:13px;
-    border:0;
-    border-radius:12px;
-    background:#ffffff;
-    color:#07080d;
-    font-weight:800;
-}
-
-.profile-screen,
-.games-screen,
-.reaction-screen{
-    display:none;
-}
-
-.profile-header{
-    text-align:center;
-    padding-top:18px;
-}
-
-.profile-avatar{
-    width:82px;
-    height:82px;
-    margin:auto;
-    border-radius:50%;
-    background:#171a27;
+    width:42px;
+    height:42px;
+    border:1px solid #393e59;
+    border-radius:13px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:34px;
+    background:
+        linear-gradient(145deg,#171a29,#0a0c13);
+    box-shadow:
+        0 0 25px rgba(100,75,255,.15);
+    font-size:16px;
+    font-weight:900;
+    letter-spacing:-2px;
+}
+
+.brand-name{
+    font-size:17px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+.brand-sub{
+    margin-top:3px;
+    color:var(--muted);
+    font-size:8px;
+    letter-spacing:1.5px;
+}
+
+.header-status{
+    padding:6px 9px;
+    border:1px solid #252a3e;
+    border-radius:20px;
+    color:#8c91a8;
+    font-size:8px;
+    letter-spacing:1px;
+}
+
+
+/* HERO */
+
+.hero{
+    position:relative;
     overflow:hidden;
-    border:2px solid #30354f;
+    padding:28px 20px;
+    border:1px solid var(--line);
+    border-radius:24px;
+    background:
+        radial-gradient(circle at 80% 0%,rgba(101,71,255,.19),transparent 38%),
+        linear-gradient(145deg,#111420,#0a0c13);
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    right:-65px;
+    top:-65px;
+    border-radius:50%;
+    background:rgba(83,92,255,.15);
+    filter:blur(30px);
+}
+
+.eyebrow{
+    color:#83889e;
+    font-size:9px;
+    letter-spacing:2.5px;
+}
+
+.hero h1{
+    margin-top:10px;
+    font-size:31px;
+    line-height:1.02;
+    letter-spacing:1px;
+}
+
+.hero p{
+    margin-top:11px;
+    max-width:280px;
+    color:#81869b;
+    font-size:11px;
+    line-height:1.6;
+}
+
+.balance{
+    margin-top:22px;
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:10px 14px;
+    border:1px solid #2a2f45;
+    border-radius:14px;
+    background:#090b12;
+}
+
+.balance-label{
+    color:#74798f;
+    font-size:9px;
+    letter-spacing:1.5px;
+}
+
+.balance-value{
+    font-size:17px;
+    font-weight:900;
+}
+
+
+/* NAVIGATION */
+
+.nav-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:14px;
+}
+
+.nav-button{
+    min-height:105px;
+    padding:16px;
+    text-align:left;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:
+        linear-gradient(145deg,#10131d,#0a0c12);
+    color:white;
+    cursor:pointer;
+}
+
+.nav-button:active{
+    transform:scale(.97);
+}
+
+.nav-icon{
+    font-size:24px;
+}
+
+.nav-title{
+    margin-top:13px;
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.nav-sub{
+    margin-top:4px;
+    color:#686d82;
+    font-size:8px;
+    letter-spacing:1px;
+}
+
+
+/* DAILY BONUS */
+
+.daily{
+    margin-top:14px;
+    padding:18px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:#0c0e16;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.daily-title{
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.daily-sub{
+    margin-top:5px;
+    color:#6f7489;
+    font-size:9px;
+}
+
+.daily-button{
+    flex-shrink:0;
+    padding:11px 14px;
+    border:0;
+    border-radius:11px;
+    background:white;
+    color:#07080d;
+    font-size:10px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+
+/* GENERIC SCREEN */
+
+.topbar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.back-mini{
+    width:42px;
+    height:42px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#0d0f17;
+    color:white;
+    font-size:18px;
+}
+
+.screen-heading{
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.screen-caption{
+    margin-top:3px;
+    color:#74798e;
+    font-size:8px;
+    letter-spacing:1.5px;
+    }
+
+/* PROFILE */
+
+.profile-card{
+    padding:25px 18px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(101,77,255,.16),
+            transparent 40%
+        ),
+        #0c0e16;
+    text-align:center;
+}
+
+.profile-avatar{
+    width:78px;
+    height:78px;
+    margin:auto;
+    overflow:hidden;
+    border:1px solid #3b405a;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#121522;
+    font-size:27px;
+    font-weight:900;
 }
 
 .profile-avatar img{
@@ -170,142 +340,112 @@ button{
 .profile-name{
     margin-top:13px;
     font-size:20px;
-    font-weight:800;
-}
-
-.profile-username{
-    margin-top:5px;
-    color:#777c92;
-    font-size:13px;
-}
-
-.profile-card{
-    max-width:430px;
-    margin:25px auto;
-    padding:20px;
-    background:#0d0f17;
-    border:1px solid #24283a;
-    border-radius:20px;
-}
-
-.profile-balance{
-    text-align:center;
-    padding-bottom:20px;
-    border-bottom:1px solid #202337;
-}
-
-.profile-balance-label{
-    color:#777c92;
-    font-size:10px;
-    letter-spacing:2px;
-}
-
-.profile-balance-value{
-    margin-top:7px;
-    font-size:30px;
     font-weight:900;
 }
 
-.profile-stats{
+.profile-username{
+    margin-top:4px;
+    color:#777c91;
+    font-size:11px;
+}
+
+.profile-balance{
+    margin:18px auto 0;
+    padding:11px;
+    max-width:210px;
+    border:1px solid #292e44;
+    border-radius:13px;
+    background:#090b11;
+    font-size:17px;
+    font-weight:900;
+}
+
+.stats{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    margin:20px 0;
-    text-align:center;
+    gap:8px;
+    margin-top:12px;
 }
 
 .stat{
-    border-right:1px solid #202337;
-}
-
-.stat:last-child{
-    border-right:0;
+    padding:15px 5px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#0c0e16;
+    text-align:center;
 }
 
 .stat-value{
-    font-size:21px;
-    font-weight:800;
+    font-size:18px;
+    font-weight:900;
 }
 
 .stat-label{
     margin-top:5px;
-    color:#777c92;
-    font-size:9px;
+    color:#686d81;
+    font-size:8px;
+    letter-spacing:1px;
 }
 
-.profile-info{
-    border-top:1px solid #202337;
-    padding-top:13px;
+.info-card{
+    margin-top:12px;
+    padding:15px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#0c0e16;
 }
 
 .info-row{
     display:flex;
     justify-content:space-between;
+    gap:15px;
     padding:8px 0;
-    font-size:12px;
+    font-size:10px;
 }
 
 .info-label{
-    color:#777c92;
+    color:#6f7488;
 }
 
-.back-button{
-    display:block;
-    width:100%;
-    max-width:430px;
-    margin:15px auto;
-    padding:14px;
-    background:#11131d;
-    color:white;
-    border:1px solid #272b40;
-    border-radius:13px;
-    font-weight:800;
+.active{
+    color:#8dffbb;
 }
 
-.section-title{
-    text-align:center;
-    padding-top:18px;
-}
 
-.section-title h2{
-    margin:0;
-    font-size:28px;
-    letter-spacing:3px;
-}
-
-.section-title p{
-    color:#777c92;
-    font-size:12px;
-    margin-top:8px;
-}
+/* GAMES */
 
 .game-card{
-    max-width:430px;
-    margin:25px auto 12px;
     padding:22px;
-    border:1px solid #292e47;
-    border-radius:20px;
-    background:linear-gradient(145deg,#111421,#090b12);
+    border:1px solid var(--line);
+    border-radius:21px;
+    background:
+        radial-gradient(
+            circle at 90% 0%,
+            rgba(58,120,255,.15),
+            transparent 35%
+        ),
+        #0c0e16;
 }
 
 .game-icon{
-    font-size:40px;
+    font-size:42px;
 }
 
-.game-name{
-    margin-top:12px;
-    font-size:21px;
+.game-title{
+    margin-top:15px;
+    font-size:20px;
     font-weight:900;
     letter-spacing:1px;
 }
 
 .game-description{
     margin-top:7px;
-    color:#85899d;
-    font-size:12px;
+    color:#74798e;
+    font-size:10px;
     line-height:1.5;
 }
 
-.play-button{
+.primary-button{
     width:100%;
     margin-top:18px;
     padding:15px;
@@ -313,328 +453,282 @@ button{
     border-radius:13px;
     background:white;
     color:#07080d;
+    font-size:12px;
     font-weight:900;
-    font-size:14px;
 }
 
-.reaction-box{
-    max-width:430px;
-    margin:30px auto;
+
+/* REACTION */
+
+.reaction-card{
+    padding:26px 18px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:#0c0e16;
     text-align:center;
 }
 
 .reaction-status{
-    color:#85899d;
-    font-size:13px;
     min-height:20px;
-}
-
-.reaction-button{
-    width:190px;
-    height:190px;
-    margin:30px auto;
-    border-radius:50%;
-    border:2px solid #30354d;
-    background:#10131e;
-    color:white;
-    font-size:20px;
-    font-weight:900;
-}
-
-.reaction-button.ready{
-    background:#ffffff;
-    color:#07080d;
-    border-color:white;
-}
-
-.reward{
-    font-size:17px;
-    font-weight:800;
-}
-/* =========================
-   CASES
-========================= */
-
-.cases-screen,
-.case-opening-screen{
-    display:none;
-}
-
-.cases-balance{
-    max-width:430px;
-    margin:20px auto 0;
-    padding:13px 16px;
-    border:1px solid #202438;
-    border-radius:14px;
-    background:#0d0f17;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.cases-balance-label{
-    color:#777c92;
+    color:#83889d;
     font-size:11px;
     letter-spacing:1px;
 }
 
-.cases-balance-value{
+.reaction-button{
+    width:180px;
+    height:180px;
+    margin:25px auto 10px;
+    border:1px solid #353a52;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle,
+            #191d2c,
+            #0b0d14
+        );
+    color:white;
     font-size:17px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.reaction-button.ready{
+    border-color:#78ffae;
+    background:
+        radial-gradient(
+            circle,
+            #38d779,
+            #116437
+        );
+    box-shadow:
+        0 0 45px
+        rgba(62,255,137,.25);
+}
+
+.reward{
+    min-height:25px;
+    margin-top:15px;
+    font-size:18px;
     font-weight:900;
 }
 
 
-/* CASE CARD */
+/* CASES */
+
+.cases-balance{
+    padding:13px 15px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#0c0e16;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.cases-balance span:first-child{
+    color:#777c91;
+    font-size:9px;
+    letter-spacing:1.5px;
+}
+
+.cases-balance strong{
+    font-size:16px;
+}
 
 .case-card{
     position:relative;
     overflow:hidden;
-
-    max-width:430px;
-
-    margin:25px auto 15px;
-    padding:28px 20px 22px;
-
-    border:1px solid #303650;
-    border-radius:24px;
-
+    margin-top:14px;
+    padding:25px 17px 20px;
+    border:1px solid #2b3048;
+    border-radius:23px;
     background:
         radial-gradient(
-            circle at 50% 0%,
-            rgba(91,97,255,.20),
-            transparent 42%
+            circle at 50% 5%,
+            rgba(102,70,255,.22),
+            transparent 39%
         ),
         linear-gradient(
             145deg,
-            #121522,
+            #111522,
             #090b12
         );
-
     text-align:center;
 }
 
-.case-card::before{
-    content:"";
-
-    position:absolute;
-
-    width:170px;
-    height:170px;
-
-    left:50%;
-    top:-100px;
-
-    transform:translateX(-50%);
-
-    border-radius:50%;
-
-    background:rgba(102,86,255,.16);
-
-    filter:blur(35px);
-
-    pointer-events:none;
-}
-
-
-/* CASE IMAGE */
-
-.case-icon-wrap{
+.case-visual{
     position:relative;
-
-    width:130px;
-    height:130px;
-
-    margin:5px auto 12px;
-
+    height:185px;
     display:flex;
     align-items:center;
     justify-content:center;
 }
 
-.case-glow{
+.case-aura{
     position:absolute;
-
-    width:90px;
-    height:90px;
-
+    width:130px;
+    height:100px;
     border-radius:50%;
-
-    background:rgba(99,91,255,.25);
-
-    filter:blur(22px);
+    background:rgba(105,71,255,.30);
+    filter:blur(35px);
 }
 
-.case-icon{
+.zyrqen-case-image{
     position:relative;
-
-    font-size:78px;
-
-    filter:
+    display:block;
+    width:250px;
+    max-width:95%;
+    height:auto;
+    object-fit:contain;
+        filter:
         drop-shadow(
-            0 10px 18px rgba(0,0,0,.55)
+            0 18px 24px
+            rgba(0,0,0,.7)
+        )
+        drop-shadow(
+            0 0 16px
+            rgba(96,74,255,.30)
         );
+
+    animation:
+        caseFloat
+        3s
+        ease-in-out
+        infinite;
 }
 
+@keyframes caseFloat{
 
-/* CASE INFO */
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-7px);
+    }
+}
 
 .case-name{
-    font-size:23px;
+    margin-top:3px;
+    font-size:21px;
     font-weight:900;
-
     letter-spacing:2px;
 }
 
-.case-subtitle{
-    margin-top:7px;
-
-    color:#777c92;
-
-    font-size:11px;
-
+.case-sub{
+    margin-top:5px;
+    color:#74798e;
+    font-size:8px;
     letter-spacing:1.5px;
 }
 
 .case-price{
-    display:inline-flex;
-
-    align-items:center;
-    justify-content:center;
-
-    gap:6px;
-
-    margin-top:16px;
-
+    display:inline-block;
+    margin-top:14px;
     padding:8px 14px;
-
-    border:1px solid #292e46;
+    border:1px solid #2c3148;
     border-radius:30px;
-
-    background:#0b0d14;
-
-    font-size:13px;
-    font-weight:800;
+    background:#090b11;
+    font-size:11px;
+    font-weight:900;
 }
 
-
-/* POSSIBLE REWARDS */
-
-.possible-title{
-    margin-top:25px;
-
-    color:#777c92;
-
-    font-size:10px;
-
+.possible{
+    margin-top:20px;
+    color:#74798e;
+    font-size:8px;
     letter-spacing:2px;
 }
 
-.case-rewards{
+.reward-grid{
     display:grid;
-
     grid-template-columns:
         repeat(3,1fr);
-
-    gap:8px;
-
-    margin-top:12px;
+    gap:7px;
+    margin-top:10px;
 }
 
-.case-reward{
-    padding:12px 4px;
-
-    border:1px solid #24283b;
-    border-radius:12px;
-
-    background:#0b0d14;
+.reward-item{
+    padding:11px 3px;
+    border:1px solid #24283a;
+    border-radius:11px;
+    background:#090b11;
 }
 
-.case-reward-amount{
-    font-size:13px;
-    font-weight:900;
+.reward-item strong{
+    display:block;
+    font-size:12px;
 }
 
-.case-reward-rarity{
+.reward-item small{
+    display:block;
     margin-top:4px;
-
-    color:#666b80;
-
-    font-size:8px;
-
-    letter-spacing:.7px;
+    color:#696e82;
+    font-size:7px;
+    letter-spacing:.6px;
 }
 
+.reward-item.rare{
+    border-color:#254e79;
+}
 
-/* OPEN BUTTON */
+.reward-item.epic{
+    border-color:#59327c;
+}
+
+.reward-item.legendary{
+    border-color:#725c25;
+}
+
+.reward-item.mythic{
+    border-color:#77283c;
+}
 
 .open-case-button{
     width:100%;
-
-    margin-top:20px;
-
-    padding:16px;
-
+    margin-top:16px;
+    padding:15px;
     border:0;
-    border-radius:14px;
-
+    border-radius:13px;
     background:white;
-
     color:#07080d;
-
-    font-size:14px;
+    font-size:12px;
     font-weight:900;
-
-    cursor:pointer;
 }
 
-.open-case-button:active{
-    transform:scale(.97);
-}
-
-.opened-count{
-    margin-top:12px;
-
-    color:#666b80;
-
-    font-size:10px;
-
+.opened{
+    margin-top:10px;
+    color:#686d81;
+    font-size:8px;
     letter-spacing:1px;
 }
 
 
-/* =========================
-   CASE OPENING
-========================= */
+/* CASE OPENING */
 
-.opening-area{
-    max-width:430px;
-
-    margin:25px auto;
-
-    padding:30px 20px;
-
-    text-align:center;
-
-    border:1px solid #252a40;
-    border-radius:24px;
+.opening-card{
+    position:relative;
+    overflow:hidden;
+    min-height:470px;
+    padding:28px 16px;
+        border:1px solid #292e45;
+    border-radius:23px;
 
     background:
         radial-gradient(
-            circle at center,
-            rgba(91,97,255,.15),
-            transparent 55%
+            circle at 50% 38%,
+            rgba(99,67,255,.22),
+            transparent 38%
         ),
-        #0b0d14;
+        #090b12;
+
+    text-align:center;
 }
 
-.opening-case-container{
+.opening-visual{
     position:relative;
-
-    width:210px;
-    height:210px;
-
-    margin:10px auto;
-
+    height:270px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -642,74 +736,124 @@ button{
 
 .opening-glow{
     position:absolute;
-
-    width:130px;
-    height:130px;
-
+    width:170px;
+    height:150px;
     border-radius:50%;
-
-    background:rgba(91,97,255,.28);
-
-    filter:blur(35px);
-
-    opacity:.7;
+    background:rgba(100,67,255,.3);
+    filter:blur(42px);
 }
 
 .opening-case{
     position:relative;
-
-    font-size:105px;
-
-    transform:scale(1);
+    z-index:2;
+    width:100%;
+    display:flex;
+    justify-content:center;
 }
 
-.opening-case.opening{
+.zyrqen-opening-image{
+    width:310px;
+    max-width:100%;
+    height:auto;
+    object-fit:contain;
+
+    filter:
+        drop-shadow(
+            0 20px 30px
+            rgba(0,0,0,.75)
+        )
+        drop-shadow(
+            0 0 22px
+            rgba(104,78,255,.42)
+        );
+}
+
+.opening-case.opening
+.zyrqen-opening-image{
     animation:
-        caseShake .12s
-        infinite alternate;
+        caseShake
+        .11s
+        infinite
+        alternate;
 }
 
 @keyframes caseShake{
 
     from{
         transform:
-            rotate(-6deg)
+            translateX(-4px)
+            rotate(-3deg)
             scale(1);
     }
 
     to{
         transform:
-            rotate(6deg)
-            scale(1.08);
+            translateX(4px)
+            rotate(3deg)
+            scale(1.04);
     }
 }
 
+.opening-case.opening::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:150px;
+    top:50%;
+    left:50%;
 
-/* RESULT */
+    transform:
+        translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(135,87,255,.6),
+            rgba(45,111,255,.2) 45%,
+            transparent 70%
+        );
+
+    filter:blur(15px);
+
+    animation:
+        energyPulse
+        .8s
+        infinite
+        alternate;
+}
+
+@keyframes energyPulse{
+
+    from{
+        opacity:.35;
+        scale:.8;
+    }
+
+    to{
+        opacity:1;
+        scale:1.25;
+    }
+}
 
 .opening-status{
-    margin-top:12px;
-
-    min-height:18px;
-
-    color:#777c92;
-
-    font-size:12px;
-
-    letter-spacing:1px;
+    color:#81869b;
+    font-size:10px;
+    letter-spacing:1.5px;
 }
 
 .case-result{
     display:none;
-
     margin-top:20px;
 }
 
 .case-result.show{
     display:block;
-
     animation:
-        resultAppear .35s ease;
+        resultAppear
+        .35s
+        ease;
 }
 
 @keyframes resultAppear{
@@ -726,315 +870,638 @@ button{
 }
 
 .result-label{
-    color:#777c92;
-
-    font-size:10px;
-
+    color:#777c91;
+    font-size:8px;
     letter-spacing:2px;
 }
 
 .result-amount{
-    margin-top:8px;
-
-    font-size:37px;
+    margin-top:7px;
+    font-size:34px;
     font-weight:900;
 }
 
 .result-rarity{
     display:inline-block;
-
     margin-top:10px;
-
     padding:6px 12px;
-
-    border:1px solid #30354b;
+    border:1px solid #363b53;
     border-radius:20px;
-
-    font-size:10px;
-    font-weight:800;
-
+    font-size:9px;
+    font-weight:900;
     letter-spacing:1.5px;
 }
 
-.case-continue{
+.continue-button{
     display:none;
-
     width:100%;
-
-    margin-top:25px;
-
-    padding:15px;
-
+    margin-top:20px;
+    padding:14px;
     border:0;
-    border-radius:13px;
-
+    border-radius:12px;
     background:white;
-
     color:#07080d;
-
     font-weight:900;
 }
 
-.case-continue.show{
+.continue-button.show{
     display:block;
-    }
+}
+
+
+/* TOAST */
+
 .toast{
     position:fixed;
     left:50%;
-    bottom:25px;
-    transform:translateX(-50%) translateY(20px);
-    background:#171a25;
+    bottom:30px;
+    z-index:100;
+    transform:translate(-50%,25px);
+    padding:11px 17px;
     border:1px solid #30354a;
-    padding:12px 18px;
-    border-radius:12px;
-    font-size:13px;
+    border-radius:30px;
+    background:#151824;
+    color:white;
+    font-size:10px;
+    font-weight:800;
     opacity:0;
     pointer-events:none;
     transition:.25s;
-    z-index:999;
+    white-space:nowrap;
 }
 
 .toast.show{
     opacity:1;
-    transform:translateX(-50%) translateY(0);
+    transform:translate(-50%,0);
 }
+
+.footer{
+    padding:22px 0 5px;
+    text-align:center;
+    color:#454a5d;
+    font-size:7px;
+    letter-spacing:2px;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- MAIN -->
+<div class="app">
+    <!-- =========================
+     MAIN SCREEN
+========================= -->
+
 <div id="mainScreen" class="screen">
 
-    <div class="logo">
-        <h1>ZYRQEN</h1>
-        <p>ENTER YOUR WORLD</p>
-    </div>
+    <header class="header">
 
-    <div class="balance">
-        <div class="balance-label">YOUR BALANCE</div>
-        <div class="balance-value">
-            🪙 <span id="coins">0</span>
-        </div>
-    </div>
+        <div class="brand">
 
-    <div class="menu">
+            <div class="logo">
+                ZQ
+            </div>
 
-        <button class="button" onclick="openGames()">
-            <span class="button-icon">🎮</span>
-            GAMES
-        </button>
+            <div>
+                <div class="brand-name">
+                    ZYRQEN
+                </div>
 
-        <button class="button" onclick="soon('Gifts')">
-            <span class="button-icon">🎁</span>
-            GIFTS
-        </button>
+                <div class="brand-sub">
+                    ENTER YOUR WORLD.
+                </div>
+            </div>
 
-        <button class="button" onclick="openCases()">
-            <span class="button-icon">🎲</span>
-            CASES
-        </button>
-
-        <button class="button" onclick="openProfile()">
-            <span class="button-icon">👤</span>
-            PROFILE
-        </button>
-
-    </div>
-
-    <div class="bonus">
-        <div class="bonus-title">🎁 DAILY BONUS</div>
-
-        <div class="bonus-text">
-            Come back every day and receive free coins.
         </div>
 
-        <button onclick="claimBonus()">
-            CLAIM +100 🪙
+        <div class="header-status">
+            ● ONLINE
+        </div>
+
+    </header>
+
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            ZYRQEN ECOSYSTEM
+        </div>
+
+        <h1>
+            PLAY.<br>
+            WIN. COLLECT.
+        </h1>
+
+        <p>
+            Games, rewards, cases and
+            digital experiences inside
+            one universe.
+        </p>
+
+
+        <div class="balance">
+
+            <span class="balance-label">
+                BALANCE
+            </span>
+
+            <span class="balance-value">
+                🪙
+                <span id="coins">
+                    0
+                </span>
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- MAIN MENU -->
+
+    <div class="nav-grid">
+
+
+        <button
+            class="nav-button"
+            onclick="openGames()">
+
+            <div class="nav-icon">
+                🎮
+            </div>
+
+            <div class="nav-title">
+                GAMES
+            </div>
+
+            <div class="nav-sub">
+                PLAY & EARN
+            </div>
+
         </button>
+
+
+        <button
+            class="nav-button"
+            onclick="soon('Gifts')">
+
+            <div class="nav-icon">
+                🎁
+            </div>
+
+            <div class="nav-title">
+                GIFTS
+            </div>
+
+            <div class="nav-sub">
+                COMING SOON
+            </div>
+
+        </button>
+
+
+        <button
+            class="nav-button"
+            onclick="openCases()">
+
+            <div class="nav-icon">
+                ◈
+            </div>
+
+            <div class="nav-title">
+                CASES
+            </div>
+
+            <div class="nav-sub">
+                OPEN & WIN
+            </div>
+
+        </button>
+
+
+        <button
+            class="nav-button"
+            onclick="openProfile()">
+
+            <div class="nav-icon">
+                👤
+            </div>
+
+            <div class="nav-title">
+                PROFILE
+            </div>
+
+            <div class="nav-sub">
+                YOUR ACCOUNT
+            </div>
+
+        </button>
+
+    </div>
+
+
+    <!-- DAILY BONUS -->
+
+    <div class="daily">
+
+        <div>
+
+            <div class="daily-title">
+                DAILY BONUS
+            </div>
+
+            <div class="daily-sub">
+                Come back every day • +100 🪙
+            </div>
+
+        </div>
+
+
+        <button
+            class="daily-button"
+            onclick="claimBonus()">
+
+            CLAIM
+
+        </button>
+
+    </div>
+
+
+    <div class="footer">
+        ZYRQEN • ENTER YOUR WORLD
     </div>
 
 </div>
 
 
-<!-- PROFILE -->
-<div id="profileScreen" class="screen profile-screen">
 
-    <div class="profile-header">
+<!-- =========================
+     PROFILE SCREEN
+========================= -->
 
-        <div id="profileAvatar" class="profile-avatar">👤</div>
+<div
+    id="profileScreen"
+    class="screen hidden">
 
-        <div id="profileName" class="profile-name">
-            User
-        </div>
 
-        <div id="profileUsername" class="profile-username">
-            @username
+    <div class="topbar">
+
+        <button
+            class="back-mini"
+            onclick="closeProfile()">
+
+            ←
+
+        </button>
+
+
+        <div>
+
+            <div class="screen-heading">
+                PROFILE
+            </div>
+
+            <div class="screen-caption">
+                YOUR ZYRQEN ACCOUNT
+            </div>
+
         </div>
 
     </div>
+
 
     <div class="profile-card">
 
+
+        <div
+            id="profileAvatar"
+            class="profile-avatar">
+
+            ZQ
+
+        </div>
+
+
+        <div
+            id="profileName"
+            class="profile-name">
+
+            User
+
+        </div>
+
+
+        <div
+            id="profileUsername"
+            class="profile-username">
+
+            Telegram User
+
+        </div>
+
+
         <div class="profile-balance">
 
-            <div class="profile-balance-label">
-                YOUR BALANCE
+            🪙
+
+            <span id="profileCoins">
+                0
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROFILE STATS -->
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div
+                id="gamesCount"
+                class="stat-value">
+
+                0
+
             </div>
 
-            <div class="profile-balance-value">
-                🪙 <span id="profileCoins">0</span>
+            <div class="stat-label">
+                GAMES
             </div>
 
         </div>
 
-        <div class="profile-stats">
 
-            <div class="stat">
-                <div id="gamesCount" class="stat-value">0</div>
-                <div class="stat-label">GAMES</div>
+        <div class="stat">
+
+            <div class="stat-value">
+                0
             </div>
 
-            <div class="stat">
-                <div class="stat-value">0</div>
-                <div class="stat-label">GIFTS</div>
-            </div>
-
-            <div class="stat">
-                <div id="casesCount" class="stat-value">0</div>
-                <div class="stat-label">CASES</div>
+            <div class="stat-label">
+                GIFTS
             </div>
 
         </div>
 
-        <div class="profile-info">
 
-            <div class="info-row">
-                <span class="info-label">Telegram ID</span>
-                <span id="profileId">—</span>
+        <div class="stat">
+
+            <div
+                id="casesCount"
+                class="stat-value">
+
+                0
+
             </div>
 
-            <div class="info-row">
-                <span class="info-label">Status</span>
-                <span>ACTIVE</span>
+            <div class="stat-label">
+                CASES
             </div>
 
         </div>
 
     </div>
 
-    <button class="back-button" onclick="closeProfile()">
-        ← BACK
-    </button>
+
+    <!-- ACCOUNT INFO -->
+
+    <div class="info-card">
+
+
+        <div class="info-row">
+
+            <span class="info-label">
+                TELEGRAM ID
+            </span>
+
+            <span id="profileId">
+                —
+            </span>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <span class="info-label">
+                STATUS
+            </span>
+
+            <span class="active">
+                ACTIVE
+            </span>
+
+        </div>
+
+
+        <div class="info-row">
+
+            <span class="info-label">
+                PLATFORM
+            </span>
+
+            <span>
+                ZYRQEN
+            </span>
+
+        </div>
+
+    </div>
 
 </div>
 
 
-<!-- GAMES -->
-<div id="gamesScreen" class="screen games-screen">
 
-    <div class="section-title">
-        <h2>GAMES</h2>
-        <p>PLAY • EARN • COMPETE</p>
+<!-- =========================
+     GAMES SCREEN
+========================= -->
+
+<div
+    id="gamesScreen"
+    class="screen hidden">
+
+
+    <div class="topbar">
+
+        <button
+            class="back-mini"
+            onclick="closeGames()">
+
+            ←
+
+        </button>
+
+
+        <div>
+
+            <div class="screen-heading">
+                GAMES
+            </div>
+
+            <div class="screen-caption">
+                PLAY • COMPETE • EARN
+            </div>
+
+        </div>
+
     </div>
+
 
     <div class="game-card">
 
-        <div class="game-icon">⚡</div>
 
-        <div class="game-name">
+        <div class="game-icon">
+            ⚡
+        </div>
+
+
+        <div class="game-title">
             REACTION
         </div>
 
+
         <div class="game-description">
-            Wait for the signal and tap as fast as you can.
-            Test your reaction and earn ZYRQEN coins.
+            Wait for the signal and tap
+            as fast as you can.
+            Faster reactions earn
+            bigger rewards.
         </div>
 
-        <button class="play-button" onclick="openReaction()">
+
+        <button
+            class="primary-button"
+            onclick="openReaction()">
+
             PLAY
+
         </button>
 
     </div>
 
-    <button class="back-button" onclick="closeGames()">
-        ← BACK
-    </button>
-
 </div>
+<!-- =========================
+     REACTION SCREEN
+========================= -->
 
+<div
+    id="reactionScreen"
+    class="screen hidden">
 
-<!-- REACTION -->
-<div id="reactionScreen" class="screen reaction-screen">
+    <div class="topbar">
 
-    <div class="section-title">
-        <h2>REACTION</h2>
-        <p>TAP WHEN THE BUTTON TURNS WHITE</p>
+        <button
+            class="back-mini"
+            onclick="closeReaction()">
+            ←
+        </button>
+
+        <div>
+            <div class="screen-heading">
+                REACTION
+            </div>
+
+            <div class="screen-caption">
+                TEST YOUR SPEED
+            </div>
+        </div>
+
     </div>
 
-    <div class="reaction-box">
 
-        <div id="reactionStatus" class="reaction-status">
+    <div class="reaction-card">
+
+        <div
+            id="reactionStatus"
+            class="reaction-status">
+
             Press START to begin
+
         </div>
 
-        <button id="reactionButton"
-                class="reaction-button"
-                onclick="reactionClick()">
+
+        <button
+            id="reactionButton"
+            class="reaction-button"
+            onclick="reactionClick()">
+
             START
+
         </button>
 
-        <div id="reward" class="reward"></div>
+
+        <div
+            id="reward"
+            class="reward">
+        </div>
 
     </div>
-
-    <button class="back-button" onclick="closeReaction()">
-        ← BACK
-    </button>
 
 </div>
 
-<!-- =====================
-     CASES
-===================== -->
-
-<div id="casesScreen"
-     class="screen cases-screen">
-
-    <div class="section-title">
-
-        <h2>CASES</h2>
-
-        <p>
-            OPEN • WIN • COLLECT
-        </p>
-
-    </div>
 
 
-    <div class="cases-balance">
+<!-- =========================
+     CASES SCREEN
+========================= -->
 
-        <div class="cases-balance-label">
+<div
+    id="casesScreen"
+    class="screen hidden">
+
+    <div class="topbar">
+
+        <button
+            class="back-mini"
+            onclick="closeCases()">
+            ←
+        </button>
+
+        <div>
+
+            <div class="screen-heading">
+                CASES
+            </div>
+
+            <div class="screen-caption">
+                OPEN • WIN • COLLECT
+            </div>
+
+        </div>
+            <div class="cases-balance">
+
+        <span>
             BALANCE
-        </div>
+        </span>
 
-        <div class="cases-balance-value">
+        <strong>
             🪙
-            <span id="casesCoins">0</span>
-        </div>
+            <span id="casesCoins">
+                0
+            </span>
+        </strong>
 
     </div>
 
+
+    <!-- ZYRQEN CASE -->
 
     <div class="case-card">
 
-        <div class="case-icon-wrap">
+        <div class="case-visual">
 
-            <div class="case-glow"></div>
-
-            <div class="case-icon">
-                🎁
+            <div class="case-aura">
             </div>
+
+            <img
+                src="zyrqen-case.png"
+                class="zyrqen-case-image"
+                alt="ZYRQEN Case">
 
         </div>
 
@@ -1044,7 +1511,7 @@ button{
         </div>
 
 
-        <div class="case-subtitle">
+        <div class="case-sub">
             STANDARD COLLECTION
         </div>
 
@@ -1054,87 +1521,87 @@ button{
         </div>
 
 
-        <div class="possible-title">
+        <div class="possible">
             POSSIBLE REWARDS
         </div>
 
 
-        <div class="case-rewards">
+        <div class="reward-grid">
 
-            <div class="case-reward">
+            <div class="reward-item">
 
-                <div class="case-reward-amount">
+                <strong>
                     🪙 10
-                </div>
+                </strong>
 
-                <div class="case-reward-rarity">
+                <small>
                     COMMON
-                </div>
+                </small>
 
             </div>
 
 
-            <div class="case-reward">
+            <div class="reward-item">
 
-                <div class="case-reward-amount">
+                <strong>
                     🪙 25
-                </div>
+                </strong>
 
-                <div class="case-reward-rarity">
+                <small>
                     COMMON
-                </div>
+                </small>
 
             </div>
 
 
-            <div class="case-reward">
+            <div class="reward-item rare">
 
-                <div class="case-reward-amount">
+                <strong>
                     🪙 50
-                </div>
+                </strong>
 
-                <div class="case-reward-rarity">
+                <small>
                     RARE
-                </div>
+                </small>
 
             </div>
 
 
-            <div class="case-reward">
+            <div class="reward-item epic">
 
-                <div class="case-reward-amount">
+                <strong>
                     🪙 100
-                </div>
+                </strong>
 
-                <div class="case-reward-rarity">
+                <small>
                     EPIC
-                </div>
+                </small>
 
             </div>
 
 
-            <div class="case-reward">
+            <div class="reward-item legendary">
 
-                <div class="case-reward-amount">
+                <strong>
                     🪙 250
-                </div>
+                </strong>
 
-                <div class="case-reward-rarity">
+                <small>
                     LEGENDARY
-                </div>
+                </small>
 
             </div>
 
 
-            <div class="case-reward">
+            <div class="reward-item mythic">
 
-                <div class="case-reward-amount">
+                <strong>
                     🪙 1000
-                </div>
+                </strong>
 
-                <div class="case-reward-rarity">
+                <small>
                     MYTHIC
-                </div>
+                </small>
 
             </div>
 
@@ -1143,13 +1610,14 @@ button{
 
         <button
             class="open-case-button"
-            onclick="openZyrqenCase()"
-        >
+            onclick="openZyrqenCase()">
+
             OPEN CASE — 50 🪙
+
         </button>
 
 
-        <div class="opened-count">
+        <div class="opened">
 
             OPENED:
 
@@ -1161,41 +1629,36 @@ button{
 
     </div>
 
-
-    <button
-        class="back-button"
-        onclick="closeCases()"
-    >
-        ← BACK
-    </button>
-
 </div>
 
 
 
-<!-- =====================
-     CASE OPENING
-===================== -->
+<!-- CASE OPENING -->
 
-<div id="caseOpeningScreen"
-     class="screen case-opening-screen">
+<div
+    id="caseOpeningScreen"
+    class="screen hidden">
 
+    <div class="topbar">
 
-    <div class="section-title">
+        <div>
 
-        <h2>ZYRQEN CASE</h2>
+            <div class="screen-heading">
+                ZYRQEN CASE
+            </div>
 
-        <p>
-            OPENING
-        </p>
+            <div class="screen-caption">
+                OPENING
+            </div>
+
+        </div>
 
     </div>
 
 
-    <div class="opening-area">
+    <div class="opening-card">
 
-
-        <div class="opening-case-container">
+        <div class="opening-visual">
 
             <div
                 id="openingGlow"
@@ -1206,7 +1669,12 @@ button{
             <div
                 id="openingCaseIcon"
                 class="opening-case">
-                🎁
+
+                <img
+                    src="zyrqen-case.png"
+                    class="zyrqen-opening-image"
+                    alt="ZYRQEN Case">
+
             </div>
 
         </div>
@@ -1216,15 +1684,12 @@ button{
             id="caseOpeningStatus"
             class="opening-status">
 
-            Preparing case...
+            PREPARING CASE...
 
         </div>
-
-
-        <div
+                <div
             id="caseResult"
             class="case-result">
-
 
             <div class="result-label">
                 YOU RECEIVED
@@ -1248,225 +1713,500 @@ button{
 
             </div>
 
+
+            <button
+                id="caseContinueButton"
+                class="continue-button"
+                onclick="closeCaseResult()">
+
+                CONTINUE
+
+            </button>
+
         </div>
-
-
-        <button
-            id="caseContinueButton"
-            class="case-continue"
-            onclick="closeCaseResult()"
-        >
-            CONTINUE
-        </button>
-
 
     </div>
 
 </div>
-<div id="toast" class="toast"></div>
+
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast">
+</div>
+
+
+</div>
+
 
 
 <script>
 
 /* TELEGRAM */
 
-const tg = window.Telegram.WebApp;
+const tg =
+    window.Telegram.WebApp;
 
 tg.ready();
 tg.expand();
 
-const telegramUser = tg.initDataUnsafe?.user;
+
+const telegramUser =
+    tg.initDataUnsafe?.user;
 
 
-/* DATA */
 
-let coins = Number(
-    localStorage.getItem("zyrqen_coins") || 0
-);
+/* SAVED DATA */
 
-let gamesPlayed = Number(
-    localStorage.getItem("zyrqen_games") || 0
-);
+let coins =
+    Number(
+        localStorage.getItem(
+            "zyrqen_coins"
+        ) || 0
+    );
+
+
+let gamesPlayed =
+    Number(
+        localStorage.getItem(
+            "zyrqen_games"
+        ) || 0
+    );
+
+
+let casesOpened =
+    Number(
+        localStorage.getItem(
+            "zyrqen_cases"
+        ) || 0
+    );
+
 
 let lastBonus =
-    localStorage.getItem("zyrqen_bonus");
+    localStorage.getItem(
+        "zyrqen_bonus"
+    );
 
 
-/* COINS */
+let caseIsOpening =
+    false;
+
+
+
+/* UPDATE BALANCE */
 
 function updateCoins(){
 
-    document.getElementById("coins").textContent =
+    document.getElementById(
+        "coins"
+    ).textContent =
         coins;
 
-    document.getElementById("profileCoins").textContent =
+
+    document.getElementById(
+        "profileCoins"
+    ).textContent =
         coins;
+
+
+    document.getElementById(
+        "casesCoins"
+    ).textContent =
+        coins;
+
 
     localStorage.setItem(
         "zyrqen_coins",
         coins
     );
+
 }
+
+
+
+/* UPDATE GAMES */
+
 function updateGames(){
 
-    document.getElementById("gamesCount").textContent = gamesPlayed;
+    document.getElementById(
+        "gamesCount"
+    ).textContent =
+        gamesPlayed;
 
-    localStorage.setItem("zyrqen_games", gamesPlayed);
+
+    localStorage.setItem(
+        "zyrqen_games",
+        gamesPlayed
+    );
+
 }
+
+
+
+/* UPDATE CASES */
+
+function updateCases(){
+
+    document.getElementById(
+        "casesCount"
+    ).textContent =
+        casesOpened;
+
+
+    document.getElementById(
+        "casesOpenedSmall"
+    ).textContent =
+        casesOpened;
+
+
+    localStorage.setItem(
+        "zyrqen_cases",
+        casesOpened
+    );
+
+}
+
 
 
 /* DAILY BONUS */
 
 function claimBonus(){
 
-    const today = new Date().toISOString().slice(0,10);
+    const today =
+        new Date()
+        .toISOString()
+        .slice(0,10);
+
 
     if(lastBonus === today){
-        showToast("Daily bonus already claimed");
+
+        showToast(
+            "Daily bonus already claimed"
+        );
+
         return;
     }
 
-    coins += 100;
-    lastBonus = today;
 
-    localStorage.setItem("zyrqen_bonus", today);
+    coins += 100;
+
+    lastBonus =
+        today;
+
+
+    localStorage.setItem(
+        "zyrqen_bonus",
+        today
+    );
+
 
     updateCoins();
 
-    showToast("+100 coins!");
+
+    showToast(
+        "+100 coins!"
+    );
+
 }
+
 
 
 /* PROFILE */
 
 function openProfile(){
 
-    document.getElementById("mainScreen").style.display = "none";
-    document.getElementById("profileScreen").style.display = "block";
+    document.getElementById(
+        "mainScreen"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "profileScreen"
+    ).classList.remove(
+        "hidden"
+    );
+
 
     updateCoins();
     updateGames();
-
+    updateCases();
+    
     if(telegramUser){
 
-        document.getElementById("profileName").textContent =
-            telegramUser.first_name || "User";
+        document.getElementById(
+            "profileName"
+        ).textContent =
+            telegramUser.first_name ||
+            "User";
 
-        document.getElementById("profileUsername").textContent =
+
+        document.getElementById(
+            "profileUsername"
+        ).textContent =
             telegramUser.username
             ? "@" + telegramUser.username
             : "No username";
 
-        document.getElementById("profileId").textContent =
+
+        document.getElementById(
+            "profileId"
+        ).textContent =
             telegramUser.id;
+
 
         if(telegramUser.photo_url){
 
-            document.getElementById("profileAvatar").innerHTML =
-                '<img src="' + telegramUser.photo_url + '">';
+            document.getElementById(
+                "profileAvatar"
+            ).innerHTML =
+                '<img src="' +
+                telegramUser.photo_url +
+                '">';
 
         }
+
     }
+
 }
 
 
 function closeProfile(){
 
-    document.getElementById("profileScreen").style.display = "none";
-    document.getElementById("mainScreen").style.display = "block";
-}
-    function closeProfile(){
+    document.getElementById(
+        "profileScreen"
+    ).classList.add(
+        "hidden"
+    );
 
-    document.getElementById("profileScreen").style.display = "none";
-    document.getElementById("mainScreen").style.display = "block";
-    }
-    /* GAMES */
+
+    document.getElementById(
+        "mainScreen"
+    ).classList.remove(
+        "hidden"
+    );
+
+}
+
+
+
+/* GAMES */
 
 function openGames(){
 
-    document.getElementById("mainScreen").style.display = "none";
-    document.getElementById("gamesScreen").style.display = "block";
+    document.getElementById(
+        "mainScreen"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "gamesScreen"
+    ).classList.remove(
+        "hidden"
+    );
+
 }
 
 
 function closeGames(){
 
-    document.getElementById("gamesScreen").style.display = "none";
-    document.getElementById("mainScreen").style.display = "block";
+    document.getElementById(
+        "gamesScreen"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "mainScreen"
+    ).classList.remove(
+        "hidden"
+    );
+
 }
 
-
-/* REACTION SCREEN */
-
-function openReaction(){
-
-    document.getElementById("gamesScreen").style.display = "none";
-    document.getElementById("reactionScreen").style.display = "block";
-
-    resetReaction();
-}
-
-
-function closeReaction(){
-
-    clearTimeout(reactionTimeout);
-
-    document.getElementById("reactionScreen").style.display = "none";
-    document.getElementById("gamesScreen").style.display = "block";
-}
 
 
 /* REACTION DATA */
 
-let reactionTimeout = null;
-let reactionReady = false;
-let reactionStart = 0;
+let reactionTimeout =
+    null;
 
+
+let reactionReady =
+    false;
+
+
+let reactionStart =
+    0;
+
+
+
+/* OPEN REACTION */
+
+function openReaction(){
+
+    document.getElementById(
+        "gamesScreen"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "reactionScreen"
+    ).classList.remove(
+        "hidden"
+    );
+
+
+    resetReaction();
+
+}
+
+
+
+/* CLOSE REACTION */
+
+function closeReaction(){
+
+    clearTimeout(
+        reactionTimeout
+    );
+
+
+    document.getElementById(
+        "reactionScreen"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.getElementById(
+        "gamesScreen"
+    ).classList.remove(
+        "hidden"
+    );
+
+}
+
+
+
+/* RESET REACTION */
 
 function resetReaction(){
 
-    clearTimeout(reactionTimeout);
+    clearTimeout(
+        reactionTimeout
+    );
 
-    reactionReady = false;
-    reactionStart = 0;
 
-    const button = document.getElementById("reactionButton");
+    reactionReady =
+        false;
 
-    button.classList.remove("ready");
-    button.textContent = "START";
 
-    document.getElementById("reactionStatus").textContent =
+    reactionStart =
+        0;
+
+
+    const button =
+        document.getElementById(
+            "reactionButton"
+        );
+
+
+    button.classList.remove(
+        "ready"
+    );
+
+
+    button.textContent =
+        "START";
+    document.getElementById(
+        "reactionStatus"
+    ).textContent =
         "Press START to begin";
 
-    document.getElementById("reward").textContent = "";
-}/* START REACTION */
+
+    document.getElementById(
+        "reward"
+    ).textContent =
+        "";
+
+}
+
+
+/* START REACTION */
 
 function startReaction(){
 
-    reactionReady = false;
+    reactionReady =
+        false;
 
-    const button = document.getElementById("reactionButton");
 
-    button.classList.remove("ready");
-    button.textContent = "WAIT...";
+    const button =
+        document.getElementById(
+            "reactionButton"
+        );
 
-    document.getElementById("reactionStatus").textContent =
+
+    button.classList.remove(
+        "ready"
+    );
+
+
+    button.textContent =
+        "WAIT...";
+
+
+    document.getElementById(
+        "reactionStatus"
+    ).textContent =
         "Wait for the signal...";
 
-    const delay = Math.floor(Math.random() * 3000) + 1500;
 
-    reactionTimeout = setTimeout(function(){
+    const delay =
+        Math.floor(
+            Math.random() * 3000
+        ) + 1500;
 
-        reactionReady = true;
-        reactionStart = performance.now();
 
-        button.classList.add("ready");
-        button.textContent = "TAP!";
+    reactionTimeout =
+        setTimeout(
+            function(){
 
-        document.getElementById("reactionStatus").textContent =
-            "NOW!";
+                reactionReady =
+                    true;
 
-    }, delay);
+
+                reactionStart =
+                    performance.now();
+
+
+                button.classList.add(
+                    "ready"
+                );
+
+
+                button.textContent =
+                    "TAP!";
+
+
+                document.getElementById(
+                    "reactionStatus"
+                ).textContent =
+                    "NOW!";
+
+            },
+            delay
+        );
+
 }
 
 
@@ -1474,57 +2214,91 @@ function startReaction(){
 
 function reactionClick(){
 
-    const button = document.getElementById("reactionButton");
+    const button =
+        document.getElementById(
+            "reactionButton"
+        );
 
-    if(button.textContent === "START"){
+
+    if(
+        button.textContent ===
+        "START"
+    ){
 
         startReaction();
+
         return;
     }
 
 
     if(!reactionReady){
 
-        clearTimeout(reactionTimeout);
+        clearTimeout(
+            reactionTimeout
+        );
 
-        button.textContent = "TOO EARLY";
 
-        document.getElementById("reactionStatus").textContent =
+        button.textContent =
+            "TOO EARLY";
+
+
+        document.getElementById(
+            "reactionStatus"
+        ).textContent =
             "You tapped too early.";
 
-        document.getElementById("reward").textContent =
+
+        document.getElementById(
+            "reward"
+        ).textContent =
             "Reward: +0";
 
-        setTimeout(resetReaction, 1200);
+
+        setTimeout(
+            resetReaction,
+            1200
+        );
+
 
         return;
     }
 
 
     const reactionTime =
-        Math.round(performance.now() - reactionStart);
+        Math.round(
+            performance.now() -
+            reactionStart
+        );
 
-    reactionReady = false;
 
-    let rewardAmount = 10;
+    reactionReady =
+        false;
 
 
-    if(reactionTime < 250){
+    let rewardAmount =
+        10;
+        if(reactionTime < 250){
 
-        rewardAmount = 50;
+        rewardAmount =
+            50;
 
     }else if(reactionTime < 350){
 
-        rewardAmount = 30;
+        rewardAmount =
+            30;
 
     }else if(reactionTime < 500){
 
-        rewardAmount = 20;
+        rewardAmount =
+            20;
 
     }
 
 
-    coins += rewardAmount;
+    coins +=
+        rewardAmount;
+
+
     gamesPlayed++;
 
 
@@ -1532,170 +2306,97 @@ function reactionClick(){
     updateGames();
 
 
-    button.classList.remove("ready");
+    button.classList.remove(
+        "ready"
+    );
+
 
     button.textContent =
-        reactionTime + " ms";
+        reactionTime +
+        " ms";
 
 
-    document.getElementById("reactionStatus").textContent =
+    document.getElementById(
+        "reactionStatus"
+    ).textContent =
         "Great reaction!";
 
 
-    document.getElementById("reward").textContent =
-        "+" + rewardAmount + " coins";
+    document.getElementById(
+        "reward"
+    ).textContent =
+        "+" +
+        rewardAmount +
+        " coins";
 
 
     showToast(
-        "+" + rewardAmount + " coins!"
+        "+" +
+        rewardAmount +
+        " coins!"
     );
 
 
-    setTimeout(resetReaction, 1800);
-    }
-    /* OTHER BUTTONS */
-
-function soon(name){
-
-    showToast(name + " coming soon");
-}
-
-
-/* TOAST */
-
-function showToast(message){
-
-    const toast = document.getElementById("toast");
-
-    toast.textContent = message;
-    toast.classList.add("show");
-
-    setTimeout(function(){
-
-        toast.classList.remove("show");
-
-    }, 1800);
-}
-
-
-/* START APP */
-/* =========================
-   CASES DATA
-========================= */
-
-let casesOpened =
-    Number(
-        localStorage.getItem("zyrqen_cases") || 0
+    setTimeout(
+        resetReaction,
+        1800
     );
 
-
-let caseIsOpening = false;
-
-
-/* =========================
-   CASES UPDATE
-========================= */
-
-function updateCases(){
-
-    const profileCases =
-        document.getElementById("casesCount");
-
-    const smallCases =
-        document.getElementById("casesOpenedSmall");
-
-    const casesBalance =
-        document.getElementById("casesCoins");
-
-
-    if(profileCases){
-
-        profileCases.textContent =
-            casesOpened;
-
-    }
-
-
-    if(smallCases){
-
-        smallCases.textContent =
-            casesOpened;
-
-    }
-
-
-    if(casesBalance){
-
-        casesBalance.textContent =
-            coins;
-
-    }
-
-
-    localStorage.setItem(
-        "zyrqen_cases",
-        casesOpened
-    );
 }
 
 
+
 /* =========================
-   OPEN CASES SCREEN
+   CASES
 ========================= */
 
 function openCases(){
 
     document.getElementById(
         "mainScreen"
-    ).style.display = "none";
+    ).classList.add(
+        "hidden"
+    );
 
 
     document.getElementById(
         "casesScreen"
-    ).style.display = "block";
+    ).classList.remove(
+        "hidden"
+    );
 
 
     updateCoins();
     updateCases();
+
 }
 
-
-/* =========================
-   CLOSE CASES SCREEN
-========================= */
 
 function closeCases(){
 
     document.getElementById(
         "casesScreen"
-    ).style.display = "none";
+    ).classList.add(
+        "hidden"
+    );
 
 
     document.getElementById(
         "mainScreen"
-    ).style.display = "block";
+    ).classList.remove(
+        "hidden"
+    );
 
 
     updateCoins();
+
 }
 
 
-/* =========================
-   RANDOM REWARD
-========================= */
+
+/* CASE REWARD */
 
 function getCaseReward(){
-
-    /*
-       Шансы:
-
-       10 coins   = 40%
-       25 coins   = 25%
-       50 coins   = 18%
-       100 coins  = 10%
-       250 coins  = 5%
-       1000 coins = 2%
-    */
 
     const random =
         Math.random() * 100;
@@ -1722,56 +2423,53 @@ function getCaseReward(){
 
 
     if(random < 83){
-
-        return {
-            amount:50,
-            rarity:"RARE"
-        };
-
-    }
-
-
-    if(random < 93){
-
-        return {
-            amount:100,
-            rarity:"EPIC"
-        };
-
-    }
-
-
-    if(random < 98){
-
-        return {
-            amount:250,
-            rarity:"LEGENDARY"
-        };
-
-    }
-
-
-    return {
-        amount:1000,
-        rarity:"MYTHIC"
+            return {
+        amount:50,
+        rarity:"RARE"
     };
+
 }
 
 
-/* =========================
-   OPEN ZYRQEN CASE
-========================= */
+if(random < 93){
+
+    return {
+        amount:100,
+        rarity:"EPIC"
+    };
+
+}
+
+
+if(random < 98){
+
+    return {
+        amount:250,
+        rarity:"LEGENDARY"
+    };
+
+}
+
+
+return {
+    amount:1000,
+    rarity:"MYTHIC"
+};
+
+}
+
+
+/* OPEN ZYRQEN CASE */
 
 function openZyrqenCase(){
 
     if(caseIsOpening){
-
         return;
-
     }
 
 
-    const casePrice = 50;
+    const casePrice =
+        50;
 
 
     if(coins < casePrice){
@@ -1784,30 +2482,31 @@ function openZyrqenCase(){
     }
 
 
-    caseIsOpening = true;
+    caseIsOpening =
+        true;
 
 
-    /* PAY FOR CASE */
+    coins -=
+        casePrice;
 
-    coins -= casePrice;
 
     updateCoins();
     updateCases();
 
 
-    /* CHANGE SCREEN */
-
     document.getElementById(
         "casesScreen"
-    ).style.display = "none";
+    ).classList.add(
+        "hidden"
+    );
 
 
     document.getElementById(
         "caseOpeningScreen"
-    ).style.display = "block";
+    ).classList.remove(
+        "hidden"
+    );
 
-
-    /* RESET RESULT */
 
     const caseIcon =
         document.getElementById(
@@ -1864,7 +2563,7 @@ function openZyrqenCase(){
 
 
     status.textContent =
-        "Opening case...";
+        "OPENING CASE...";
 
 
     caseIcon.classList.add(
@@ -1872,159 +2571,178 @@ function openZyrqenCase(){
     );
 
 
-    /* CHOOSE REWARD */
-
     const reward =
         getCaseReward();
+        setTimeout(
+        function(){
+
+            caseIcon.classList.remove(
+                "opening"
+            );
 
 
-    /* OPENING ANIMATION */
-
-    setTimeout(function(){
-
-        caseIcon.classList.remove(
-            "opening"
-        );
+            status.textContent =
+                "CASE OPENED";
 
 
-        status.textContent =
-            "CASE OPENED";
+            resultAmount.textContent =
+                "+" +
+                reward.amount +
+                " 🪙";
 
 
-        resultAmount.textContent =
-            "+" +
-            reward.amount +
-            " 🪙";
+            resultRarity.textContent =
+                reward.rarity;
 
 
-        resultRarity.textContent =
-            reward.rarity;
+            result.classList.add(
+                "show"
+            );
 
 
-        result.classList.add(
-            "show"
-        );
+            coins +=
+                reward.amount;
 
 
-        /* ADD REWARD */
-
-        coins += reward.amount;
-
-        casesOpened++;
+            casesOpened++;
 
 
-        updateCoins();
-        updateCases();
+            updateCoins();
+            updateCases();
 
 
-        continueButton.classList.add(
-            "show"
-        );
+            continueButton.classList.add(
+                "show"
+            );
 
 
-        caseIsOpening = false;
+            caseIsOpening =
+                false;
 
 
-        showToast(
-            "+" +
-            reward.amount +
-            " coins!"
-        );
+            showToast(
+                "+" +
+                reward.amount +
+                " coins!"
+            );
 
 
-        /* TELEGRAM VIBRATION */
+            try{
 
-        try{
+                if(
+                    tg.HapticFeedback &&
+                    tg.HapticFeedback.notificationOccurred
+                ){
 
-            if(
-                tg.HapticFeedback &&
-                tg.HapticFeedback.notificationOccurred
-            ){
+                    tg.HapticFeedback
+                        .notificationOccurred(
+                            "success"
+                        );
 
-                tg.HapticFeedback.notificationOccurred(
-                    "success"
+                }
+
+            }catch(error){
+
+                console.log(
+                    "Haptic unavailable"
                 );
 
             }
 
-        }catch(error){
+        },
+        2200
+    );
 
-            console.log(
-                "Haptic unavailable"
-            );
-
-        }
-
-
-    },2200);
 }
 
 
-/* =========================
-   CLOSE CASE RESULT
-========================= */
+
+/* CLOSE CASE RESULT */
 
 function closeCaseResult(){
 
     if(caseIsOpening){
-
         return;
-
     }
 
 
     document.getElementById(
         "caseOpeningScreen"
-    ).style.display = "none";
+    ).classList.add(
+        "hidden"
+    );
 
 
     document.getElementById(
         "casesScreen"
-    ).style.display = "block";
+    ).classList.remove(
+        "hidden"
+    );
 
 
     updateCoins();
     updateCases();
+
 }
 
 
-/* =========================
-   EXTEND COIN UPDATE
-========================= */
 
-const originalUpdateCoins =
-    updateCoins;
+/* COMING SOON */
+
+function soon(name){
+
+    showToast(
+        name +
+        " coming soon"
+    );
+
+}
 
 
-updateCoins = function(){
 
-    originalUpdateCoins();
+/* TOAST */
 
+function showToast(message){
 
-    const casesBalance =
+    const toast =
         document.getElementById(
-            "casesCoins"
+            "toast"
         );
 
 
-    if(casesBalance){
-
-        casesBalance.textContent =
-            coins;
-
-    }
-
-};
+    toast.textContent =
+        message;
 
 
-/* =========================
-   START APP
-========================= */
+    toast.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        function(){
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        1800
+    );
+
+}
+
+
+
+/* START ZYRQEN */
 
 updateCoins();
 updateGames();
 updateCases();
 
+
 </script>
+
 </body>
 </html>
+   
